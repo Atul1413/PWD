@@ -24,27 +24,43 @@
                     @Html.AntiForgeryToken();
                     <div id="Grid">
                         <div class="row register-form">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right">Name of Work</label>
-                                    <div class="col-md-6">
+                                    <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                    <div class="col-md-3">
                                         <select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
                                             <option value="" class="hidden" selected disabled>Please select work data</option>
                                             <option value="1">SSR 17-18</option>
                                             <option value="2">SSR 18-19</option>
                                             <option value="3">SSR 19-20</option>
                                             <option value="4">SSR 20-21</option>
-                                            <option value="5">SSR 21-22</option>
-                                            @*@foreach (var item in data)
-                                                {
-                                                    <option value="@item.Id">@item.NameOfWork</option>
-                                                }*@
+                                            <option value="5">SSR 21-22</option>                       
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right">Item No</label>
-                                    <div class="col-md-6">
+                                    <label class="col-md-2 col-form-label text-right">Item No</label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
+                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
+                                            <option value="1">SSR 17-18</option>
+                                            <option value="2">SSR 18-19</option>
+                                            <option value="3">SSR 19-20</option>
+                                            <option value="4">SSR 20-21</option>
+                                            <option value="5">SSR 21-22</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
+                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
+                                            <option value="1">SSR 17-18</option>
+                                            <option value="2">SSR 18-19</option>
+                                            <option value="3">SSR 19-20</option>
+                                            <option value="4">SSR 20-21</option>
+                                            <option value="5">SSR 21-22</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
                                         <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
                                             <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
                                             <option value="1">SSR 17-18</option>
@@ -56,9 +72,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right"> Item Details</label>
+                                    <label class="col-md-2 col-form-label text-right"> Item Details</label>
                                     <div class="col-md-6">
-                                        <table class="table">
+                                        @*<table class="table">
                                             <tr ng-repeat="element in elements">
                                                 
                                                 <td>
@@ -127,20 +143,86 @@
                                                     <input type="button" value="New Item" ng-click="newItem()" />
                                                 </td>
                                             </tr>
+                                        </table>*@
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-responsive table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Numbers</th>
+                                                    <th>Length</th>
+                                                    <th>Breadth/Width</th>
+                                                    <th>Depth/Height</th>
+                                                    <th>Geometrical Formulas</th>
+                                                    <th>Qty.</th>
+                                                    <th>Remarks</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="text" required name="Number"  id="txtNumbers" /></td>
+                                                    <td><input type="text" required name="Length" id="txtLength" /></td>
+                                                    <td><input type="text" required name="BreadthWidth" id="txtBreadthWidth" /></td>
+                                                    <td><input type="text" required name="DepthHeight" id="txtDepthHeight" /></td>
+                                                    <td><input type="text" required name="GeometricalFormulas" id="txtGeometricalFormulas" /></td>
+                                                    <td><input type="text" required name="Qty" id="txtQty" /></td>
+                                                    <td><input type="text" name="Remarks" id="txtRemarks" /></td>
+                                                    <td><input type="button" value="Add" name="Add" id="btnAdd" /></td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right"> Total Qty. </label>
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-hover table-responsive table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th> <input type="checkbox" name="All" id="chkAll" value="All" /> <label for="chkAll"> Check All</label>  </th>
+                                                    <th>Item No</th>
+                                                    <th>Iteam Descripation</th>
+                                                    <th>Number</th>
+                                                    <th>Length</th>
+                                                    <th>Breadth Width</th>
+                                                    <th>Depth Height</th>
+                                                    <th>Geometrical Formulas</th>
+                                                    <th>Qty</th>
+                                                    <th>Remarh</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="checkbox" name="ChkItem" id="chkIteam" /></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    @*<label class="col-md-4 col-form-label text-right"> Total Qty. </label>
                                     <div class="col-md-6">
                                         <input type="text" name="TotalQty" id="TotalQty" />
-                                    </div>
+                                    </div>*@
                                 </div>                               
-                                <div class="form-group row">
+                                @*<div class="form-group row">
                                     <div class="col-md-8 text-right">
                                         <input type="submit" class="btn-primary btn btn-lg" value="Create" />
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>

@@ -54,6 +54,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -163,6 +165,16 @@
     <Content Include="js\dataTables.semanticui.min.js" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="js\jquery.dataTables.min.js" />
+    <Content Include="Models\PWDModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PWDModel.edmx</DependentUpon>
+      <LastGenOutput>PWDModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PWDModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PWDModel.edmx</DependentUpon>
+      <LastGenOutput>PWDModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="wwwroot\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="wwwroot\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
@@ -7539,18 +7551,62 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EstimateAPIController.cs" />
     <Compile Include="Controllers\EstimateController.cs" />
+    <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\ITEM.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemDetail.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lead_Statement.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MEASUREMENT.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Office.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PWDModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PWDModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PWDModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PWDModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PWDModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate_Analysis.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\ItemVM.cs" />
     <Compile Include="Models\ViewModels\WorkDataRequest.cs" />
+    <Compile Include="Models\WorkDataDetail.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <EntityDeploy Include="Models\PWDModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PWDModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PWDModel.edmx.diagram">
+      <DependentUpon>PWDModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Adminlte.cshtml" />
     <Content Include="Views\Shared\_AdminlteMainHeader.cshtml" />
@@ -7559,6 +7615,7 @@
     <Content Include="Views\Estimate\WorkData.cshtml" />
     <Content Include="Views\Estimate\AddWorkData.cshtml" />
     <Content Include="Views\Estimate\AddItem.cshtml" />
+    <Content Include="Views\TestData\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8085,6 +8142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PWDCRMEntity\PWDCRMEntity.csproj">
