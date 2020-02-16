@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewData["Title"] = "Work Data";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ng-controller="EstimateController" ng-init="GetWorkDataList()">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("AddWorkData", "Estimate")">
+                        Add Work Data
+                    </a>
+                    @*<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i>
+                        </button>*@
+                </div>
+            </div>
+            <div class="box-body">
+                <div>
+
+                </div>
+                <div id="Grid">
+                    <table class="table table-hover table-responsive" id="bindtblWorkData">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Name Of Work</th>
+                                <th>SSR(Schedule Of Rates)</th>
+                                <th>Department</th>
+                                <th>Head Of Accounts</th>
+                                <th>Area</th>
+                                <th>Sub-Divsion</th>
+                                <th>Divison</th>
+                                <th>Circle</th>
+                                <th>Region</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblBindData">
+                            <tr ng-repeat="workData in workDataList">
+                                <td>
+                                    {{$index + 1}}
+                                </td>
+                                <td class="textwrap" style="width:340px !important;word-wrap: break-word;">
+                                    {{workData.NameOfWork}}
+                                </td>
+                                <td>
+                                    {{workData.SSRRate}}
+                                </td>
+                                <td>
+                                    {{workData.Department}}
+                                </td>
+                                <td>
+                                    {{workData.HeadOfAccounts}}
+                                </td>
+                                <td>
+                                    {{workData.Area}}
+                                </td>
+                                <td>
+                                    {{workData.SubDivsion}}
+                                </td>
+                                <td>
+                                    {{workData.Divison}}
+                                </td>
+                                <td>
+                                    {{workData.Circle}}
+                                </td>
+                                <td>
+                                    {{workData.Region}}
+                                </td>
+                                <td>
+                                    {{workData.Remarks}}
+                                </td>
+                                @*<td>
+                                        {{workData.IsActive==true?'Active':'Inactive'}}
+                                    </td>*@
+                                @*<td>
+                                        @{
+                                            var editUrl = Url.Action("InsertUpdateSubTopic", "SubTopic", new { id = "{{subTopic.ID}}" });
+                                            editUrl = HttpUtility.UrlDecode(editUrl);
+                                        }
+                                        <a href="@editUrl">Edit</a> | <a ng-click="SetActiveInactive(subTopic.ID)">{{subTopic.IsActive==true?'Inactive':'Active'}}</a>
+                                    </td>*@
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

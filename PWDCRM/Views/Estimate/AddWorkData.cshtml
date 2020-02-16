@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewData["Title"] = "AddWorkData";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("WorkData", "Estimate")">
+                        Go Estimate List
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                @using (@Html.BeginForm("AddWorkData", "Estimate", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    <div id="Grid">
+                        <div class="row register-form">
+                            <div class="col-md-8">
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Name of Work</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Name of Work" required="required" name="NameOfWork" id="txtNameOfWork" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">SSR(Schedule Of Rates)</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlSSR" name="SSRRate">
+                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
+                                            <option value="SSR 17-18">SSR 17-18</option>
+                                            <option value="SSR 18-19">SSR 18-19</option>
+                                            <option value="SSR 19-20">SSR 19-20</option>
+                                            <option value="SSR 20-21">SSR 20-21</option>
+                                            <option value="SSR 21-22">SSR 21-22</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right"> Department</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlDepartment" name="Department">
+                                            <option value="" class="hidden" selected disabled>Please select your Department</option>
+                                            <option value="Home Department">Home Department</option>
+                                            <option value="Education Department">Education Department</option>
+                                            <option value="Revenue Department">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right"> Head Of Accounts</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlHeadOfAccounts" name="HeadOfAccounts">
+                                            <option value="" class="hidden" selected disabled>Please select your Head Of Accounts</option>
+                                            <option value="Home DepartmentHOA">Home Department</option>
+                                            <option value="Education DepartmentHOA">Education Department</option>
+                                            <option value="Revenue DepartmentHOA">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Area</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlArea" name="Area">
+                                            <option value="" class="hidden" selected disabled>Please select your Area</option>
+                                            <option value="Home DepartmentAREA">Home Department</option>
+                                            <option value="Education DepartmentAREA">Education Department</option>
+                                            <option value="Revenue DepartmentAREA">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Sub-Divsion</label>
+                                    <div class="col-md-6">
+                                        <select required="required" class="form-control" id="ddlSub-Divsion" name="SubDivsion">
+                                            <option value="" class="hidden" selected disabled>Please select your Sub-Divsion</option>
+                                            <option value="Home DepartmentSUBDIV">Home Department</option>
+                                            <option value="Education DepartmentSUBDIV">Education Department</option>
+                                            <option value="Revenue DepartmentSUBDIV">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Divison</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlDivison" name="Divison">
+                                            <option value="" class="hidden" selected disabled>Please select your Divison</option>
+                                            <option value="Home DepartmentDIV">Home Department</option>
+                                            <option value="Education DepartmentDIV">Education Department</option>
+                                            <option value="Revenue DepartmentDIV">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Circle</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlCircle" name="Circle">
+                                            <option value="" class="hidden" selected disabled>Please select your Circle</option>
+                                            <option value="Home DepartmentCircle">Home Department</option>
+                                            <option value="Education DepartmentCircle">Education Department</option>
+                                            <option value="Revenue DepartmentCircle">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Region</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlRegion" name="Region">
+                                            <option value="" class="hidden" selected disabled>Please select your Region</option>
+                                            <option value="Home DepartmentRegion">Home Department</option>
+                                            <option value="Education DepartmentRegion">Education Department</option>
+                                            <option value="Revenue DepartmentRegion">Revenue Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Remarks</label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" required="required" id="txtRemarks" name="Remarks"></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-8 text-right">
+                                        <input type="submit" class="btn-primary btn btn-lg" value="Create" />
+                                    </div>
+                                   
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

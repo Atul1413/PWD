@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "AddItem";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    //var data= ViewData["workData"] as List<PWDCRMEntity.WorkDataDetails>;
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ng-controller="AddItemController">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("WorkData", "Estimate")">
+                        Go Estimate List
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                @using (@Html.BeginForm("AddItem", "Estimate", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    <div id="Grid">
+                        <div class="row register-form">
+                            <div class="col-md-8">
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Name of Work</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
+                                            <option value="" class="hidden" selected disabled>Please select work data</option>
+                                            <option value="1">SSR 17-18</option>
+                                            <option value="2">SSR 18-19</option>
+                                            <option value="3">SSR 19-20</option>
+                                            <option value="4">SSR 20-21</option>
+                                            <option value="5">SSR 21-22</option>
+                                            @*@foreach (var item in data)
+                                                {
+                                                    <option value="@item.Id">@item.NameOfWork</option>
+                                                }*@
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Item No</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
+                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
+                                            <option value="1">SSR 17-18</option>
+                                            <option value="2">SSR 18-19</option>
+                                            <option value="3">SSR 19-20</option>
+                                            <option value="4">SSR 20-21</option>
+                                            <option value="5">SSR 21-22</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right"> Item Details</label>
+                                    <div class="col-md-6">
+                                        <table class="table">
+                                            <tr ng-repeat="element in elements">
+                                                
+                                                <td>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                <label>Numbers</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text"  required name="Number" onchange="youFunction(element.id);" id="txtNumbers_{{element.id}}" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Length</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required name="Length" id="txtLength_{{element.id}}" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Breadth/Width</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required name="BreadthWidth" id="BreadthWidth_{{element.id}}" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Depth/Height</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required name="DepthHeight" id="DepthHeight_{{element.id}}"  />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Geometrical Formulas</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required name="GeometricalFormulas" id="GeometricalFormulas_{{element.id}}" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Qty.</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required data-id="{{element.id}}" name="Qty"id="Qty_{{element.id}}"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label>Remarks</label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="Remarks" id="Remarks_{{element.id}}" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right">
+                                                    <input type="button" value="New Item" ng-click="newItem()" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right"> Total Qty. </label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="TotalQty" id="TotalQty" />
+                                    </div>
+                                </div>                               
+                                <div class="form-group row">
+                                    <div class="col-md-8 text-right">
+                                        <input type="submit" class="btn-primary btn btn-lg" value="Create" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                    }
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
