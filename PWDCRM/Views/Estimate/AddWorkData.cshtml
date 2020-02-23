@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @{
     ViewData["Title"] = "AddWorkData";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
@@ -38,10 +38,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right">SSR(Schedule Of Rates)</label>
+                                    <label class="col-md-4 col-form-label text-right">SSR(Schedule of Rates)</label>
                                     <div class="col-md-6">
                                         <select class="form-control" required="required" id="ddlSSR" name="SSRRate">
-                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
+                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule of Rates)</option>
                                             <option value="SSR 17-18">SSR 17-18</option>
                                             <option value="SSR 18-19">SSR 18-19</option>
                                             <option value="SSR 19-20">SSR 19-20</option>
@@ -50,22 +50,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                @*<div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-right"> Department</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control" required="required" id="ddlDepartment" name="Department">
+                                                <option value="" class="hidden" selected disabled>Please select your Department</option>
+                                                <option value="Home Department">Home Department</option>
+                                                <option value="Education Department">Education Department</option>
+                                                <option value="Revenue Department">Revenue Department</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right"> Department</label>
-                                    <div class="col-md-6">
-                                        <select class="form-control" required="required" id="ddlDepartment" name="Department">
-                                            <option value="" class="hidden" selected disabled>Please select your Department</option>
-                                            <option value="Home Department">Home Department</option>
-                                            <option value="Education Department">Education Department</option>
-                                            <option value="Revenue Department">Revenue Department</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-right"> Head Of Accounts</label>
+                                    <label class="col-md-4 col-form-label text-right"> Head of Accounts</label>
                                     <div class="col-md-6">
                                         <select class="form-control" required="required" id="ddlHeadOfAccounts" name="HeadOfAccounts">
-                                            <option value="" class="hidden" selected disabled>Please select your Head Of Accounts</option>
+                                            <option value="" class="hidden" selected disabled>Please select your Head of Accounts</option>
                                             <option value="Home DepartmentHOA">Home Department</option>
                                             <option value="Education DepartmentHOA">Education Department</option>
                                             <option value="Revenue DepartmentHOA">Revenue Department</option>
@@ -84,9 +84,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Cost of Diff</label>
+                                    <div class="col-md-4">
+                                        <input type="radio" name="CostDiff" value="Yes" id="CostDiff1" />&nbsp;<label for="CostDiff1">Yes</label> &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="CostDiff" value="No" id="CostDiff2" checked />&nbsp;<label for="CostDiff2">No</label>
+                                    </div>
+                                    @*<label class="col-md-3 col-form-label text-right">Fund Head</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="FundHead" id="txtFundHead" />
+                                        </div>*@
+                                </div>
+
+                                <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Sub-Divsion</label>
                                     <div class="col-md-6">
-                                        <select required="required" class="form-control" id="ddlSub-Divsion" name="SubDivsion">
+                                        <select class="form-control" id="ddlSub-Divsion" name="SubDivsion">
                                             <option value="" class="hidden" selected disabled>Please select your Sub-Divsion</option>
                                             <option value="Home DepartmentSUBDIV">Home Department</option>
                                             <option value="Education DepartmentSUBDIV">Education Department</option>
@@ -97,7 +109,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Divison</label>
                                     <div class="col-md-6">
-                                        <select class="form-control" required="required" id="ddlDivison" name="Divison">
+                                        <select class="form-control" id="ddlDivison" name="Divison">
                                             <option value="" class="hidden" selected disabled>Please select your Divison</option>
                                             <option value="Home DepartmentDIV">Home Department</option>
                                             <option value="Education DepartmentDIV">Education Department</option>
@@ -108,7 +120,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Circle</label>
                                     <div class="col-md-6">
-                                        <select class="form-control" required="required" id="ddlCircle" name="Circle">
+                                        <select class="form-control" id="ddlCircle" name="Circle">
                                             <option value="" class="hidden" selected disabled>Please select your Circle</option>
                                             <option value="Home DepartmentCircle">Home Department</option>
                                             <option value="Education DepartmentCircle">Education Department</option>
@@ -119,7 +131,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Region</label>
                                     <div class="col-md-6">
-                                        <select class="form-control" required="required" id="ddlRegion" name="Region">
+                                        <select class="form-control" id="ddlRegion" name="Region">
                                             <option value="" class="hidden" selected disabled>Please select your Region</option>
                                             <option value="Home DepartmentRegion">Home Department</option>
                                             <option value="Education DepartmentRegion">Education Department</option>
@@ -130,10 +142,10 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Remarks</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" required="required" id="txtRemarks" name="Remarks"></textarea>
+                                        <textarea class="form-control" id="txtRemarks" name="Remarks"></textarea>
                                     </div>
                                 </div>
-                               
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -143,11 +155,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Type Of SAND</label>
+                                    <label class="col-md-3 col-form-label text-right">Type of SAND</label>
                                     <div class="col-md-5">
                                         <select class="form-control" required="required" id="ddlTypeSAND" name="TypeSAND">
-                                            <option value="" class="hidden" selected disabled>Please select your Type SAND</option>
-                                            <option value="R.A With Natural Sand">R.A With Natural Sand  </option>
+                                            @*<option value="" class="hidden" selected disabled>Please select your Type SAND</option>*@
+                                            <option value="R.A With Natural Sand" selected>R.A With Natural Sand  </option>
                                             <option value="R.A. With V.S.I Sand">R.A. With V.S.I Sand</option>
                                             <option value="R.A. With Natural Sand And V.S.I Sand Ratio">R.A. With Natural Sand And V.S.I Sand Ratio</option>
                                         </select>
@@ -157,89 +169,83 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">V & QC %</label>
+                                    <label class="col-md-3 col-form-label text-right">V & QC Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="V & QC %" required="required" name="VAndQCPercentage" id="txtVAndQCPercentage" />
+                                        <input type="text" class="form-control" placeholder="V & QC Charges" name="VAndQCPercentage" id="txtVAndQCPercentage" />
                                     </div>
-                                    <label class="col-md-3 col-form-label text-right">Electrical INT %</label>
+                                    <label class="col-md-3 col-form-label text-right">Internal Electrification</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Electrical INT %" required="required" name="ElectricalINTPer" id="txtElectricalINTPer" />
+                                        <input type="text" class="form-control" placeholder="Internal Electrification" name="ElectricalINTPer" id="txtElectricalINTPer" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Electrical Ext %</label>
+                                    <label class="col-md-3 col-form-label text-right">External Electrification</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Electrical Ext %" required="required" name="ElectricalExtPer" id="txtElectricalExtPer" />
+                                        <input type="text" class="form-control" placeholder="External Electrification" name="ElectricalExtPer" id="txtElectricalExtPer" />
                                     </div>
-                                    <label class="col-md-3 col-form-label text-right">Water Supply %</label>
+                                    <label class="col-md-3 col-form-label text-right">Water Supply Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Water Supply %" required="required" name="WaterSupply" id="txtWaterSupply" />
+                                        <input type="text" class="form-control" placeholder="Water Supply Charges" name="WaterSupply" id="txtWaterSupply" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right"> Any Other charg 1 %</label>
+                                    <label class="col-md-3 col-form-label text-right"> Other Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Any Other charges 1 %" required="required" name="AnyOthercharg1" id="txtAnyOthercharg1" />
+                                        <input type="text" class="form-control" placeholder="Other Charges" name="AnyOthercharg1" id="txtAnyOthercharg1" />
                                     </div>
-                                    <label class="col-md-3 col-form-label text-right"> Any Other charg 2 %</label>
+                                    <label class="col-md-3 col-form-label text-right"> Other Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Any Other charges 2 %" required="required" name="AnyOthercharg2" id="txtAnyOthercharg2" />
+                                        <input type="text" class="form-control" placeholder="Other Charges" name="AnyOthercharg2" id="txtAnyOthercharg2" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Iabour insurance %</label>
+                                    <label class="col-md-3 col-form-label text-right">Iabour insurance </label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Labour insurance %" required="required" name="LabourInsurance" id="txtLabourInsurance" />
+                                        <input type="text" class="form-control" placeholder="Labour insurance" name="LabourInsurance" id="txtLabourInsurance" />
                                     </div>
-                                    <label class="col-md-3 col-form-label text-right">GST %</label>
+                                    <label class="col-md-3 col-form-label text-right">GST</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="GST %" required="required" name="GST" id="txtGST" />
+                                        <input type="text" class="form-control" placeholder="GST" required="required" name="GST" id="txtGST" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Contingencie %</label>
+                                    <label class="col-md-3 col-form-label text-right">Contingencie</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="Contingencie" id="txtContingencie" />
+                                        <input type="text" class="form-control" placeholder="Contingencie" name="Contingencie" id="txtContingencie" />
                                     </div>
-                                    <label class="col-md-3 col-form-label text-right">Service Charges %</label>
+                                    <label class="col-md-3 col-form-label text-right">Centage Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Service Charges %" required="required" name="ServiceCharges" id="txtServiceCharges" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Cost Of Diff</label>
-                                    <div class="col-md-3">
-                                        <input type="radio" name="CostDiff" value="Yes" id="CostDiff1" />&nbsp;<label for="CostDiff1">Yes</label> &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="CostDiff" value="No" id="CostDiff2" />&nbsp;<label for="CostDiff2">No</label>
-                                    </div>
-                                    <label class="col-md-3 col-form-label text-right">Fund Head</label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="FundHead" id="txtFundHead" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Work Order No</label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Work Order No" required="required" name="WorkOrderNo" id="txtWorkOrderNo" />
-                                    </div>
-                                    <label class="col-md-3 col-form-label text-right"> Tendered %</label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Tendered %" required="required" name="Tendered" id="txtTendered" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Name Of Agency</label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Name Of Agency" required="required" name="NameOfAgency" id="txtNameOfAgency" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label text-right">Agreement No</label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Agreement No" required="required" name="AgreementNo" id="txtAgreementNo" />
+                                        <input type="text" class="form-control" placeholder="Centage Charges" name="ServiceCharges" id="txtServiceCharges" />
                                     </div>
                                 </div>
 
+                                <fieldset>
+                                    <legend>test</legend>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-right">Work Order No</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="Work Order No" name="WorkOrderNo" id="txtWorkOrderNo" />
+                                        </div>
+                                        <label class="col-md-3 col-form-label text-right"> Tendered</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="Tendered" name="Tendered" id="txtTendered" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-right">Name of Agency</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Name Of Agency" required="required" name="NameOfAgency" id="txtNameOfAgency" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-right">Agreement No</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Agreement No" required="required" name="AgreementNo" id="txtAgreementNo" />
+                                        </div>
+                                    </div>
+
+                                </fieldset>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
@@ -257,7 +263,6 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-
             </div>
             <!-- /.box-footer-->
         </div>

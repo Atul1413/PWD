@@ -20,17 +20,21 @@ namespace PWDCRM.Controllers
         }
         public ActionResult WorkData()
         {
+            var workList = new List<WorkDataDetail>();
             try
             {
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    workList = dbContext.WorkDataDetails.ToList();                   
+                }
                 ViewData["Title"] = "Work Data";
                
             }
             catch (Exception)
             {
-
-                throw;
+                workList = new List<WorkDataDetail>();
             }
-            return View();
+            return View(workList);
         }
 
         public ActionResult AddWorkData()
@@ -61,7 +65,7 @@ namespace PWDCRM.Controllers
                     model.UpdatedOn = DateTime.Now;
                     dbContext.WorkDataDetails.AddOrUpdate(model); //requires using System.Data.Entity.Migrations;
                     dbContext.SaveChanges();
-                    return RedirectToAction("AddItem", "Controller", new { id = model.Id });
+                    return RedirectToAction("AddItem", "Estimate", new { id = model.Id });
                    // return View("AddItem");
                 }
             }
@@ -226,6 +230,10 @@ namespace PWDCRM.Controllers
             {
                 return Json("", JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult AddLeadCharges()
+        {
+            return View();
         }
     }
 }

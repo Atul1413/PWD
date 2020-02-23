@@ -9,7 +9,7 @@ app.controller("EstimateController", function ($scope, $http) {
         $scope.WorkDataRequest.StatusCode = "200";
         $scope.WorkDataRequest.Token = "msdhfksh kskjahskgjhdskfjgshglkjshgkljh";
         $scope.WorkDataRequest.WorkDataDetails = null;
-      
+
         $http({
             method: "post",
             url: apiUrl + "EstimateAPI/GetListWorkData",
@@ -30,7 +30,7 @@ app.controller("EstimateController", function ($scope, $http) {
                         //"bfilter": true
                     });
                 }
-               // $("#bindtblWorkData_filter").hide();
+                // $("#bindtblWorkData_filter").hide();
                 //$("#txtUserSearch").keyup(function () {
                 //    dTable.search($(this).val()).draw();
                 //});
@@ -72,21 +72,20 @@ app.controller("EstimateController", function ($scope, $http) {
     //            console.log(error);
     //        });
 
-          
+
     //    }
     //};
 });
 
 
 app.controller("AddItemController", function ($scope, $http) {
-   // alert();
+    // alert();
     var counter = 0;
-
     $scope.AddDataCount = [];
-    $scope.elements = [{ id: counter, value: '',name:'' }];
+    $scope.elements = [{ id: counter, value: '', name: '' }];
     $scope.Length;
     $scope.newItem = function () {
-        counter++;       
+        counter++;
         $scope.elements.push({ id: counter, value: '', name: '' });
 
     };
@@ -96,7 +95,7 @@ app.controller("AddItemController", function ($scope, $http) {
 
     };
 
-    $scope.youFunction = function (id,value) {
+    $scope.youFunction = function (id, value) {
 
         alert(id);
     };
@@ -104,6 +103,6 @@ app.controller("AddItemController", function ($scope, $http) {
 });
 
 function youFunction(value) {
-   // alert(id);
+    // alert(id);
     alert(value);
 }

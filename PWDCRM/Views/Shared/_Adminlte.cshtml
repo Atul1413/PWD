@@ -73,14 +73,14 @@
     @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.unobtrusive.min.js"></script>*@
     @*<script src="~/js/jquery.dataTables.js"></script>*@
     <script src="~/js/angular/angular.min.js"></script>
+    @*<script src="~/js/angular/angular.min.js"></script>*@
     <script src="~/js/angular/angular-route.min.js"></script>
-
+    <script src="~/wwwroot/APIController/EstimateController.js"></script>
 
     <script src="~/js/jquery-ui.js"></script>
-    <script src="~/wwwroot/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>
-    <script src="~/wwwroot/scripts/jquery.validate.min.js"></script>
+    @*<script src="~/wwwroot/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
-    <script src="~/wwwroot/APIController/EstimateController.js"></script>
+
     <script type="text/javascript">
         //$(document).ready(function () {
         //    $('#BindtblWorkData').DataTable({
@@ -90,13 +90,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $("#frmSubmit").validate({
-                onfocusout: function (element) {
-                    this.element(element);
-                },
-            });
-
             $("#addDivPer").hide();
             var workIteam = $("#ddlWOD").val();
             GetAllWorkIteam(workIteam);
