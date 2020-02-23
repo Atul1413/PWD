@@ -4,80 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PWDCRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.AREA' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="AREA">
-          <Property Name="SNO" Type="float" />
-          <Property Name="AName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Per" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.AREAS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="AREAS">
-          <Property Name="SNO" Type="float" />
-          <Property Name="AName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Per" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.BRLIFT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="BRLIFT">
-          <Property Name="SR" Type="float" />
-          <Property Name="Descrip" Type="nvarchar" MaxLength="255" />
-          <Property Name="ITEMS" Type="nvarchar" MaxLength="255" />
-          <Property Name="I" Type="float" />
-          <Property Name="II" Type="float" />
-          <Property Name="III" Type="float" />
-          <Property Name="IV" Type="float" />
-          <Property Name="V" Type="float" />
-          <Property Name="VI" Type="float" />
-          <Property Name="VII" Type="float" />
-          <Property Name="VIII" Type="float" />
-          <Property Name="IX" Type="float" />
-          <Property Name="X" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.CONS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CONS">
-          <Property Name="SR_NO" Type="nvarchar" MaxLength="255" />
-          <Property Name="I_SR_NO" Type="nvarchar" MaxLength="255" />
-          <Property Name="I_CODE" Type="nvarchar" MaxLength="255" />
-          <Property Name="BRICKS" Type="nvarchar" MaxLength="255" />
-          <Property Name="STONE" Type="nvarchar" MaxLength="255" />
-          <Property Name="SOLING" Type="nvarchar" MaxLength="255" />
-          <Property Name="MURUM" Type="nvarchar" MaxLength="255" />
-          <Property Name="SAND" Type="nvarchar" MaxLength="255" />
-          <Property Name="EARTH" Type="nvarchar" MaxLength="255" />
-          <Property Name="CRUSH" Type="nvarchar" MaxLength="255" />
-          <Property Name="TIMBER" Type="nvarchar" MaxLength="255" />
-          <Property Name="STEEL" Type="nvarchar" MaxLength="255" />
-          <Property Name="CEMENT" Type="nvarchar" MaxLength="255" />
-          <Property Name="PIPES" Type="nvarchar" MaxLength="255" />
-          <Property Name="ABOVE" Type="nvarchar" MaxLength="255" />
-          <Property Name="BITUMINOUS" Type="nvarchar" MaxLength="255" />
-          <Property Name="ASPHALT" Type="nvarchar" MaxLength="255" />
-          <Property Name="BELOW" Type="nvarchar" MaxLength="255" />
-          <Property Name="RUBBLE" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.CONS_RATE' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CONS_RATE">
-          <Property Name="Sr_No" Type="nvarchar" MaxLength="255" />
-          <Property Name="Item_No" Type="nvarchar" MaxLength="255" />
-          <Property Name="Material" Type="nvarchar" MaxLength="255" />
-          <Property Name="Rate" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.DMAT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="DMAT">
-          <Property Name="SNO" Type="float" />
-          <Property Name="MCAT" Type="nvarchar" MaxLength="255" />
-          <Property Name="MAT" Type="nvarchar" MaxLength="255" />
-          <Property Name="Rate" Type="float" />
-          <Property Name="OSMANABAD" Type="float" />
-          <Property Name="LATUR" Type="float" />
-          <Property Name="BEED" Type="float" />
-        </EntityType>-->
+    <Schema Namespace="PWDCRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ItemDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -85,15 +12,15 @@ warning 6013: The table/view 'PWDCRM.dbo.DMAT' does not have a primary key defin
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorkDataID" Type="int" Nullable="false" />
           <Property Name="ItemNo" Type="nvarchar(max)" />
-          <Property Name="Number" Type="int" Nullable="false" />
-          <Property Name="Length" Type="int" Nullable="false" />
-          <Property Name="BreadthWidth" Type="int" Nullable="false" />
-          <Property Name="DepthHeight" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar(max)" />
+          <Property Name="Length" Type="nvarchar(max)" />
+          <Property Name="BreadthWidth" Type="nvarchar(max)" />
+          <Property Name="DepthHeight" Type="nvarchar(max)" />
           <Property Name="GeometricalFormulas" Type="nvarchar(max)" />
-          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="nvarchar(max)" />
           <Property Name="Remarks" Type="nvarchar(max)" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdateOn" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -138,14 +65,6 @@ warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defi
           <Property Name="SCADAPer" Type="float" />
           <Property Name="Plastic" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.LEAD_CHART' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="LEAD_CHART">
-          <Property Name="SR_NO" Type="float" />
-          <Property Name="KM" Type="float" />
-          <Property Name="TCostMachine" Type="float" />
-          <Property Name="TCostManual" Type="float" />
-        </EntityType>-->
         <EntityType Name="Lead_Statement">
           <Key>
             <PropertyRef Name="ID" />
@@ -159,15 +78,6 @@ warning 6013: The table/view 'PWDCRM.dbo.LEAD_CHART' does not have a primary key
           <Property Name="Lead_Charges" Type="int" />
           <Property Name="Remarks" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.MATERIAL' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="MATERIAL">
-          <Property Name="SR_NO" Type="float" />
-          <Property Name="MATERIAL" Type="nvarchar" MaxLength="255" />
-          <Property Name="FACTOR" Type="float" />
-          <Property Name="MTYPE" Type="nvarchar" MaxLength="255" />
-          <Property Name="ROY" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="MEASUREMENTS">
           <Key>
             <PropertyRef Name="Item_Id" />
@@ -187,31 +97,6 @@ warning 6013: The table/view 'PWDCRM.dbo.MATERIAL' does not have a primary key d
           <Property Name="Lift" Type="varchar" MaxLength="255" />
           <Property Name="Sub_Estimate" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.METAL' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="METAL">
-          <Property Name="SNO" Type="float" />
-          <Property Name="20MM" Type="float" />
-          <Property Name="12MM" Type="float" />
-          <Property Name="CRMETAL" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.MFLOOR' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="MFLOOR">
-          <Property Name="SR" Type="float" />
-          <Property Name="Descrip" Type="nvarchar" MaxLength="255" />
-          <Property Name="ITEMS" Type="nvarchar" MaxLength="255" />
-          <Property Name="I" Type="float" />
-          <Property Name="II" Type="float" />
-          <Property Name="III" Type="float" />
-          <Property Name="IV" Type="float" />
-          <Property Name="V" Type="float" />
-          <Property Name="VI" Type="float" />
-          <Property Name="VII" Type="float" />
-          <Property Name="VIII" Type="float" />
-          <Property Name="IX" Type="float" />
-          <Property Name="X" Type="float" />
-        </EntityType>-->
         <EntityType Name="Office">
           <Key>
             <PropertyRef Name="ID" />
@@ -292,30 +177,16 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="Completed_Rate" Type="int" />
           <Property Name="Remarks" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.SETTINGS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SETTINGS">
-          <Property Name="SNO" Type="float" />
-          <Property Name="RRATE" Type="float" />
-          <Property Name="INLEAD" Type="float" />
-          <Property Name="CEMENT_Rate" Type="float" />
-          <Property Name="BITUMEN_Rate" Type="float" />
-          <Property Name="STEEL_Rate" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TESTS">
-          <Property Name="AutoNo" Type="float" />
-          <Property Name="SNO" Type="float" />
-          <Property Name="BTest" Type="nvarchar" MaxLength="255" />
-          <Property Name="NTest" Type="nvarchar" MaxLength="255" />
-          <Property Name="Material" Type="nvarchar" MaxLength="255" />
-          <Property Name="TUnit" Type="nvarchar" MaxLength="255" />
-          <Property Name="Rate" Type="float" />
-          <Property Name="Freq" Type="float" />
-          <Property Name="MUnit" Type="nvarchar" MaxLength="255" />
-          <Property Name="QBy" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
+        <EntityType Name="SubWorkDataDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SubWorkDataName" Type="nvarchar(max)" />
+          <Property Name="SubWorkDescripation" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="WorkDataDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -333,12 +204,14 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="SubWorkData" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="PWDCRMModelStoreContainer">
           <EntitySet Name="ItemDetails" EntityType="Self.ItemDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubWorkDataDetails" EntityType="Self.SubWorkDataDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkDataDetails" EntityType="Self.WorkDataDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ITEMS" EntityType="Self.ITEMS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -443,28 +316,10 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
     FROM [dbo].[Rate_Analysis] AS [Rate_Analysis]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PWDCRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ItemDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkDataID" Type="Int32" Nullable="false" />
-          <Property Name="ItemNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Number" Type="Int32" Nullable="false" />
-          <Property Name="Length" Type="Int32" Nullable="false" />
-          <Property Name="BreadthWidth" Type="Int32" Nullable="false" />
-          <Property Name="DepthHeight" Type="Int32" Nullable="false" />
-          <Property Name="GeometricalFormulas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Qty" Type="Int32" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdateOn" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Lead_Statement">
           <Key>
             <PropertyRef Name="ID" />
@@ -529,6 +384,7 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubWorkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ITEM">
           <Key>
@@ -635,38 +491,48 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PWDCRMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ItemDetails" EntityType="Self.ItemDetail" />
           <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" />
           <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENT" />
           <EntitySet Name="Offices" EntityType="Self.Office" />
           <EntitySet Name="WorkDataDetails" EntityType="Self.WorkDataDetail" />
           <EntitySet Name="ITEMS" EntityType="Self.ITEM" />
           <EntitySet Name="Rate_Analysis" EntityType="Self.Rate_Analysis" />
+          <EntitySet Name="ItemDetails" EntityType="PWDCRMModel.ItemDetail" />
+          <EntitySet Name="SubWorkDataDetails" EntityType="PWDCRMModel.SubWorkDataDetail" />
         </EntityContainer>
+        <EntityType Name="ItemDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkDataID" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Length" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BreadthWidth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepthHeight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GeometricalFormulas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SubWorkDataDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SubWorkDataName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubWorkDescripation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PWDCRMModelStoreContainer" CdmEntityContainer="PWDCRMEntities">
-          <EntitySetMapping Name="ItemDetails">
-            <EntityTypeMapping TypeName="PWDCRMModel.ItemDetail">
-              <MappingFragment StoreEntitySet="ItemDetails">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="WorkDataID" ColumnName="WorkDataID" />
-                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Length" ColumnName="Length" />
-                <ScalarProperty Name="BreadthWidth" ColumnName="BreadthWidth" />
-                <ScalarProperty Name="DepthHeight" ColumnName="DepthHeight" />
-                <ScalarProperty Name="GeometricalFormulas" ColumnName="GeometricalFormulas" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Lead_Statement">
             <EntityTypeMapping TypeName="PWDCRMModel.Lead_Statement">
               <MappingFragment StoreEntitySet="Lead_Statement">
@@ -720,6 +586,7 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
           <EntitySetMapping Name="WorkDataDetails">
             <EntityTypeMapping TypeName="PWDCRMModel.WorkDataDetail">
               <MappingFragment StoreEntitySet="WorkDataDetails">
+                <ScalarProperty Name="SubWorkData" ColumnName="SubWorkData" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameOfWork" ColumnName="NameOfWork" />
                 <ScalarProperty Name="SSRRate" ColumnName="SSRRate" />
@@ -839,6 +706,35 @@ warning 6013: The table/view 'PWDCRM.dbo.TESTS' does not have a primary key defi
                 <ScalarProperty Name="Other_Charges1" ColumnName="Other_Charges1" />
                 <ScalarProperty Name="Completed_Rate" ColumnName="Completed_Rate" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemDetails">
+            <EntityTypeMapping TypeName="PWDCRMModel.ItemDetail">
+              <MappingFragment StoreEntitySet="ItemDetails">
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="GeometricalFormulas" ColumnName="GeometricalFormulas" />
+                <ScalarProperty Name="DepthHeight" ColumnName="DepthHeight" />
+                <ScalarProperty Name="BreadthWidth" ColumnName="BreadthWidth" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="WorkDataID" ColumnName="WorkDataID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubWorkDataDetails">
+            <EntityTypeMapping TypeName="PWDCRMModel.SubWorkDataDetail">
+              <MappingFragment StoreEntitySet="SubWorkDataDetails">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SubWorkDescripation" ColumnName="SubWorkDescripation" />
+                <ScalarProperty Name="SubWorkDataName" ColumnName="SubWorkDataName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

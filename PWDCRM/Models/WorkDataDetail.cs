@@ -27,5 +27,6 @@ namespace PWDCRM.Models
         public string Remarks { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public string SubWorkData { get; set; }
     }
 }

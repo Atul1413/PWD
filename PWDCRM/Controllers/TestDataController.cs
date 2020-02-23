@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PWDCRM.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -83,12 +84,45 @@ namespace PWDCRM.Controllers
                     using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                     {
                         //Set the database table name.
-                        sqlBulkCopy.DestinationTableName = "dbo.Customers1";
+                        sqlBulkCopy.DestinationTableName = "dbo.ITEMS";
 
                         //[OPTIONAL]: Map the Excel columns with that of the database table
-                        sqlBulkCopy.ColumnMappings.Add("Id", "CustomerId");
-                        sqlBulkCopy.ColumnMappings.Add("Name", "Name");
-                        sqlBulkCopy.ColumnMappings.Add("Country", "Country");
+                        sqlBulkCopy.ColumnMappings.Add("ANO", "ANO");
+                        sqlBulkCopy.ColumnMappings.Add("SrNO", "SrNO");
+                        sqlBulkCopy.ColumnMappings.Add("Chap", "Chap");
+                        sqlBulkCopy.ColumnMappings.Add("Ref", "Ref");
+                        sqlBulkCopy.ColumnMappings.Add("INO", "INO");
+                        sqlBulkCopy.ColumnMappings.Add("PgNo", "PgNo");
+                        sqlBulkCopy.ColumnMappings.Add("CAT", "CAT");
+                        sqlBulkCopy.ColumnMappings.Add("DESCRIP", "DESCRIP");
+                        sqlBulkCopy.ColumnMappings.Add("Spec", "Spec");
+                        sqlBulkCopy.ColumnMappings.Add("UnitF", "UnitF");
+                        sqlBulkCopy.ColumnMappings.Add("UnitS", "UnitS");
+                        sqlBulkCopy.ColumnMappings.Add("CompRate", "CompRate");
+                        sqlBulkCopy.ColumnMappings.Add("LRate", "LRate");
+                        sqlBulkCopy.ColumnMappings.Add("MAT1", "MAT1");
+                        sqlBulkCopy.ColumnMappings.Add("MAT2", "MAT2");
+                        sqlBulkCopy.ColumnMappings.Add("MAT3", "MAT3");
+                        sqlBulkCopy.ColumnMappings.Add("MAT4", "MAT4");
+                        sqlBulkCopy.ColumnMappings.Add("MAT5", "MAT5");
+                        sqlBulkCopy.ColumnMappings.Add("MAT6", "MAT6");
+                        sqlBulkCopy.ColumnMappings.Add("MAT7", "MAT7");
+                        sqlBulkCopy.ColumnMappings.Add("MAT8", "MAT8");
+                        sqlBulkCopy.ColumnMappings.Add("RATE1", "RATE1");
+                        sqlBulkCopy.ColumnMappings.Add("RATE2", "RATE2");
+                        sqlBulkCopy.ColumnMappings.Add("RATE3", "RATE3");
+                        sqlBulkCopy.ColumnMappings.Add("RATE4", "RATE4");
+                        sqlBulkCopy.ColumnMappings.Add("RATE5", "RATE5");
+                        sqlBulkCopy.ColumnMappings.Add("RATE6", "RATE6");
+                        sqlBulkCopy.ColumnMappings.Add("RATE7", "RATE7");
+                        sqlBulkCopy.ColumnMappings.Add("RATE8", "RATE8");
+                        sqlBulkCopy.ColumnMappings.Add("XCelX", "XCelX");
+                        sqlBulkCopy.ColumnMappings.Add("XcelY", "XcelY");
+                        sqlBulkCopy.ColumnMappings.Add("XLPath", "XLPath");
+                        sqlBulkCopy.ColumnMappings.Add("RATYPE", "RATYPE");
+                        sqlBulkCopy.ColumnMappings.Add("SCADA", "SCADA");
+                        sqlBulkCopy.ColumnMappings.Add("SCADAPer", "SCADAPer");
+                        sqlBulkCopy.ColumnMappings.Add("Plastic", "Plastic");
                         con.Open();
                         sqlBulkCopy.WriteToServer(dt);
                         con.Close();
@@ -97,6 +131,21 @@ namespace PWDCRM.Controllers
             }
 
             return View();
+        }
+        [HttpPost]
+        public JsonResult IndexData(string Prefix)
+        {
+            var dbContext = new PWDCRMEntities();
+            //Searching records from list using LINQ query  
+            var d = dbContext.ITEMS.Where(s => s.Chap.Contains(Prefix)).ToList();
+            var d1=d.GroupBy(g => new { g.Chap, g.ANO }).Select(s=>new { s.Key.ANO,s.Key.Chap}).Distinct().ToList();
+            //var CityList =  (from N in dbContext.ITEMS
+            //                where N.CAT.StartsWith(Prefix)
+            //                select new { N.CAT });
+            //List<Product> result = pr.GroupBy(g => new { g.Title, g.Price })
+            //             .Select(g => g.First())
+            //             .ToList();
+            return Json(d1, JsonRequestBehavior.AllowGet);
         }
     }
 }

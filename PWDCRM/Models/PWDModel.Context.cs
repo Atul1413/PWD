@@ -25,12 +25,13 @@ namespace PWDCRM.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ItemDetail> ItemDetails { get; set; }
         public virtual DbSet<Lead_Statement> Lead_Statement { get; set; }
         public virtual DbSet<MEASUREMENT> MEASUREMENTS { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
         public virtual DbSet<WorkDataDetail> WorkDataDetails { get; set; }
         public virtual DbSet<ITEM> ITEMS { get; set; }
         public virtual DbSet<Rate_Analysis> Rate_Analysis { get; set; }
+        public virtual DbSet<ItemDetail> ItemDetails { get; set; }
+        public virtual DbSet<SubWorkDataDetail> SubWorkDataDetails { get; set; }
     }
 }

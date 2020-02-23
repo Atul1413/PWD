@@ -28,7 +28,7 @@ namespace PWDCRM.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, workDataResponse);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Write Log
                 workDataResponse.Token = "";

@@ -1,4 +1,4 @@
-﻿
+﻿@model PWDCRM.Models.ITEM
 @{
     Layout = null;
 }
@@ -9,14 +9,89 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/wwwroot/adminlte/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        @using (Html.BeginForm("Index", "TestData", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="postedFile" />
-            <input type="submit" value="Import" />
-        }
+    <div class="container">
+        <div class="row register-form">
+            <div class="alert-info">
+                <h1 class="text-center">Upload Data</h1>
+            </div>
+        </div>
+        <div class="row register-form">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Index", "TestData", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-right">Iteam Data Upload</label>
+                                <div class="col-md-3">
+                                    <input type="file" name="postedFile" />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="submit" value="Import" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row register-form">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Index", "TestData", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-right">Iteam Data Upload</label>
+                                <div class="col-md-3">
+                                    @Html.EditorFor(model => model.Chap, new { htmlAttributes = new { @class = "form-control" } })
+
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="hidden" id="txtHideID" />
+                                    select * from ITEMS
+                                    select distinct INO from ITEMS  group by INO
+                                    select distinct Chap, COUNT(Chap) As CUNT from ITEMS  group by Chap
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
+    <script src="~/js/jquery-1.10.2.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    @*<script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/wwwroot/adminlte/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Chap").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/TestData/IndexData",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                console.log(item);
+                               // $("#txtHideID").val(item.ANO);                                
+                                return { label: item.Chap, value: item.Chap,class:item.Chap };
+                            }))
+
+                        }
+                    })
+                },                
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        })
+    </script>
 </body>
 </html>

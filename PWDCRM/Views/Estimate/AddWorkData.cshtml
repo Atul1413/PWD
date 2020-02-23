@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "AddWorkData";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var data = ViewData["SubData"] as List<PWDCRM.Models.SubWorkDataDetail>;
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -23,11 +24,20 @@
                     @Html.AntiForgeryToken();
                     <div id="Grid">
                         <div class="row register-form">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Name of Work</label>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Name of Work" required="required" name="NameOfWork" id="txtNameOfWork" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Select sub Work</label>
+                                    <div class="col-md-6">
+                                        @foreach (var item in data)
+                                        {
+                                            <input type="checkbox" id="@item.ID" value="@item.ID" name="SubWorkData" /><label for="@item.ID">@item.SubWorkDataName</label>
+                                        }
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -125,15 +135,121 @@
                                     <div class="col-md-8">
                                         <textarea class="form-control" required="required" id="txtRemarks" name="Remarks"></textarea>
                                     </div>
-
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-8 text-right">
                                         <input type="submit" class="btn-primary btn btn-lg" value="Create" />
                                     </div>
-                                   
                                 </div>
-                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Royalty</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" placeholder="Enter Royalty" required="required" id="Royalty" name="Royalty" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Type Of SAND</label>
+                                    <div class="col-md-5">
+                                        <select class="form-control" required="required" id="TypeSAND" name="TypeSAND">
+                                            <option value="" class="hidden" selected disabled>Please select your Type SAND</option>
+                                            <option value="R.A With Natural Sand">R.A With Natural Sand  </option>
+                                            <option value="R.A. With V.S.I Sand">R.A. With V.S.I Sand</option>
+                                            <option value="R.A. With Natural Sand And V.S.I Sand Ratio">R.A. With Natural Sand And V.S.I Sand Ratio</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" id="addDivPer">
+                                        <input type="text" class="form-control" placeholder="SAND Percentage" required="required" name="SANDPercentage" id="txtSANDPercentage" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-right">V & QC %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="V & QC %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                    <label class="col-md-3 col-form-label text-right">Electrical INT %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Electrical INT %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-right">Electrical Ext %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Electrical Ext %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                    <label class="col-md-3 col-form-label text-right">Water Supply %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Water Supply %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-right"> Any Other charg 1 %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Any Other charges 1 %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                    <label class="col-md-3 col-form-label text-right"> Any Other charg 2 %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Any Other charges 2 %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-right">Iabour insurance %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Iabour insurance %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                    <label class="col-md-3 col-form-label text-right">GST %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="GST %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-right">Contingencie %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                    <label class="col-md-3 col-form-label text-right">Service Charges %</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Service Charges %" required="required" name="DeductioninRA1" id="txtDeductioninRA1" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Cost Of Diff</label>
+                                    <div class="col-md-6">
+                                        <input type="radio" name="CostDiff" value="Yes" id="CostDiff1" />&nbsp;<label for="CostDiff1">Yes</label> &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="CostDiff" value="No" id="CostDiff2" />&nbsp;<label for="CostDiff2">No</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Fund Head</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="FundHead" id="txtFundHead" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Name Of Agency</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Name Of Agency" required="required" name="NameOfAgency" id="txtNameOfAgency" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Agreement No</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Agreement No" required="required" name="AgreementNo" id="txtAgreementNo" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right">Work Order No</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Work Order No" required="required" name="WorkOrderNo" id="txtWorkOrderNo" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-right"> Tendered %</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Tendered %" required="required" name="Percentage" id="txtPercentage" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

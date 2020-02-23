@@ -1,9 +1,18 @@
-﻿
+﻿@using PWDCRM.Models
+@*@model List<ItemDetail>;*@
 @{
     ViewBag.Title = "AddItem";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
-    //var data= ViewData["workData"] as List<PWDCRMEntity.WorkDataDetails>;
+    var data = ViewData["workData"] as List<WorkDataDetail>;
+    var dataList = ViewData["ItemDetail"] as List<ItemDetail>;
+    var count = 0;
 }
+
+<style>
+    .inputClass {
+        width: 144px !important;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" ng-controller="AddItemController">
     <!-- Main content -->
@@ -19,218 +28,144 @@
                 </div>
             </div>
             <div class="box-body">
-                @using (@Html.BeginForm("AddItem", "Estimate", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken();
-                    <div id="Grid">
-                        <div class="row register-form">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-right">Name of Work</label>
-                                    <div class="col-md-3">
-                                        <select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
-                                            <option value="" class="hidden" selected disabled>Please select work data</option>
-                                            <option value="1">SSR 17-18</option>
-                                            <option value="2">SSR 18-19</option>
-                                            <option value="3">SSR 19-20</option>
-                                            <option value="4">SSR 20-21</option>
-                                            <option value="5">SSR 21-22</option>                       
-                                        </select>
+
+                <div id="Grid">
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
+                                        <option value="" class="hidden" selected disabled>Please select work data</option>
+                                        @foreach (var item in data)
+                                        {
+                                            if (count == 0)
+                                            {
+                                                <option selected value="@item.Id">@item.NameOfWork</option>
+                                            }
+                                            else
+                                            {
+
+                                                <option value="@item.Id">@item.NameOfWork</option>
+                                            }
+                                            count++;
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right"> Search By Category </label>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="Category" id="Category" placeholder="Enter Category name" autocomplete="off" />
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-4 col-form-label">OR &nbsp; &nbsp; Iteam No</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="IteamID" id="IteamID" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-right">Item No</label>
-                                    <div class="col-md-3">
-                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
-                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
-                                            <option value="1">SSR 17-18</option>
-                                            <option value="2">SSR 18-19</option>
-                                            <option value="3">SSR 19-20</option>
-                                            <option value="4">SSR 20-21</option>
-                                            <option value="5">SSR 21-22</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
-                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
-                                            <option value="1">SSR 17-18</option>
-                                            <option value="2">SSR 18-19</option>
-                                            <option value="3">SSR 19-20</option>
-                                            <option value="4">SSR 20-21</option>
-                                            <option value="5">SSR 21-22</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-control" required="required" id="ddlSSR" name="ItemNo">
-                                            <option value="" class="hidden" selected disabled>Please select your SSR(Schedule Of Rates)</option>
-                                            <option value="1">SSR 17-18</option>
-                                            <option value="2">SSR 18-19</option>
-                                            <option value="3">SSR 19-20</option>
-                                            <option value="4">SSR 20-21</option>
-                                            <option value="5">SSR 21-22</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right"> Item Details</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-1 col-form-label">Item NO</label>
+                                    <span class="col-md-1" id="lblItemID"></span>
+                                    <label class="col-md-1 col-form-label">UnitF</label>
+                                    <span class="col-md-1" id="lblUnitF"></span>
+                                    <label class="col-md-1 col-form-label">CompRate</label>
+                                    <span class="col-md-1" id="lblCompRate"></span>
+                                    <label class="col-md-2 col-form-label">Descripation</label>
+                                    <span class="col-md-4" id="lblItemDescripation"></span>
+
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-right"> Item Details</label>
-                                    <div class="col-md-6">
-                                        @*<table class="table">
-                                            <tr ng-repeat="element in elements">
-                                                
-                                                <td>
-                                                    <table class="table">
-                                                        <tr>
-                                                            <td>
-                                                                <label>Numbers</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text"  required name="Number" onchange="youFunction(element.id);" id="txtNumbers_{{element.id}}" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Length</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" required name="Length" id="txtLength_{{element.id}}" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Breadth/Width</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" required name="BreadthWidth" id="BreadthWidth_{{element.id}}" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Depth/Height</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" required name="DepthHeight" id="DepthHeight_{{element.id}}"  />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Geometrical Formulas</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" required name="GeometricalFormulas" id="GeometricalFormulas_{{element.id}}" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Qty.</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" required data-id="{{element.id}}" name="Qty"id="Qty_{{element.id}}"/>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label>Remarks</label>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="Remarks" id="Remarks_{{element.id}}" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover table-responsive table-condensed">
+                                        <thead>
                                             <tr>
-                                                <td class="text-right">
-                                                    <input type="button" value="New Item" ng-click="newItem()" />
-                                                </td>
+                                                <th>Description</th>
+                                                <th>Numbers</th>
+                                                <th>Length</th>
+                                                <th>Breadth/Width</th>
+                                                <th>Depth/Height</th>                                              
+                                                <th>Qty.</th>
+                                                <th><a class="btn btn-sm btn-primary">Add New Iteam</a></th>
                                             </tr>
-                                        </table>*@
-                                    </div>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="inputClass" name="Remarks" id="txtRemarks" /></td>
+                                                <td><input type="text" data-id="Number" class="inputClass mathFormula" required name="Number" id="txtNumbers" /></td>
+                                                <td><input type="text" data-id="Length" class="inputClass mathFormula" required name="Length" id="txtLength" /></td>
+                                                <td><input type="text" data-id="BreadthWidth" class="inputClass mathFormula" required name="BreadthWidth" id="txtBreadthWidth" /></td>
+                                                <td><input type="text" data-id="DepthHeight" class="inputClass mathFormula" required name="DepthHeight" id="txtDepthHeight" /></td>
+                                                @*<td><input type="text" class="inputClass" required name="GeometricalFormulas" id="txtGeometricalFormulas" /></td>*@
+                                                <td><input type="text" class="inputClass" required name="Qty" id="txtQty" /></td>
+
+                                                <td><input type="button" class="btn btn-sm btn-default" value="Add" name="Add" id="btnAdd" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <table class="table table-hover table-responsive table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th>Numbers</th>
-                                                    <th>Length</th>
-                                                    <th>Breadth/Width</th>
-                                                    <th>Depth/Height</th>
-                                                    <th>Geometrical Formulas</th>
-                                                    <th>Qty.</th>
-                                                    <th>Remarks</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="text" required name="Number"  id="txtNumbers" /></td>
-                                                    <td><input type="text" required name="Length" id="txtLength" /></td>
-                                                    <td><input type="text" required name="BreadthWidth" id="txtBreadthWidth" /></td>
-                                                    <td><input type="text" required name="DepthHeight" id="txtDepthHeight" /></td>
-                                                    <td><input type="text" required name="GeometricalFormulas" id="txtGeometricalFormulas" /></td>
-                                                    <td><input type="text" required name="Qty" id="txtQty" /></td>
-                                                    <td><input type="text" name="Remarks" id="txtRemarks" /></td>
-                                                    <td><input type="button" value="Add" name="Add" id="btnAdd" /></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-hover table-responsive table-condensed" id="tblDataBind">
+                                        <thead>
+                                            <tr>
+                                                <th> <input type="checkbox" name="All" id="chkAll" value="All" /> <label for="chkAll"> Check All</label>  </th>
+                                                <th>Item No</th>
+                                                <th>Number</th>
+                                                <th>Length</th>
+                                                <th>Breadth Width</th>
+                                                <th>Depth Height</th>
+                                                <th>Qty</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*@if (dataList != null)
+                                            {
+                                                if (dataList.Count != 0)
+                                                {
+                                                    foreach (var item in dataList)
+                                                    {
+                                                        <tr>
+                                                            <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
+                                                            <td>@item.ItemNo</td>
+                                                            <td>@item.Number</td>
+                                                            <td>@item.Length</td>
+                                                            <td>@item.BreadthWidth</td>
+                                                            <td>@item.DepthHeight</td>
+                                                            <td>@item.Qty</td>
+                                                            <td>@item.Remarks</td>
+                                                            <td>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }*@
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered table-hover table-responsive table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th> <input type="checkbox" name="All" id="chkAll" value="All" /> <label for="chkAll"> Check All</label>  </th>
-                                                    <th>Item No</th>
-                                                    <th>Iteam Descripation</th>
-                                                    <th>Number</th>
-                                                    <th>Length</th>
-                                                    <th>Breadth Width</th>
-                                                    <th>Depth Height</th>
-                                                    <th>Geometrical Formulas</th>
-                                                    <th>Qty</th>
-                                                    <th>Remarh</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="checkbox" name="ChkItem" id="chkIteam" /></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    
-                                    @*<label class="col-md-4 col-form-label text-right"> Total Qty. </label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="TotalQty" id="TotalQty" />
-                                    </div>*@
-                                </div>                               
-                                @*<div class="form-group row">
-                                    <div class="col-md-8 text-right">
-                                        <input type="submit" class="btn-primary btn btn-lg" value="Create" />
-                                    </div>
-                                </div>*@
                             </div>
                         </div>
                     </div>
-                                                    }
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-
             </div>
             <!-- /.box-footer-->
         </div>

@@ -30,11 +30,12 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!--Snycfusion-->
-    <link href="~/wwwroot/content/ejthemes/bootstrap-theme/ej.web.all.min.css" rel="stylesheet" />
+    @*<link href="~/wwwroot/content/ejthemes/bootstrap-theme/ej.web.all.min.css" rel="stylesheet" />*@
     <link href="~/wwwroot/content/default-responsive.css" rel="stylesheet" />
-    <link href="~/wwwroot/content/ejthemes/responsive-css/ej.responsive.css" rel="stylesheet" />
-    <link href="~/wwwroot/content/ejthemes/responsive-css/ejgrid.responsive.css" rel="stylesheet" />
+    @*<link href="~/wwwroot/content/ejthemes/responsive-css/ej.responsive.css" rel="stylesheet" />
+        <link href="~/wwwroot/content/ejthemes/responsive-css/ejgrid.responsive.css" rel="stylesheet" />*@
     <link href="~/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
     @RenderSection("Styles", required: false)
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -50,7 +51,8 @@
     <!-- ./wrapper -->
     <!--AdminLTE-->
     <!-- jQuery 3 -->
-    <script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery-1.10.2.js"></script>
+    @*<script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>*@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/wwwroot/adminlte/components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Slimscroll -->
@@ -62,21 +64,291 @@
     <!-- PACE -->
     <script src="~/wwwroot/adminlte/components/PACE/pace.min.js"></script>
     <!--Syncfusion-->
-    <script src="~/wwwroot/adminlte/scripts/jsrender.min.js"></script>
-    <script src="~/wwwroot/adminlte/scripts/ej.web.all.min.js" type="text/javascript"></script>
-    <script src="~/wwwroot/adminlte/scripts/properties.js" type="text/javascript"></script>
-    <script src="~/wwwroot/adminlte/scripts/jquery.validate.min.js"></script>
-    <script src="~/wwwroot/adminlte/scripts/jquery.validate.unobtrusive.min.js"></script>
+    @*<script src="~/wwwroot/adminlte/scripts/jsrender.min.js"></script>*@
+    @*<script src="~/wwwroot/adminlte/scripts/ej.web.all.min.js" type="text/javascript"></script>*@
+    @*<script src="~/wwwroot/adminlte/scripts/properties.js" type="text/javascript"></script>*@
+    @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.min.js"></script>*@
+    @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.unobtrusive.min.js"></script>*@
     <script src="~/js/jquery.dataTables.js"></script>
     <script src="~/js/angular/angular.min.js"></script>
     <script src="~/js/angular/angular-route.min.js"></script>
     <script src="~/wwwroot/APIController/EstimateController.js"></script>
+
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
     <script type="text/javascript">
         //$(document).ready(function () {
         //    $('#BindtblWorkData').DataTable({
 
         //    });
         //});
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+              $("#addDivPer").hide();
+            var workIteam = $("#ddlWOD").val();
+            GetAllWorkIteam(workIteam);
+            //
+            $("#Category").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Estimate/GetCategoryAutocomplete",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Chap: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                console.log(item);
+                                // $("#txtHideID").val(item.ANO);
+                                return { label: item.Chap, value: item.Chap, class: item.Chap };
+                            }))
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+            //
+            $("#IteamID").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Estimate/GetIteamAutocomplete",
+                        type: "POST",
+                        dataType: "json",
+                        data: { INO: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                console.log(item);
+                                // $("#txtHideID").val(item.ANO);
+                                return { label: item.INO, value: item.INO, class: item.INO };
+                            }))
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        });
+        //
+        function GetAllWorkIteam(workIteam) {
+            $("#tblDataBind tbody").empty();
+            $.ajax({
+                url: "/Estimate/GetAllWorkIteam",
+                type: "POST",
+                dataType: "json",
+                data: { workIteamId: workIteam },
+                success: function (data) {
+                    console.log(data);
+
+                    var item = '';
+                    for (var i = 0; i < data.length; i++) {
+                        item += '<tr> <td><input type="checkbox" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="btn btn-sm btn-primary">Edit</a><a class="btn btn-sm btn-primary">Delete</a></td></tr>';
+
+                    }
+                    $("#tblDataBind tbody").html(item);
+                }
+            })
+        }
+
+        $("#ddlWOD").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+                GetAllWorkIteam(getVal);
+            }
+        });
+
+        $("#Category").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+                $("#ddlSSR").empty();
+                $.ajax({
+                    url: "/Estimate/GetIteamDescripation",
+                    type: "POST",
+                    dataType: "json",
+                    data: { CategoryName: getVal },
+                    success: function (data) {
+                        var item = '<option value="" class="hidden" selected disabled>Please select Decripation</option> ';
+                        for (var i = 0; i < data.length; i++) {
+                            item += '<option value="' + data[i].ANO + '">' + data[i].DESCRIP + '</option>';
+                        }
+                        $("#ddlSSR").html(item);
+                    }
+                })
+            }
+        });
+
+        $("#IteamID").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+                // $("#ddlSSR").empty();
+                $.ajax({
+                    url: "/Estimate/GetIteamDetailsByINo",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: getVal },
+                    success: function (data) {
+                        console.log(data);
+                        var item = '<option value="" class="hidden" selected disabled>Please select Decripation</option> ';
+                        for (var i = 0; i < data.itemDetailsList.length; i++) {
+                            if (data.itemDetailsList[i].ANO == data.itemDetail.ANO) {
+                                item += '<option selected value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                            }
+                            else {
+                                item += '<option value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                            }
+
+                        }
+                        $("#ddlSSR").html(item);
+                        $("#lblItemID").html(data.itemDetail.INO);
+                        $("#Category").val(data.itemDetail.Chap);
+                        $("#lblUnitF").html(data.itemDetail.UnitF);
+                        $("#lblCompRate").html(data.itemDetail.CompRate);
+                        $("#lblItemDescripation").html(data.itemDetail.DESCRIP);
+                    }
+                })
+            }
+        });
+
+        $("#ddlSSR").change(function () {
+            var getVal = $(this).val();
+            // alert(getVal);
+            if (getVal != "") {
+                $.ajax({
+                    url: "/Estimate/GetIteamNoDetails",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: getVal },
+                    success: function (data) {
+                        console.log(data);
+                        $("#lblItemID").html(data.INO);
+                        $("#IteamID").val(data.INO);
+                        $("#lblUnitF").html(data.UnitF);
+                        $("#lblCompRate").html(data.CompRate);
+                        $("#lblItemDescripation").html(data.DESCRIP);
+                    }
+                });
+            }
+        });
+
+        $("#btnAdd").click(function () {
+            var nameOfWork = $("#ddlWOD").val();
+            var categoryTest = $("#Category").val();
+            var aNOId = $("#ddlSSR").val();
+            var iteamID = $("#IteamID").val();
+            var numbers = $("#txtNumbers").val();
+            var length = $("#txtLength").val();
+            var breadthWidth = $("#txtBreadthWidth").val();
+            var depthHeight = $("#txtDepthHeight").val();
+            // var geometricalFormulas = $("#txtGeometricalFormulas").val();
+            var qty = $("#txtQty").val();
+            var remarks = $("#txtRemarks").val();
+            var IsValid = 1;
+
+            //  alert(iteamID);
+            if (nameOfWork == null) {
+                IsValid = 0;
+                alert("Please select name of work");
+            }
+            else if (categoryTest == "") {
+                IsValid = 0;
+                alert("Please enter category");
+            }
+            else if (aNOId == null) {
+                IsValid = 0;
+                alert("Please select descripation");
+            }
+            else if (iteamID == "") {
+                IsValid = 0;
+                alert("Please enter iteam no");
+            }
+            else if (numbers == "") {
+                IsValid = 0;
+                alert("Please enter numbers");
+            }
+            else if (qty == "") {
+                IsValid = 0;
+                alert("Please enter numbers");
+            }
+            if (IsValid == 1) {
+                var ItemDetail = {};
+                ItemDetail.ItemNo = iteamID;
+                ItemDetail.WorkDataID = nameOfWork;
+                ItemDetail.Number = numbers;
+                ItemDetail.Length = length;
+                ItemDetail.BreadthWidth = breadthWidth;
+                ItemDetail.DepthHeight = depthHeight;
+                ItemDetail.Qty = qty;
+                ItemDetail.Remarks = remarks;
+                $.ajax({
+                    url: "/Estimate/AddIteamQty",
+                    type: "POST",
+                    dataType: "json",
+                    data: { model: ItemDetail },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.length != 0) {
+                            $("#tblDataBind tbody").empty();
+                            var item = '';
+                            for (var i = 0; i < data.length; i++) {
+                                item += '<tr> <td><input type="checkbox" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="btn btn-sm btn-primary">Edit</a><a class="btn btn-sm btn-primary">Delete</a></td></tr>';
+                            }
+                            $("#tblDataBind tbody").html(item);
+
+                        }
+                        $("#txtNumbers").val('');
+                        $("#txtLength").val('');
+                        $("#txtBreadthWidth").val('');
+                        $("#txtDepthHeight").val('');
+
+                        $("#txtQty").val('');
+                        $("#txtRemarks").val('');
+                    }
+                })
+            }
+        });
+        $(".mathFormula").change(function () {
+            var getDataId = $(this).data("id");
+            var getVal = $(this).val();
+            var getQut = $("#txtQty").val();
+            var numbers = $("#txtNumbers").val();
+            var length = $("#txtLength").val();
+            var breadthWidth = $("#txtBreadthWidth").val();
+            var depthHeight = $("#txtDepthHeight").val();
+
+            if (getQut == "")
+                getQut = 1;
+
+            var result;
+            if (getDataId == "Number" && numbers != "") {
+                var getFormulaValue = math.eval(numbers);
+                result = (getFormulaValue * getQut);
+            }
+            else if (getDataId == "Length") {
+                var getFormulaValue = math.eval(getVal);
+                result = (getFormulaValue * getQut);
+            }
+            else if (getDataId == "BreadthWidth") {
+                var getFormulaValue = math.eval(getVal);
+                result = (getFormulaValue * getQut);
+            }
+            else if (getDataId == "DepthHeight") {
+                var getFormulaValue = math.eval(getVal);
+                result = (getFormulaValue * getQut);
+            }
+            $("#txtQty").val(result);
+
+        });
+
+        $("#TypeSAND").change(function () {
+            $("#addDivPer").hide();
+            var getval = $(this).val();
+            if (getval == "R.A. With Natural Sand And V.S.I Sand Ratio") {
+                alert("Please enter ratio of SAND:VSI Sand");
+                $("#addDivPer").show();
+            }
+        });
     </script>
     @RenderSection("Scripts", required: false)
 </body>
