@@ -1,4 +1,4 @@
-﻿
+﻿@model List<PWDCRM.Models.WorkDataDetail>
 @{
     ViewData["Title"] = "Work Data";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
@@ -49,40 +49,80 @@
                             </tr>
                         </thead>
                         <tbody id="tblBindData">
-                            <tr ng-repeat="workData in workDataList">
-                                <td>
-                                    {{$index + 1}}
-                                </td>
-                                <td class="textwrap" style="width:340px !important;word-wrap: break-word;">
-                                    {{workData.NameOfWork}}
-                                </td>
-                                <td>
-                                    {{workData.SSRRate}}
-                                </td>
-                                <td>
-                                    {{workData.Department}}
-                                </td>
-                                <td>
-                                    {{workData.HeadOfAccounts}}
-                                </td>
-                                <td>
-                                    {{workData.Area}}
-                                </td>
-                                <td>
-                                    {{workData.SubDivsion}}
-                                </td>
-                                <td>
-                                    {{workData.Divison}}
-                                </td>
-                                <td>
-                                    {{workData.Circle}}
-                                </td>
-                                <td>
-                                    {{workData.Region}}
-                                </td>
-                                @*<td>
-                                        {{workData.Remarks}}
-                                    </td>*@
+                            @foreach (var workData in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @workData.Id
+                                    </td>
+                                    <td class="textwrap" style="width:340px !important;word-wrap: break-word;">
+                                        @workData.NameOfWork
+                                    </td>
+                                    <td>
+                                        @workData.SSRRate
+                                    </td>
+                                    <td>
+                                        @workData.Department
+                                    </td>
+                                    <td>
+                                        @workData.HeadOfAccounts
+                                    </td>
+                                    <td>
+                                        @workData.Area
+                                    </td>
+                                    <td>
+                                        @workData.SubDivsion
+                                    </td>
+                                    <td>
+                                        @workData.Divison
+                                    </td>
+                                    <td>
+                                        @workData.Circle
+                                    </td>
+                                    <td>
+                                        @workData.Region
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            var editUrl = Url.Action("AddItem", "Estimate", new { id = @workData.Id });
+                                            editUrl = HttpUtility.UrlDecode(editUrl);
+                                        }
+                                        <a href="@editUrl">Add Items</a>
+                                    </td>
+                                </tr>
+                            }
+                            @*<tr ng-repeat="workData in workDataList">
+                                        <td>
+                                            {{$index + 1}}
+                                        </td>
+                                        <td class="textwrap" style="width:340px !important;word-wrap: break-word;">
+                                            {{workData.NameOfWork}}
+                                        </td>
+                                        <td>
+                                            {{workData.SSRRate}}
+                                        </td>
+                                        <td>
+                                            {{workData.Department}}
+                                        </td>
+                                        <td>
+                                            {{workData.HeadOfAccounts}}
+                                        </td>
+                                        <td>
+                                            {{workData.Area}}
+                                        </td>
+                                        <td>
+                                            {{workData.SubDivsion}}
+                                        </td>
+                                        <td>
+                                            {{workData.Divison}}
+                                        </td>
+                                        <td>
+                                            {{workData.Circle}}
+                                        </td>
+                                        <td>
+                                            {{workData.Region}}
+                                        </td>
                                 <td>
                                     @{
                                         var editUrl = Url.Action("AddItem", "Estimate", new { id = "{{workData.Id}}" });
@@ -90,7 +130,7 @@
                                     }
                                     <a href="@editUrl">Add Items</a>
                                 </td>
-                            </tr>
+                                </tr>*@
                         </tbody>
                     </table>
                 </div>
