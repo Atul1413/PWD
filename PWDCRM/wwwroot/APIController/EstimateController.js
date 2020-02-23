@@ -24,10 +24,10 @@ app.controller("EstimateController", function ($scope, $http) {
                 }
                 else {
                     dTable = $('#bindtblWorkData').DataTable({
-                        "bSort": true,
-                        "searching": true,
-                        "bLengthChange": true,
-                        "bfilter": true
+                        //"bSort": true,
+                        //"searching": true,
+                        //"bLengthChange": true,
+                        //"bfilter": true
                     });
                 }
                // $("#bindtblWorkData_filter").hide();

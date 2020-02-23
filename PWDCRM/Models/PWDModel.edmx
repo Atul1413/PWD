@@ -21,6 +21,8 @@
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdateOn" Type="datetime" />
+          <Property Name="SubWorkID" Type="int" />
+          <Property Name="FloorData" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -205,6 +207,25 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
           <Property Name="SubWorkData" Type="nvarchar(max)" />
+          <Property Name="Royalty" Type="nvarchar(max)" />
+          <Property Name="SANDPercentage" Type="nvarchar(max)" />
+          <Property Name="CostDiff" Type="nvarchar(max)" />
+          <Property Name="FundHead" Type="nvarchar(max)" />
+          <Property Name="NameOfAgency" Type="nvarchar(max)" />
+          <Property Name="AgreementNo" Type="nvarchar(max)" />
+          <Property Name="WorkOrderNo" Type="nvarchar(max)" />
+          <Property Name="TypeSAND" Type="nvarchar(max)" />
+          <Property Name="VAndQCPercentage" Type="nvarchar(max)" />
+          <Property Name="ElectricalINTPer" Type="nvarchar(max)" />
+          <Property Name="ElectricalExtPer" Type="nvarchar(max)" />
+          <Property Name="WaterSupply" Type="nvarchar(max)" />
+          <Property Name="AnyOthercharg1" Type="nvarchar(max)" />
+          <Property Name="AnyOthercharg2" Type="nvarchar(max)" />
+          <Property Name="LabourInsurance" Type="nvarchar(max)" />
+          <Property Name="GST" Type="nvarchar(max)" />
+          <Property Name="Contingencie" Type="nvarchar(max)" />
+          <Property Name="ServiceCharges" Type="nvarchar(max)" />
+          <Property Name="Tendered" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="PWDCRMModelStoreContainer">
           <EntitySet Name="ItemDetails" EntityType="Self.ItemDetails" Schema="dbo" store:Type="Tables" />
@@ -385,6 +406,25 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SubWorkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Royalty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SANDPercentage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CostDiff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FundHead" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NameOfAgency" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AgreementNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkOrderNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeSAND" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VAndQCPercentage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ElectricalINTPer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ElectricalExtPer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WaterSupply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnyOthercharg1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnyOthercharg2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LabourInsurance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GST" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contingencie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCharges" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tendered" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ITEM">
           <Key>
@@ -516,6 +556,8 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="SubWorkID" Type="Int32" />
+          <Property Name="FloorData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SubWorkDataDetail">
           <Key>
@@ -586,6 +628,25 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <EntitySetMapping Name="WorkDataDetails">
             <EntityTypeMapping TypeName="PWDCRMModel.WorkDataDetail">
               <MappingFragment StoreEntitySet="WorkDataDetails">
+                <ScalarProperty Name="Tendered" ColumnName="Tendered" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="Contingencie" ColumnName="Contingencie" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="LabourInsurance" ColumnName="LabourInsurance" />
+                <ScalarProperty Name="AnyOthercharg2" ColumnName="AnyOthercharg2" />
+                <ScalarProperty Name="AnyOthercharg1" ColumnName="AnyOthercharg1" />
+                <ScalarProperty Name="WaterSupply" ColumnName="WaterSupply" />
+                <ScalarProperty Name="ElectricalExtPer" ColumnName="ElectricalExtPer" />
+                <ScalarProperty Name="ElectricalINTPer" ColumnName="ElectricalINTPer" />
+                <ScalarProperty Name="VAndQCPercentage" ColumnName="VAndQCPercentage" />
+                <ScalarProperty Name="TypeSAND" ColumnName="TypeSAND" />
+                <ScalarProperty Name="WorkOrderNo" ColumnName="WorkOrderNo" />
+                <ScalarProperty Name="AgreementNo" ColumnName="AgreementNo" />
+                <ScalarProperty Name="NameOfAgency" ColumnName="NameOfAgency" />
+                <ScalarProperty Name="FundHead" ColumnName="FundHead" />
+                <ScalarProperty Name="CostDiff" ColumnName="CostDiff" />
+                <ScalarProperty Name="SANDPercentage" ColumnName="SANDPercentage" />
+                <ScalarProperty Name="Royalty" ColumnName="Royalty" />
                 <ScalarProperty Name="SubWorkData" ColumnName="SubWorkData" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NameOfWork" ColumnName="NameOfWork" />
@@ -712,6 +773,8 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <EntitySetMapping Name="ItemDetails">
             <EntityTypeMapping TypeName="PWDCRMModel.ItemDetail">
               <MappingFragment StoreEntitySet="ItemDetails">
+                <ScalarProperty Name="FloorData" ColumnName="FloorData" />
+                <ScalarProperty Name="SubWorkID" ColumnName="SubWorkID" />
                 <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />

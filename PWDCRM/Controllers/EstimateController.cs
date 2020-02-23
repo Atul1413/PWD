@@ -61,8 +61,8 @@ namespace PWDCRM.Controllers
                     model.UpdatedOn = DateTime.Now;
                     dbContext.WorkDataDetails.AddOrUpdate(model); //requires using System.Data.Entity.Migrations;
                     dbContext.SaveChanges();
-
-                    return View("AddItem");
+                    return RedirectToAction("AddItem", "Controller", new { id = model.Id });
+                   // return View("AddItem");
                 }
             }
             catch (Exception ex)
@@ -72,13 +72,15 @@ namespace PWDCRM.Controllers
             return View();
         }
 
-        public ActionResult AddItem()
+        public ActionResult AddItem(int id)
         {
             var model = new List<ItemDetail>();
+            var getWorkdata = new WorkDataDetail();
             try
             {
                 using (var dbContext = new PWDCRMEntities())
                 {
+                    getWorkdata = dbContext.WorkDataDetails.Find(id);
                     var workData = dbContext.WorkDataDetails.ToList();
                     ViewData["workData"] = workData;
                     model = dbContext.ItemDetails.ToList();
@@ -87,9 +89,10 @@ namespace PWDCRM.Controllers
             }
             catch (Exception ex)
             {
+                getWorkdata = new WorkDataDetail();
                 ViewBag.Error = ex.Message.ToString();
             }
-            return View();
+            return View(getWorkdata);
         }
         [HttpPost]
         public JsonResult GetCategoryAutocomplete(string Chap)
@@ -192,6 +195,8 @@ namespace PWDCRM.Controllers
                     addIteam.Remarks = model.Remarks;
                     addIteam.CreatedOn = DateTime.Now.Date;
                     addIteam.UpdateOn = DateTime.Now.Date;
+                    addIteam.FloorData = model.FloorData;
+                    addIteam.SubWorkID = model.SubWorkID;
                     dbContext.ItemDetails.Add(model);
                     dbContext.SaveChanges();
 

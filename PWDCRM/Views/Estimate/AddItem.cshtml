@@ -1,11 +1,12 @@
 ﻿@using PWDCRM.Models
+@model WorkDataDetail
 @*@model List<ItemDetail>;*@
 @{
     ViewBag.Title = "AddItem";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
     var data = ViewData["workData"] as List<WorkDataDetail>;
     var dataList = ViewData["ItemDetail"] as List<ItemDetail>;
-    var count = 0;
+    var subDataCount = (Model != null ? Convert.ToInt32(Model.SubWorkData) : 0);
 }
 
 <style>
@@ -27,30 +28,54 @@
                     </a>
                 </div>
             </div>
+            <hr />
             <div class="box-body">
-
                 <div id="Grid">
                     <div class="row register-form">
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-2">
+                                    <label>@(Model != null ? Model.NameOfWork : "NA")</label>
+                                    <input type="hidden" id="txtWorkId" name="NameOfWork" value="@(Model!=null?Model.Id:0)" />
+                                    @*<select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
+                                            <option value="" class="hidden" selected disabled>Please select work data</option>
+                                            @foreach (var item in data)
+                                            {
+                                                if (count == 0)
+                                                {
+                                                    <option selected value="@item.Id">@item.NameOfWork</option>
+                                                }
+                                                else
+                                                {
+
+                                                    <option value="@item.Id">@item.NameOfWork</option>
+                                                }
+                                                count++;
+
+                                            }
+                                        </select>*@
+                                </div>
+                                <label class="col-md-1 col-form-label text-right">Sub Work</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" required="required" id="ddlWOD" name="WorkDataID">
-                                        <option value="" class="hidden" selected disabled>Please select work data</option>
-                                        @foreach (var item in data)
+                                    <select class="form-control" required="required" id="ddlSWOD" name="WorkDataID">
+                                        <option value="" class="hidden" selected disabled>Please select Sub work data</option>
+                                        @for (int i = 1; i <= subDataCount; i++)
                                         {
-                                            if (count == 0)
-                                            {
-                                                <option selected value="@item.Id">@item.NameOfWork</option>
-                                            }
-                                            else
-                                            {
-
-                                                <option value="@item.Id">@item.NameOfWork</option>
-                                            }
-                                            count++;
-
+                                    <option value="@i">Sub Work @i</option>
                                         }
+
+                                    </select>
+                                </div>
+                                <label class="col-md-1 col-form-label text-right">Floor</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" required="required" id="ddlFloor" name="WorkDataID">
+                                        <option value="" class="hidden" selected disabled>Please select floor</option>
+                                        @for (int i = 1; i <= subDataCount; i++)
+                                        {
+                                            <option value="Floor @i">Floor @i</option>
+                                        }
+
                                     </select>
                                 </div>
                             </div>
@@ -96,7 +121,7 @@
                                                 <th>Numbers</th>
                                                 <th>Length</th>
                                                 <th>Breadth/Width</th>
-                                                <th>Depth/Height</th>                                              
+                                                <th>Depth/Height</th>
                                                 <th>Qty.</th>
                                                 <th><a class="btn btn-sm btn-primary">Add New Iteam</a></th>
                                             </tr>
@@ -136,26 +161,26 @@
                                         </thead>
                                         <tbody>
                                             @*@if (dataList != null)
-                                            {
-                                                if (dataList.Count != 0)
                                                 {
-                                                    foreach (var item in dataList)
+                                                    if (dataList.Count != 0)
                                                     {
-                                                        <tr>
-                                                            <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
-                                                            <td>@item.ItemNo</td>
-                                                            <td>@item.Number</td>
-                                                            <td>@item.Length</td>
-                                                            <td>@item.BreadthWidth</td>
-                                                            <td>@item.DepthHeight</td>
-                                                            <td>@item.Qty</td>
-                                                            <td>@item.Remarks</td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
+                                                        foreach (var item in dataList)
+                                                        {
+                                                            <tr>
+                                                                <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
+                                                                <td>@item.ItemNo</td>
+                                                                <td>@item.Number</td>
+                                                                <td>@item.Length</td>
+                                                                <td>@item.BreadthWidth</td>
+                                                                <td>@item.DepthHeight</td>
+                                                                <td>@item.Qty</td>
+                                                                <td>@item.Remarks</td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     }
-                                                }
-                                            }*@
+                                                }*@
                                         </tbody>
                                     </table>
                                 </div>

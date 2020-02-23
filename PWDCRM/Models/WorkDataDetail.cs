@@ -28,5 +28,24 @@ namespace PWDCRM.Models
         public System.DateTime CreatedOn { get; set; }
         public System.DateTime UpdatedOn { get; set; }
         public string SubWorkData { get; set; }
+        public string Royalty { get; set; }
+        public string SANDPercentage { get; set; }
+        public string CostDiff { get; set; }
+        public string FundHead { get; set; }
+        public string NameOfAgency { get; set; }
+        public string AgreementNo { get; set; }
+        public string WorkOrderNo { get; set; }
+        public string TypeSAND { get; set; }
+        public string VAndQCPercentage { get; set; }
+        public string ElectricalINTPer { get; set; }
+        public string ElectricalExtPer { get; set; }
+        public string WaterSupply { get; set; }
+        public string AnyOthercharg1 { get; set; }
+        public string AnyOthercharg2 { get; set; }
+        public string LabourInsurance { get; set; }
+        public string GST { get; set; }
+        public string Contingencie { get; set; }
+        public string ServiceCharges { get; set; }
+        public string Tendered { get; set; }
     }
 }

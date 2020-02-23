@@ -26,5 +26,7 @@ namespace PWDCRM.Models
         public string Remarks { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdateOn { get; set; }
+        public Nullable<int> SubWorkID { get; set; }
+        public string FloorData { get; set; }
     }
 }

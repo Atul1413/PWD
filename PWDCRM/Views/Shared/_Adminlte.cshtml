@@ -52,6 +52,8 @@
     <!--AdminLTE-->
     <!-- jQuery 3 -->
     <script src="~/js/jquery-1.10.2.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>*@
+    @*<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>*@
     @*<script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>*@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/wwwroot/adminlte/components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -69,13 +71,15 @@
     @*<script src="~/wwwroot/adminlte/scripts/properties.js" type="text/javascript"></script>*@
     @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.min.js"></script>*@
     @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.unobtrusive.min.js"></script>*@
-    <script src="~/js/jquery.dataTables.js"></script>
+    @*<script src="~/js/jquery.dataTables.js"></script>*@
     <script src="~/js/angular/angular.min.js"></script>
     <script src="~/js/angular/angular-route.min.js"></script>
-    <script src="~/wwwroot/APIController/EstimateController.js"></script>
+
 
     <script src="~/js/jquery-ui.js"></script>
+    <script src="~/wwwroot/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
+    <script src="~/wwwroot/APIController/EstimateController.js"></script>
     <script type="text/javascript">
         //$(document).ready(function () {
         //    $('#BindtblWorkData').DataTable({
@@ -85,7 +89,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-              $("#addDivPer").hide();
+            $("#addDivPer").hide();
             var workIteam = $("#ddlWOD").val();
             GetAllWorkIteam(workIteam);
             //
@@ -233,7 +237,7 @@
         });
 
         $("#btnAdd").click(function () {
-            var nameOfWork = $("#ddlWOD").val();
+            var nameOfWork = $("#txtWorkId").val();
             var categoryTest = $("#Category").val();
             var aNOId = $("#ddlSSR").val();
             var iteamID = $("#IteamID").val();
@@ -245,11 +249,16 @@
             var qty = $("#txtQty").val();
             var remarks = $("#txtRemarks").val();
             var IsValid = 1;
-
+            var SubWODID = $("#ddlSWOD").val();
+            var FloorID = $("#ddlFloor").val();
             //  alert(iteamID);
-            if (nameOfWork == null) {
+            if (SubWODID == null) {
                 IsValid = 0;
-                alert("Please select name of work");
+                alert("Please select Sub work");
+            }
+            else if (FloorID == "") {
+                IsValid = 0;
+                alert("Please select floor");
             }
             else if (categoryTest == "") {
                 IsValid = 0;
@@ -275,6 +284,8 @@
                 var ItemDetail = {};
                 ItemDetail.ItemNo = iteamID;
                 ItemDetail.WorkDataID = nameOfWork;
+                ItemDetail.SubWorkID = SubWODID;
+                ItemDetail.FloorData = FloorID;
                 ItemDetail.Number = numbers;
                 ItemDetail.Length = length;
                 ItemDetail.BreadthWidth = breadthWidth;
@@ -341,7 +352,7 @@
 
         });
 
-        $("#TypeSAND").change(function () {
+        $("#ddlTypeSAND").change(function () {
             $("#addDivPer").hide();
             var getval = $(this).val();
             if (getval == "R.A. With Natural Sand And V.S.I Sand Ratio") {
