@@ -33,11 +33,9 @@
                             <h3>LEAD CHART</h3>
                         </div>
                     </div>
-
-
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
                         <table class="table table-hover table-responsive table-condensed">
                             <thead>
                                 <tr>
@@ -51,26 +49,37 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select class="form-control" required="" id="ddlMaterial" name="Select Material">
+                                        <select id="ddlmaterial" class="form-control" required name="Select Materail">
                                             <option value="" class="hidden" selected disabled>Select Material Type</option>
-                                            <option value="">Material 1</option>
-                                            <option value="" >Material 2</option>
-                                            <option value="">Material 3</option>
-                                            <option value="">Material 4</option>
+                                            <option value="materail1">Materail 1</option>
+                                            <option value="">Material 2</option>
+                                            <option value="">Materail 3</option>
+                                            <option value="">Materail 4</option>
                                         </select>
-                                    @*<input type="text" class="Material" name="Remarks" id="txtMaterial" /></td>*@
-                                    <td><input type="text" data-id="LeadinKM" class="inputClass mathFormula" required name="Number" id="txtLeadKm" /></td>
-                                    <td><input type="text" data-id="Source" class="inputClass mathFormula"  id="txtSourceOfLocation" /></td>
-                                    <td><input type="text" data-id="InitialLead" class="inputClass mathFormula" id="txtInitialLead" /></td>
-                                    <td><input type="text" data-id="remark" class="inputClass" id="txtRemarks" /></td>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtleadinKM" class="inputclass" required name="Lead in KM" />
+                                  
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtsourceOfMaterail"  class="inputclass" required name="source of materail"/>
 
-                                    <td><input type="button" class="btn btn-sm btn-default" value="Add" name="Add" id="btnAdd" /></td>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="txtinitialLead" class="inputclass" required name="initial lead in km" />
+                                    </td>
+                                    <td>
+                                        <input type="text" id="remark" class="inputclass" required name="remark" />
+                                    </td>
+                                    <td>
+                                        <button id="btnsubmit" class="btn btn-primary" name="Submit" onsubmit="">Submit</button>
+                                    </td>
                                 </tr>
+                               
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
