@@ -344,7 +344,8 @@ namespace PWDCRM.Controllers
                     addLeadCharges.ItemNo = ItemName;
                     addLeadCharges.CreatedOn = DateTime.Now;
                     addLeadCharges.UpdatedOn = DateTime.Now;
-                    dbContext.LeadCharges.Add(addLeadCharges);                   
+                    dbContext.LeadCharges.Add(addLeadCharges);
+                    dbContext.SaveChanges();
                 }
                 using (var dbContext = new PWDCRMEntities())
                 {

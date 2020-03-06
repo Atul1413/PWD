@@ -191,6 +191,7 @@
       <DependentUpon>PWDModel.edmx</DependentUpon>
       <LastGenOutput>PWDModel.cs</LastGenOutput>
     </Content>
+    <Content Include="NEWDB.sql" />
     <Content Include="Web.config" />
     <Content Include="wwwroot\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="wwwroot\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
