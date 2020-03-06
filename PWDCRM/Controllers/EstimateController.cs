@@ -231,9 +231,132 @@ namespace PWDCRM.Controllers
                 return Json("", JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult AddLeadCharges()
+        public ActionResult AddLeadCharges(int id)
         {
-            return View();
+            var workDataid = id;
+            var getWorkdata = new WorkDataDetail();
+            try
+            {
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    getWorkdata = dbContext.WorkDataDetails.Find(id);
+                    var getItemData = dbContext.ItemDetails.Select(s=>new LeadChargesVM { ItemNo=s.ItemNo,WorkDataID=s.WorkDataID }).Where(s => s.WorkDataID == workDataid).Distinct().ToList();
+                    ViewData["ItemData"] = getItemData;
+                }
+            }
+            catch (Exception ex)
+            {
+                getWorkdata = new WorkDataDetail();
+            }
+            return View(getWorkdata);
+        }
+
+        [HttpPost]
+        public JsonResult GetIteamMete(string itemNo)
+        {
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                var getIteamData = dbContext.ITEMS.Where(s => s.INO == itemNo).FirstOrDefault();
+                var MATERIAL = new List<string>();
+                if (getIteamData!=null)
+                {
+                    if (getIteamData.MAT1 != null)
+                        MATERIAL.Add(getIteamData.MAT1);
+                    if (getIteamData.MAT2 != null)
+                        MATERIAL.Add(getIteamData.MAT2);
+                    if (getIteamData.MAT3 != null)
+                        MATERIAL.Add(getIteamData.MAT3);
+                    if (getIteamData.MAT4 != null)
+                        MATERIAL.Add(getIteamData.MAT4);
+                    if (getIteamData.MAT5 != null)
+                        MATERIAL.Add(getIteamData.MAT5);
+                    if (getIteamData.MAT6 != null)
+                        MATERIAL.Add(getIteamData.MAT6);
+                    if (getIteamData.MAT7 != null)
+                        MATERIAL.Add(getIteamData.MAT7);
+                    if (getIteamData.MAT8 != null)
+                        MATERIAL.Add(getIteamData.MAT8);
+                }
+               
+                return Json(MATERIAL, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetmaterialDetail(string materialName)
+        {
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                var getData = dbContext.MATERIALs.Where(s => s.MATERIAL1 == materialName).FirstOrDefault();
+                var MATERIAL = new List<string>();
+                if (getData != null)
+                {
+                    MATERIAL.Add(getData.FACTOR.ToString());
+                    MATERIAL.Add(getData.MTYPE);                    
+                    var getLead = dbContext.LEAD_CHART.Where(s => s.KM == getData.FACTOR).FirstOrDefault();
+                    if(getLead != null)
+                    {
+                        if (getData.MTYPE == "MANUAL")
+                        {
+                            MATERIAL.Add(getLead.TCostManual.ToString());
+                        }                           
+                        else if(getData.MTYPE == "MACHINE")
+                        {
+                            MATERIAL.Add(getLead.TCostMachine.ToString());
+                        }
+                        else
+                        {
+                            MATERIAL.Add("NA");
+                        }
+                    }                   
+                }
+
+                return Json(MATERIAL, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AddLeadCharges(string ItemName, string Material,string LeadinKM,string SourceOfMaterail,string InitialLead,string Remark,int WorkId)
+        {
+            try
+            {
+                var list = new List<LeadCharge>();
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    var addLeadCharges = new LeadCharge();
+                    addLeadCharges.InitialLeadCharges = InitialLead;
+                    addLeadCharges.LeadInKM = LeadinKM;
+                    addLeadCharges.Material = Material;
+                    addLeadCharges.Source = SourceOfMaterail;
+                    addLeadCharges.Remarks = Remark;
+                    addLeadCharges.InitialLeadInKM = LeadinKM;
+                    addLeadCharges.WorkID = WorkId;
+                    addLeadCharges.ItemNo = ItemName;
+                    addLeadCharges.CreatedOn = DateTime.Now;
+                    addLeadCharges.UpdatedOn = DateTime.Now;
+                    dbContext.LeadCharges.Add(addLeadCharges);                   
+                }
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    list = dbContext.LeadCharges.Where(s => s.WorkID == WorkId).ToList();
+                }
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
         }
     }
+    
 }

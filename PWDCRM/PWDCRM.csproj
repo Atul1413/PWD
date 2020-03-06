@@ -7579,7 +7579,16 @@
     <Compile Include="Models\ItemDetail.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LeadCharge.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LEAD_CHART.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Lead_Statement.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MATERIAL.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MEASUREMENT.cs">
@@ -7611,6 +7620,7 @@
     </Compile>
     <Compile Include="Models\ViewModels\ItemNoVM.cs" />
     <Compile Include="Models\ViewModels\ItemVM.cs" />
+    <Compile Include="Models\ViewModels\LeadChargesVM.cs" />
     <Compile Include="Models\ViewModels\WorkDataRequest.cs" />
     <Compile Include="Models\WorkDataDetail.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>

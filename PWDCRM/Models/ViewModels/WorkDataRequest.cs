@@ -19,7 +19,7 @@ namespace PWDCRM.Models.ViewModels
         public string Message { get; set; }
         public List<WorkDataDetails> workDataList { get; set; }
     }
-    public class LeadCharges {
+    public class LeadChargest {
         public string Material { get; set; }
         public int LeadInKM { get; set; }
         public int Source { get; set; }

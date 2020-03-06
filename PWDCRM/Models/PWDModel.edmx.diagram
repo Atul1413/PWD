@@ -13,6 +13,9 @@
         <EntityTypeShape EntityType="PWDCRMModel.Rate_Analysis" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PWDCRMModel.ItemDetail" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="PWDCRMModel.SubWorkDataDetail" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="PWDCRMModel.MATERIAL" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PWDCRMModel.LEAD_CHART" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PWDCRMModel.LeadCharge" Width="1.5" PointX="9.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -72,16 +72,17 @@
     @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.min.js"></script>*@
     @*<script src="~/wwwroot/adminlte/scripts/jquery.validate.unobtrusive.min.js"></script>*@
     @*<script src="~/js/jquery.dataTables.js"></script>*@
-    <script src="~/js/angular/angular.min.js"></script>
     @*<script src="~/js/angular/angular.min.js"></script>*@
-    <script src="~/js/angular/angular-route.min.js"></script>
-    <script src="~/wwwroot/APIController/EstimateController.js"></script>
+    @*<script src="~/js/angular/angular.min.js"></script>*@
+    @*<script src="~/js/angular/angular-route.min.js"></script>
+        <script src="~/wwwroot/APIController/EstimateController.js"></script>*@
 
     <script src="~/js/jquery-ui.js"></script>
     @*<script src="~/wwwroot/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
-
+    <script src="~/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
+
         //$(document).ready(function () {
         //    $('#BindtblWorkData').DataTable({
 
@@ -360,6 +361,104 @@
                 alert("Please enter ratio of SAND:VSI Sand");
                 $("#addDivPer").show();
             }
+        });
+        /// Add Lead Chareges Page
+        $("#ddlItemName").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+                $("#ddlmaterial").empty();
+                $.ajax({
+                    url: "/Estimate/GetIteamMete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { itemNo: getVal },
+                    success: function (data) {
+                        console.log(data);
+                        var item = '<option value="" class="hidden" selected disabled>Please select material</option> ';
+                        if (data.length != 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                item += '<option value="' + data[i] + '">' + data[i] + '</option>';
+                            }
+                        }
+                        else {
+                            alert("material not avilable ");
+                        }
+                        $("#ddlmaterial").html(item);
+
+                    }
+                })
+            }
+        });
+         $("#ddlmaterial").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+                //$("#ddlmaterial").empty();
+                $.ajax({
+                    url: "/Estimate/GetmaterialDetail",
+                    type: "POST",
+                    dataType: "json",
+                    data: { materialName: getVal },
+                    success: function (data) {
+                        console.log(data);
+                        $("#txtleadinKM").val(data[0]);
+                        $("#txtsourceOfMaterail").val(data[1]);
+                        $("#txtinitialLead").val(data[2]);
+                    }
+                })
+            }
+         });
+
+        $("#btnSubmitMaterial").click(function () {
+            var ItemName = $("#ddlItemName").val();
+            var Material = $("#ddlmaterial").val();
+            var LeadinKM = $("#txtleadinKM").val();
+            var SourceOfMaterail = $("#txtsourceOfMaterail").val();
+            var InitialLead = $("#txtinitialLead").val();
+            var workID = $("#txtWorkIdLead").val();
+            var Remark = $("#remark").val();
+            if (ItemName == null) {
+                alert("Please select item no");
+            }
+            else if (Material == null) {
+                alert("Please select material");
+            }
+            else if (LeadinKM == "") {
+                alert("Please enter lead in KM ");
+            }
+            else if (SourceOfMaterail == "") {
+                alert("Please enter Source Of materail ");
+            }
+            else if (InitialLead == "") {
+                alert("Please enter Initial Lead ");
+            }
+            else if (Remark == "") {
+                alert("Please enter remark ");
+            }
+            else {
+                //
+                $.ajax({
+                    url: "/Estimate/AddLeadCharges",
+                    type: "POST",
+                    dataType: "json",
+                    data: { ItemName: ItemName,Material:Material,LeadinKM:LeadinKM,SourceOfMaterail:SourceOfMaterail,InitialLead:InitialLead,Remark:Remark,WorkId:workID },
+                    success: function (data) {
+                       $("#tblListLeadCharges tbody").empty();
+                            var item = '';
+                            for (var i = 0; i < data.length; i++) {
+                                item += '<tr> <th>'+data[i].Id+'</th> <th>'+data[i].ItemNo+'</th> <th>'+data[i].Material+'</th> <th>'+data[i].LeadInKM+'</th> <th>'+data[i].Source+'</th> <th>'+data[i].InitialLeadInKM+'</th> <th>'+data[i].Remarks+'</th> </tr>';
+                            }
+                            $("#tblListLeadCharges tbody").html(item);                   
+                    }
+                })
+                //
+            }            
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bindtblWorkData').DataTable();
+            $('#tblListLeadCharges').DataTable();
         });
     </script>
     @RenderSection("Scripts", required: false)

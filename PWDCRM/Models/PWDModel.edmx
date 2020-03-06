@@ -67,6 +67,15 @@ warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defi
           <Property Name="SCADAPer" Type="float" />
           <Property Name="Plastic" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="LEAD_CHART">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="float" Nullable="false" />
+          <Property Name="KM" Type="float" />
+          <Property Name="TCostMachine" Type="float" />
+          <Property Name="TCostManual" Type="float" />
+        </EntityType>
         <EntityType Name="Lead_Statement">
           <Key>
             <PropertyRef Name="ID" />
@@ -79,6 +88,34 @@ warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defi
           <Property Name="Total_Lead" Type="int" />
           <Property Name="Lead_Charges" Type="int" />
           <Property Name="Remarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LeadCharges">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkID" Type="int" />
+          <Property Name="ItemNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Material" Type="nvarchar" MaxLength="255" />
+          <Property Name="Source" Type="nvarchar" MaxLength="50" />
+          <Property Name="LeadInKM" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalLeadCharges" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialLeadInKM" Type="nvarchar" MaxLength="50" />
+          <Property Name="InitialLeadCharges" Type="nvarchar" MaxLength="50" />
+          <Property Name="NetLeadCharges" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="float" Nullable="false" />
+          <Property Name="MATERIAL" Type="nvarchar" MaxLength="255" />
+          <Property Name="FACTOR" Type="float" />
+          <Property Name="MTYPE" Type="nvarchar" MaxLength="255" />
+          <Property Name="ROY" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="MEASUREMENTS">
           <Key>
@@ -229,7 +266,10 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
         </EntityType>
         <EntityContainer Name="PWDCRMModelStoreContainer">
           <EntitySet Name="ItemDetails" EntityType="Self.ItemDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LEAD_CHART" EntityType="Self.LEAD_CHART" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeadCharges" EntityType="Self.LeadCharges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubWorkDataDetails" EntityType="Self.SubWorkDataDetails" Schema="dbo" store:Type="Tables" />
@@ -539,6 +579,9 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <EntitySet Name="Rate_Analysis" EntityType="Self.Rate_Analysis" />
           <EntitySet Name="ItemDetails" EntityType="PWDCRMModel.ItemDetail" />
           <EntitySet Name="SubWorkDataDetails" EntityType="PWDCRMModel.SubWorkDataDetail" />
+          <EntitySet Name="MATERIALs" EntityType="PWDCRMModel.MATERIAL" />
+          <EntitySet Name="LEAD_CHART" EntityType="PWDCRMModel.LEAD_CHART" />
+          <EntitySet Name="LeadCharges" EntityType="PWDCRMModel.LeadCharge" />
         </EntityContainer>
         <EntityType Name="ItemDetail">
           <Key>
@@ -568,6 +611,43 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="SubWorkDescripation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="Double" Nullable="false" />
+          <Property Name="MATERIAL1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FACTOR" Type="Double" />
+          <Property Name="MTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ROY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LEAD_CHART">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="Double" Nullable="false" />
+          <Property Name="KM" Type="Double" />
+          <Property Name="TCostMachine" Type="Double" />
+          <Property Name="TCostManual" Type="Double" />
+        </EntityType>
+        <EntityType Name="LeadCharge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkID" Type="Int32" />
+          <Property Name="ItemNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Material" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InitialLeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InitialLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NetLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -798,6 +878,46 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
                 <ScalarProperty Name="SubWorkDescripation" ColumnName="SubWorkDescripation" />
                 <ScalarProperty Name="SubWorkDataName" ColumnName="SubWorkDataName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATERIALs">
+            <EntityTypeMapping TypeName="PWDCRMModel.MATERIAL">
+              <MappingFragment StoreEntitySet="MATERIAL">
+                <ScalarProperty Name="ROY" ColumnName="ROY" />
+                <ScalarProperty Name="MTYPE" ColumnName="MTYPE" />
+                <ScalarProperty Name="FACTOR" ColumnName="FACTOR" />
+                <ScalarProperty Name="MATERIAL1" ColumnName="MATERIAL" />
+                <ScalarProperty Name="SR_NO" ColumnName="SR_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LEAD_CHART">
+            <EntityTypeMapping TypeName="PWDCRMModel.LEAD_CHART">
+              <MappingFragment StoreEntitySet="LEAD_CHART">
+                <ScalarProperty Name="TCostManual" ColumnName="TCostManual" />
+                <ScalarProperty Name="TCostMachine" ColumnName="TCostMachine" />
+                <ScalarProperty Name="KM" ColumnName="KM" />
+                <ScalarProperty Name="SR_NO" ColumnName="SR_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeadCharges">
+            <EntityTypeMapping TypeName="PWDCRMModel.LeadCharge">
+              <MappingFragment StoreEntitySet="LeadCharges">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="NetLeadCharges" ColumnName="NetLeadCharges" />
+                <ScalarProperty Name="InitialLeadCharges" ColumnName="InitialLeadCharges" />
+                <ScalarProperty Name="InitialLeadInKM" ColumnName="InitialLeadInKM" />
+                <ScalarProperty Name="TotalLeadCharges" ColumnName="TotalLeadCharges" />
+                <ScalarProperty Name="LeadInKM" ColumnName="LeadInKM" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="WorkID" ColumnName="WorkID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

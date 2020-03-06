@@ -33,5 +33,8 @@ namespace PWDCRM.Models
         public virtual DbSet<Rate_Analysis> Rate_Analysis { get; set; }
         public virtual DbSet<ItemDetail> ItemDetails { get; set; }
         public virtual DbSet<SubWorkDataDetail> SubWorkDataDetails { get; set; }
+        public virtual DbSet<MATERIAL> MATERIALs { get; set; }
+        public virtual DbSet<LEAD_CHART> LEAD_CHART { get; set; }
+        public virtual DbSet<LeadCharge> LeadCharges { get; set; }
     }
 }
