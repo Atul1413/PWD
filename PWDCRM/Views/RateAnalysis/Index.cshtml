@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Rate Analysis";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var MaterialCount = 5;
+}
+<style>
+    table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+</style>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("WorkData", "Estimate")">
+                        Go Estimate List
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="Grid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-2">
+                                    <label>@(Model != null ? Model.NameOfWork : "NA")</label>
+                                    <input type="hidden" id="txtWorkIdLead" name="WorkIdLead" value="@(Model!=null?Convert.ToInt32(Model.Id):0)" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-heading dt-head-center">
+                                <h3>Rate Analysis</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table table-hover table-responsive table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Item in Short</th>
+                                        <th>Item No</th>
+                                        <th>Complited Rate</th>
+                                        @for (int i = 1; i <= MaterialCount; i++)
+                                        {
+                                            <th>MAT-@i</th>
+                                            <th>Unit Com</th>
+                                            <th>Lead CH</th>
+                                        }
+                                        <th>Total Lead Charges</th>
+                                        <th>Diff Of Rate</th>
+                                        <th>Royalty charges</th>
+                                        <th>Area Charges</th>
+                                        <th>Other Ch1 </th>
+                                        <th>Other Ch2 </th>
+                                        <th>Total Rate</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> 1</td>
+                                        <td> kdja</td>
+                                        <td>ajsd </td>
+                                        <td>asjdk </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>asjdk </td>
+                                        <td>sahdk </td>
+                                        <td>asdhkj </td>
+                                        <td> asdhjk</td>
+                                        <td><input type="text" class="form-control getOtherCharger1" name="OtherCharger1"/></td>
+                                        <td> <input type="text" class="form-control getOtherCharger2" name="OtherCharger2" /></td>
+                                        <td>hdsfj</td>
+                                    </tr>
+                                    <tr>
+                                        <td> 2</td>
+                                        <td> kdja</td>
+                                        <td>ajsd </td>
+                                        <td>asjdk </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>asjdk </td>
+                                        <td>sahdk </td>
+                                        <td>asdhkj </td>
+                                        <td> asdhjk</td>
+                                        <td><input type="text" class="form-control getOtherCharger1" name="OtherCharger1" /></td>
+                                        <td> <input type="text" class="form-control getOtherCharger2" name="OtherCharger2" /></td>
+                                        <td>hdsfj</td>
+                                    </tr>
+                                    <tr>
+                                        <td> 1</td>
+                                        <td> kdja</td>
+                                        <td>ajsd </td>
+                                        <td>asjdk </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>ansdk </td>
+                                        <td>sjd </td>
+                                        <td> ajsd</td>
+                                        <td>ajsdkj </td>
+                                        <td>jakds </td>
+                                        <td>asjdk </td>
+                                        <td>sahdk </td>
+                                        <td>asdhkj </td>
+                                        <td> asdhjk</td>
+                                        <td><input type="text" class="form-control getOtherCharger1" name="OtherCharger1" /></td>
+                                        <td> <input type="text" class="form-control getOtherCharger2" name="OtherCharger2" /></td>
+                                        <td>hdsfj</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

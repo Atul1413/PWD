@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PWDCRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DMAT">
+          <Key>
+            <PropertyRef Name="SNO" />
+          </Key>
+          <Property Name="SNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MCAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="MAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rate" Type="float" />
+          <Property Name="OSMANABAD" Type="float" />
+          <Property Name="LATUR" Type="float" />
+          <Property Name="BEED" Type="float" />
+        </EntityType>
         <EntityType Name="ItemDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,13 +36,11 @@
           <Property Name="SubWorkID" Type="int" />
           <Property Name="FloorData" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ITEMS">
           <Key>
-            <PropertyRef Name="SCADA" />
+            <PropertyRef Name="ANO" />
           </Key>
-          <Property Name="ANO" Type="float" />
+          <Property Name="ANO" Type="int" Nullable="false" />
           <Property Name="SrNO" Type="float" />
           <Property Name="Chap" Type="nvarchar" MaxLength="255" />
           <Property Name="INO" Type="nvarchar" MaxLength="255" />
@@ -106,6 +116,10 @@ warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defi
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="SSRRate" Type="nvarchar" MaxLength="255" />
+          <Property Name="CurrentDiff" Type="nvarchar" MaxLength="255" />
+          <Property Name="DiffofRate" Type="nvarchar" MaxLength="255" />
+          <Property Name="SourceOfMaterial" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="MATERIAL">
           <Key>
@@ -151,8 +165,6 @@ warning 6002: The table/view 'PWDCRM.dbo.ITEMS' does not have a primary key defi
           <Property Name="Region" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="CE" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Rate_Analysis">
           <Key>
             <PropertyRef Name="ID" />
@@ -265,117 +277,18 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="Tendered" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="PWDCRMModelStoreContainer">
+          <EntitySet Name="DMAT" EntityType="Self.DMAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemDetails" EntityType="Self.ItemDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ITEMS" EntityType="Self.ITEMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LEAD_CHART" EntityType="Self.LEAD_CHART" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeadCharges" EntityType="Self.LeadCharges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate_Analysis" EntityType="Self.Rate_Analysis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubWorkDataDetails" EntityType="Self.SubWorkDataDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkDataDetails" EntityType="Self.WorkDataDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ITEMS" EntityType="Self.ITEMS" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ITEMS].[ANO] AS [ANO], 
-    [ITEMS].[SrNO] AS [SrNO], 
-    [ITEMS].[Chap] AS [Chap], 
-    [ITEMS].[INO] AS [INO], 
-    [ITEMS].[PgNo] AS [PgNo], 
-    [ITEMS].[CAT] AS [CAT], 
-    [ITEMS].[Ref] AS [Ref], 
-    [ITEMS].[DESCRIP] AS [DESCRIP], 
-    [ITEMS].[Spec] AS [Spec], 
-    [ITEMS].[UnitF] AS [UnitF], 
-    [ITEMS].[UnitS] AS [UnitS], 
-    [ITEMS].[CompRate] AS [CompRate], 
-    [ITEMS].[LRate] AS [LRate], 
-    [ITEMS].[MAT1] AS [MAT1], 
-    [ITEMS].[MAT2] AS [MAT2], 
-    [ITEMS].[MAT3] AS [MAT3], 
-    [ITEMS].[MAT4] AS [MAT4], 
-    [ITEMS].[MAT5] AS [MAT5], 
-    [ITEMS].[MAT6] AS [MAT6], 
-    [ITEMS].[MAT7] AS [MAT7], 
-    [ITEMS].[MAT8] AS [MAT8], 
-    [ITEMS].[RATE1] AS [RATE1], 
-    [ITEMS].[RATE2] AS [RATE2], 
-    [ITEMS].[RATE3] AS [RATE3], 
-    [ITEMS].[RATE4] AS [RATE4], 
-    [ITEMS].[RATE5] AS [RATE5], 
-    [ITEMS].[RATE6] AS [RATE6], 
-    [ITEMS].[RATE7] AS [RATE7], 
-    [ITEMS].[RATE8] AS [RATE8], 
-    [ITEMS].[XCelX] AS [XCelX], 
-    [ITEMS].[XcelY] AS [XcelY], 
-    [ITEMS].[XLPath] AS [XLPath], 
-    [ITEMS].[RATYPE] AS [RATYPE], 
-    [ITEMS].[SCADA] AS [SCADA], 
-    [ITEMS].[SCADAPer] AS [SCADAPer], 
-    [ITEMS].[Plastic] AS [Plastic]
-    FROM [dbo].[ITEMS] AS [ITEMS]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Rate_Analysis" EntityType="Self.Rate_Analysis" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Rate_Analysis].[ID] AS [ID], 
-    [Rate_Analysis].[SSR] AS [SSR], 
-    [Rate_Analysis].[Item_No] AS [Item_No], 
-    [Rate_Analysis].[Item_Description] AS [Item_Description], 
-    [Rate_Analysis].[Basic_Rates] AS [Basic_Rates], 
-    [Rate_Analysis].[Unit] AS [Unit], 
-    [Rate_Analysis].[Area] AS [Area], 
-    [Rate_Analysis].[Area_Percentage] AS [Area_Percentage], 
-    [Rate_Analysis].[Area_Charges] AS [Area_Charges], 
-    [Rate_Analysis].[Sub_Total] AS [Sub_Total], 
-    [Rate_Analysis].[Material1] AS [Material1], 
-    [Rate_Analysis].[Quantity1] AS [Quantity1], 
-    [Rate_Analysis].[Lead1] AS [Lead1], 
-    [Rate_Analysis].[Lead_Charges1] AS [Lead_Charges1], 
-    [Rate_Analysis].[Material2] AS [Material2], 
-    [Rate_Analysis].[Quantity2] AS [Quantity2], 
-    [Rate_Analysis].[Lead2] AS [Lead2], 
-    [Rate_Analysis].[Lead_Charges2] AS [Lead_Charges2], 
-    [Rate_Analysis].[Material3] AS [Material3], 
-    [Rate_Analysis].[Quantity3] AS [Quantity3], 
-    [Rate_Analysis].[Lead3] AS [Lead3], 
-    [Rate_Analysis].[Lead_Charges3] AS [Lead_Charges3], 
-    [Rate_Analysis].[Material4] AS [Material4], 
-    [Rate_Analysis].[Quantity4] AS [Quantity4], 
-    [Rate_Analysis].[Lead4] AS [Lead4], 
-    [Rate_Analysis].[Lead_Charges4] AS [Lead_Charges4], 
-    [Rate_Analysis].[Material5] AS [Material5], 
-    [Rate_Analysis].[Quantity5] AS [Quantity5], 
-    [Rate_Analysis].[Lead5] AS [Lead5], 
-    [Rate_Analysis].[Lead_Charges5] AS [Lead_Charges5], 
-    [Rate_Analysis].[Material6] AS [Material6], 
-    [Rate_Analysis].[Quantity6] AS [Quantity6], 
-    [Rate_Analysis].[Lead6] AS [Lead6], 
-    [Rate_Analysis].[Lead_Charges6] AS [Lead_Charges6], 
-    [Rate_Analysis].[Material7] AS [Material7], 
-    [Rate_Analysis].[Lead7] AS [Lead7], 
-    [Rate_Analysis].[Lead_Charges7] AS [Lead_Charges7], 
-    [Rate_Analysis].[Material8] AS [Material8], 
-    [Rate_Analysis].[Quantity8] AS [Quantity8], 
-    [Rate_Analysis].[Lead8] AS [Lead8], 
-    [Rate_Analysis].[Lead_Charges8] AS [Lead_Charges8], 
-    [Rate_Analysis].[Material9] AS [Material9], 
-    [Rate_Analysis].[Quantity9] AS [Quantity9], 
-    [Rate_Analysis].[Lead9] AS [Lead9], 
-    [Rate_Analysis].[Lead_Charges9] AS [Lead_Charges9], 
-    [Rate_Analysis].[Material10] AS [Material10], 
-    [Rate_Analysis].[Quantity10] AS [Quantity10], 
-    [Rate_Analysis].[Lead10] AS [Lead10], 
-    [Rate_Analysis].[Lead_Charges10] AS [Lead_Charges10], 
-    [Rate_Analysis].[Total_Lead_Charges] AS [Total_Lead_Charges], 
-    [Rate_Analysis].[Royalty] AS [Royalty], 
-    [Rate_Analysis].[Royalty_charges] AS [Royalty_charges], 
-    [Rate_Analysis].[Other] AS [Other], 
-    [Rate_Analysis].[Other_Charges] AS [Other_Charges], 
-    [Rate_Analysis].[Other1] AS [Other1], 
-    [Rate_Analysis].[Other_Charges1] AS [Other_Charges1], 
-    [Rate_Analysis].[Completed_Rate] AS [Completed_Rate], 
-    [Rate_Analysis].[Remarks] AS [Remarks]
-    FROM [dbo].[Rate_Analysis] AS [Rate_Analysis]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -466,11 +379,107 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="ServiceCharges" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Tendered" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="PWDCRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" />
+          <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENT" />
+          <EntitySet Name="Offices" EntityType="Self.Office" />
+          <EntitySet Name="WorkDataDetails" EntityType="Self.WorkDataDetail" />
+          <EntitySet Name="ItemDetails" EntityType="PWDCRMModel.ItemDetail" />
+          <EntitySet Name="SubWorkDataDetails" EntityType="PWDCRMModel.SubWorkDataDetail" />
+          <EntitySet Name="MATERIALs" EntityType="PWDCRMModel.MATERIAL" />
+          <EntitySet Name="LEAD_CHART" EntityType="PWDCRMModel.LEAD_CHART" />
+          <EntitySet Name="LeadCharges" EntityType="PWDCRMModel.LeadCharge" />
+          <EntitySet Name="DMATs" EntityType="PWDCRMModel.DMAT" />
+          <EntitySet Name="ITEMS" EntityType="PWDCRMModel.ITEM" />
+          <EntitySet Name="Rate_Analysis" EntityType="PWDCRMModel.Rate_Analysis" />
+        </EntityContainer>
+        <EntityType Name="ItemDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkDataID" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Length" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BreadthWidth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepthHeight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GeometricalFormulas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="SubWorkID" Type="Int32" />
+          <Property Name="FloorData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SubWorkDataDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SubWorkDataName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubWorkDescripation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="Double" Nullable="false" />
+          <Property Name="MATERIAL1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FACTOR" Type="Double" />
+          <Property Name="MTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ROY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LEAD_CHART">
+          <Key>
+            <PropertyRef Name="SR_NO" />
+          </Key>
+          <Property Name="SR_NO" Type="Double" Nullable="false" />
+          <Property Name="KM" Type="Double" />
+          <Property Name="TCostMachine" Type="Double" />
+          <Property Name="TCostManual" Type="Double" />
+        </EntityType>
+        <EntityType Name="LeadCharge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkID" Type="Int32" />
+          <Property Name="ItemNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Material" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InitialLeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InitialLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NetLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="SSRRate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDiff" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DiffofRate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SourceOfMaterial" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DMAT">
+          <Key>
+            <PropertyRef Name="SNO" />
+          </Key>
+          <Property Name="SNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MCAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Rate" Type="Double" />
+          <Property Name="OSMANABAD" Type="Double" />
+          <Property Name="LATUR" Type="Double" />
+          <Property Name="BEED" Type="Double" />
+        </EntityType>
         <EntityType Name="ITEM">
           <Key>
-            <PropertyRef Name="SCADA" />
+            <PropertyRef Name="ANO" />
           </Key>
-          <Property Name="ANO" Type="Double" />
+          <Property Name="ANO" Type="Int32" Nullable="false" />
           <Property Name="SrNO" Type="Double" />
           <Property Name="Chap" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="INO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -570,85 +579,6 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <Property Name="Completed_Rate" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="PWDCRMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" />
-          <EntitySet Name="MEASUREMENTS" EntityType="Self.MEASUREMENT" />
-          <EntitySet Name="Offices" EntityType="Self.Office" />
-          <EntitySet Name="WorkDataDetails" EntityType="Self.WorkDataDetail" />
-          <EntitySet Name="ITEMS" EntityType="Self.ITEM" />
-          <EntitySet Name="Rate_Analysis" EntityType="Self.Rate_Analysis" />
-          <EntitySet Name="ItemDetails" EntityType="PWDCRMModel.ItemDetail" />
-          <EntitySet Name="SubWorkDataDetails" EntityType="PWDCRMModel.SubWorkDataDetail" />
-          <EntitySet Name="MATERIALs" EntityType="PWDCRMModel.MATERIAL" />
-          <EntitySet Name="LEAD_CHART" EntityType="PWDCRMModel.LEAD_CHART" />
-          <EntitySet Name="LeadCharges" EntityType="PWDCRMModel.LeadCharge" />
-        </EntityContainer>
-        <EntityType Name="ItemDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkDataID" Type="Int32" Nullable="false" />
-          <Property Name="ItemNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Length" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BreadthWidth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DepthHeight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GeometricalFormulas" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Qty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
-          <Property Name="SubWorkID" Type="Int32" />
-          <Property Name="FloorData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SubWorkDataDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="SubWorkDataName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SubWorkDescripation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="MATERIAL">
-          <Key>
-            <PropertyRef Name="SR_NO" />
-          </Key>
-          <Property Name="SR_NO" Type="Double" Nullable="false" />
-          <Property Name="MATERIAL1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="FACTOR" Type="Double" />
-          <Property Name="MTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ROY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="LEAD_CHART">
-          <Key>
-            <PropertyRef Name="SR_NO" />
-          </Key>
-          <Property Name="SR_NO" Type="Double" Nullable="false" />
-          <Property Name="KM" Type="Double" />
-          <Property Name="TCostMachine" Type="Double" />
-          <Property Name="TCostManual" Type="Double" />
-        </EntityType>
-        <EntityType Name="LeadCharge">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkID" Type="Int32" />
-          <Property Name="ItemNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Material" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TotalLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InitialLeadInKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InitialLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NetLeadCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -744,112 +674,6 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ITEMS">
-            <EntityTypeMapping TypeName="PWDCRMModel.ITEM">
-              <MappingFragment StoreEntitySet="ITEMS">
-                <ScalarProperty Name="ANO" ColumnName="ANO" />
-                <ScalarProperty Name="SrNO" ColumnName="SrNO" />
-                <ScalarProperty Name="Chap" ColumnName="Chap" />
-                <ScalarProperty Name="INO" ColumnName="INO" />
-                <ScalarProperty Name="PgNo" ColumnName="PgNo" />
-                <ScalarProperty Name="CAT" ColumnName="CAT" />
-                <ScalarProperty Name="Ref" ColumnName="Ref" />
-                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
-                <ScalarProperty Name="Spec" ColumnName="Spec" />
-                <ScalarProperty Name="UnitF" ColumnName="UnitF" />
-                <ScalarProperty Name="UnitS" ColumnName="UnitS" />
-                <ScalarProperty Name="CompRate" ColumnName="CompRate" />
-                <ScalarProperty Name="LRate" ColumnName="LRate" />
-                <ScalarProperty Name="MAT1" ColumnName="MAT1" />
-                <ScalarProperty Name="MAT2" ColumnName="MAT2" />
-                <ScalarProperty Name="MAT3" ColumnName="MAT3" />
-                <ScalarProperty Name="MAT4" ColumnName="MAT4" />
-                <ScalarProperty Name="MAT5" ColumnName="MAT5" />
-                <ScalarProperty Name="MAT6" ColumnName="MAT6" />
-                <ScalarProperty Name="MAT7" ColumnName="MAT7" />
-                <ScalarProperty Name="MAT8" ColumnName="MAT8" />
-                <ScalarProperty Name="RATE1" ColumnName="RATE1" />
-                <ScalarProperty Name="RATE2" ColumnName="RATE2" />
-                <ScalarProperty Name="RATE3" ColumnName="RATE3" />
-                <ScalarProperty Name="RATE4" ColumnName="RATE4" />
-                <ScalarProperty Name="RATE5" ColumnName="RATE5" />
-                <ScalarProperty Name="RATE6" ColumnName="RATE6" />
-                <ScalarProperty Name="RATE7" ColumnName="RATE7" />
-                <ScalarProperty Name="RATE8" ColumnName="RATE8" />
-                <ScalarProperty Name="XCelX" ColumnName="XCelX" />
-                <ScalarProperty Name="XcelY" ColumnName="XcelY" />
-                <ScalarProperty Name="XLPath" ColumnName="XLPath" />
-                <ScalarProperty Name="RATYPE" ColumnName="RATYPE" />
-                <ScalarProperty Name="SCADA" ColumnName="SCADA" />
-                <ScalarProperty Name="SCADAPer" ColumnName="SCADAPer" />
-                <ScalarProperty Name="Plastic" ColumnName="Plastic" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rate_Analysis">
-            <EntityTypeMapping TypeName="PWDCRMModel.Rate_Analysis">
-              <MappingFragment StoreEntitySet="Rate_Analysis">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SSR" ColumnName="SSR" />
-                <ScalarProperty Name="Item_No" ColumnName="Item_No" />
-                <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
-                <ScalarProperty Name="Basic_Rates" ColumnName="Basic_Rates" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Area_Percentage" ColumnName="Area_Percentage" />
-                <ScalarProperty Name="Area_Charges" ColumnName="Area_Charges" />
-                <ScalarProperty Name="Sub_Total" ColumnName="Sub_Total" />
-                <ScalarProperty Name="Material1" ColumnName="Material1" />
-                <ScalarProperty Name="Quantity1" ColumnName="Quantity1" />
-                <ScalarProperty Name="Lead1" ColumnName="Lead1" />
-                <ScalarProperty Name="Lead_Charges1" ColumnName="Lead_Charges1" />
-                <ScalarProperty Name="Material2" ColumnName="Material2" />
-                <ScalarProperty Name="Quantity2" ColumnName="Quantity2" />
-                <ScalarProperty Name="Lead2" ColumnName="Lead2" />
-                <ScalarProperty Name="Lead_Charges2" ColumnName="Lead_Charges2" />
-                <ScalarProperty Name="Material3" ColumnName="Material3" />
-                <ScalarProperty Name="Quantity3" ColumnName="Quantity3" />
-                <ScalarProperty Name="Lead3" ColumnName="Lead3" />
-                <ScalarProperty Name="Lead_Charges3" ColumnName="Lead_Charges3" />
-                <ScalarProperty Name="Material4" ColumnName="Material4" />
-                <ScalarProperty Name="Quantity4" ColumnName="Quantity4" />
-                <ScalarProperty Name="Lead4" ColumnName="Lead4" />
-                <ScalarProperty Name="Lead_Charges4" ColumnName="Lead_Charges4" />
-                <ScalarProperty Name="Material5" ColumnName="Material5" />
-                <ScalarProperty Name="Quantity5" ColumnName="Quantity5" />
-                <ScalarProperty Name="Lead5" ColumnName="Lead5" />
-                <ScalarProperty Name="Lead_Charges5" ColumnName="Lead_Charges5" />
-                <ScalarProperty Name="Material6" ColumnName="Material6" />
-                <ScalarProperty Name="Quantity6" ColumnName="Quantity6" />
-                <ScalarProperty Name="Lead6" ColumnName="Lead6" />
-                <ScalarProperty Name="Lead_Charges6" ColumnName="Lead_Charges6" />
-                <ScalarProperty Name="Material7" ColumnName="Material7" />
-                <ScalarProperty Name="Lead7" ColumnName="Lead7" />
-                <ScalarProperty Name="Lead_Charges7" ColumnName="Lead_Charges7" />
-                <ScalarProperty Name="Material8" ColumnName="Material8" />
-                <ScalarProperty Name="Quantity8" ColumnName="Quantity8" />
-                <ScalarProperty Name="Lead8" ColumnName="Lead8" />
-                <ScalarProperty Name="Lead_Charges8" ColumnName="Lead_Charges8" />
-                <ScalarProperty Name="Material9" ColumnName="Material9" />
-                <ScalarProperty Name="Quantity9" ColumnName="Quantity9" />
-                <ScalarProperty Name="Lead9" ColumnName="Lead9" />
-                <ScalarProperty Name="Lead_Charges9" ColumnName="Lead_Charges9" />
-                <ScalarProperty Name="Material10" ColumnName="Material10" />
-                <ScalarProperty Name="Quantity10" ColumnName="Quantity10" />
-                <ScalarProperty Name="Lead10" ColumnName="Lead10" />
-                <ScalarProperty Name="Lead_Charges10" ColumnName="Lead_Charges10" />
-                <ScalarProperty Name="Total_Lead_Charges" ColumnName="Total_Lead_Charges" />
-                <ScalarProperty Name="Royalty" ColumnName="Royalty" />
-                <ScalarProperty Name="Royalty_charges" ColumnName="Royalty_charges" />
-                <ScalarProperty Name="Other" ColumnName="Other" />
-                <ScalarProperty Name="Other_Charges" ColumnName="Other_Charges" />
-                <ScalarProperty Name="Other1" ColumnName="Other1" />
-                <ScalarProperty Name="Other_Charges1" ColumnName="Other_Charges1" />
-                <ScalarProperty Name="Completed_Rate" ColumnName="Completed_Rate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ItemDetails">
             <EntityTypeMapping TypeName="PWDCRMModel.ItemDetail">
               <MappingFragment StoreEntitySet="ItemDetails">
@@ -905,6 +729,10 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
           <EntitySetMapping Name="LeadCharges">
             <EntityTypeMapping TypeName="PWDCRMModel.LeadCharge">
               <MappingFragment StoreEntitySet="LeadCharges">
+                <ScalarProperty Name="SourceOfMaterial" ColumnName="SourceOfMaterial" />
+                <ScalarProperty Name="DiffofRate" ColumnName="DiffofRate" />
+                <ScalarProperty Name="CurrentDiff" ColumnName="CurrentDiff" />
+                <ScalarProperty Name="SSRRate" ColumnName="SSRRate" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
@@ -918,6 +746,125 @@ warning 6002: The table/view 'PWDCRM.dbo.Rate_Analysis' does not have a primary 
                 <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
                 <ScalarProperty Name="WorkID" ColumnName="WorkID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DMATs">
+            <EntityTypeMapping TypeName="PWDCRMModel.DMAT">
+              <MappingFragment StoreEntitySet="DMAT">
+                <ScalarProperty Name="BEED" ColumnName="BEED" />
+                <ScalarProperty Name="LATUR" ColumnName="LATUR" />
+                <ScalarProperty Name="OSMANABAD" ColumnName="OSMANABAD" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="MAT" ColumnName="MAT" />
+                <ScalarProperty Name="MCAT" ColumnName="MCAT" />
+                <ScalarProperty Name="SNO" ColumnName="SNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEMS">
+            <EntityTypeMapping TypeName="PWDCRMModel.ITEM">
+              <MappingFragment StoreEntitySet="ITEMS">
+                <ScalarProperty Name="Plastic" ColumnName="Plastic" />
+                <ScalarProperty Name="SCADAPer" ColumnName="SCADAPer" />
+                <ScalarProperty Name="SCADA" ColumnName="SCADA" />
+                <ScalarProperty Name="RATYPE" ColumnName="RATYPE" />
+                <ScalarProperty Name="XLPath" ColumnName="XLPath" />
+                <ScalarProperty Name="XcelY" ColumnName="XcelY" />
+                <ScalarProperty Name="XCelX" ColumnName="XCelX" />
+                <ScalarProperty Name="RATE8" ColumnName="RATE8" />
+                <ScalarProperty Name="RATE7" ColumnName="RATE7" />
+                <ScalarProperty Name="RATE6" ColumnName="RATE6" />
+                <ScalarProperty Name="RATE5" ColumnName="RATE5" />
+                <ScalarProperty Name="RATE4" ColumnName="RATE4" />
+                <ScalarProperty Name="RATE3" ColumnName="RATE3" />
+                <ScalarProperty Name="RATE2" ColumnName="RATE2" />
+                <ScalarProperty Name="RATE1" ColumnName="RATE1" />
+                <ScalarProperty Name="MAT8" ColumnName="MAT8" />
+                <ScalarProperty Name="MAT7" ColumnName="MAT7" />
+                <ScalarProperty Name="MAT6" ColumnName="MAT6" />
+                <ScalarProperty Name="MAT5" ColumnName="MAT5" />
+                <ScalarProperty Name="MAT4" ColumnName="MAT4" />
+                <ScalarProperty Name="MAT3" ColumnName="MAT3" />
+                <ScalarProperty Name="MAT2" ColumnName="MAT2" />
+                <ScalarProperty Name="MAT1" ColumnName="MAT1" />
+                <ScalarProperty Name="LRate" ColumnName="LRate" />
+                <ScalarProperty Name="CompRate" ColumnName="CompRate" />
+                <ScalarProperty Name="UnitS" ColumnName="UnitS" />
+                <ScalarProperty Name="UnitF" ColumnName="UnitF" />
+                <ScalarProperty Name="Spec" ColumnName="Spec" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="CAT" ColumnName="CAT" />
+                <ScalarProperty Name="PgNo" ColumnName="PgNo" />
+                <ScalarProperty Name="INO" ColumnName="INO" />
+                <ScalarProperty Name="Chap" ColumnName="Chap" />
+                <ScalarProperty Name="SrNO" ColumnName="SrNO" />
+                <ScalarProperty Name="ANO" ColumnName="ANO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rate_Analysis">
+            <EntityTypeMapping TypeName="PWDCRMModel.Rate_Analysis">
+              <MappingFragment StoreEntitySet="Rate_Analysis">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Completed_Rate" ColumnName="Completed_Rate" />
+                <ScalarProperty Name="Other_Charges1" ColumnName="Other_Charges1" />
+                <ScalarProperty Name="Other1" ColumnName="Other1" />
+                <ScalarProperty Name="Other_Charges" ColumnName="Other_Charges" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="Royalty_charges" ColumnName="Royalty_charges" />
+                <ScalarProperty Name="Royalty" ColumnName="Royalty" />
+                <ScalarProperty Name="Total_Lead_Charges" ColumnName="Total_Lead_Charges" />
+                <ScalarProperty Name="Lead_Charges10" ColumnName="Lead_Charges10" />
+                <ScalarProperty Name="Lead10" ColumnName="Lead10" />
+                <ScalarProperty Name="Quantity10" ColumnName="Quantity10" />
+                <ScalarProperty Name="Material10" ColumnName="Material10" />
+                <ScalarProperty Name="Lead_Charges9" ColumnName="Lead_Charges9" />
+                <ScalarProperty Name="Lead9" ColumnName="Lead9" />
+                <ScalarProperty Name="Quantity9" ColumnName="Quantity9" />
+                <ScalarProperty Name="Material9" ColumnName="Material9" />
+                <ScalarProperty Name="Lead_Charges8" ColumnName="Lead_Charges8" />
+                <ScalarProperty Name="Lead8" ColumnName="Lead8" />
+                <ScalarProperty Name="Quantity8" ColumnName="Quantity8" />
+                <ScalarProperty Name="Material8" ColumnName="Material8" />
+                <ScalarProperty Name="Lead_Charges7" ColumnName="Lead_Charges7" />
+                <ScalarProperty Name="Lead7" ColumnName="Lead7" />
+                <ScalarProperty Name="Material7" ColumnName="Material7" />
+                <ScalarProperty Name="Lead_Charges6" ColumnName="Lead_Charges6" />
+                <ScalarProperty Name="Lead6" ColumnName="Lead6" />
+                <ScalarProperty Name="Quantity6" ColumnName="Quantity6" />
+                <ScalarProperty Name="Material6" ColumnName="Material6" />
+                <ScalarProperty Name="Lead_Charges5" ColumnName="Lead_Charges5" />
+                <ScalarProperty Name="Lead5" ColumnName="Lead5" />
+                <ScalarProperty Name="Quantity5" ColumnName="Quantity5" />
+                <ScalarProperty Name="Material5" ColumnName="Material5" />
+                <ScalarProperty Name="Lead_Charges4" ColumnName="Lead_Charges4" />
+                <ScalarProperty Name="Lead4" ColumnName="Lead4" />
+                <ScalarProperty Name="Quantity4" ColumnName="Quantity4" />
+                <ScalarProperty Name="Material4" ColumnName="Material4" />
+                <ScalarProperty Name="Lead_Charges3" ColumnName="Lead_Charges3" />
+                <ScalarProperty Name="Lead3" ColumnName="Lead3" />
+                <ScalarProperty Name="Quantity3" ColumnName="Quantity3" />
+                <ScalarProperty Name="Material3" ColumnName="Material3" />
+                <ScalarProperty Name="Lead_Charges2" ColumnName="Lead_Charges2" />
+                <ScalarProperty Name="Lead2" ColumnName="Lead2" />
+                <ScalarProperty Name="Quantity2" ColumnName="Quantity2" />
+                <ScalarProperty Name="Material2" ColumnName="Material2" />
+                <ScalarProperty Name="Lead_Charges1" ColumnName="Lead_Charges1" />
+                <ScalarProperty Name="Lead1" ColumnName="Lead1" />
+                <ScalarProperty Name="Quantity1" ColumnName="Quantity1" />
+                <ScalarProperty Name="Material1" ColumnName="Material1" />
+                <ScalarProperty Name="Sub_Total" ColumnName="Sub_Total" />
+                <ScalarProperty Name="Area_Charges" ColumnName="Area_Charges" />
+                <ScalarProperty Name="Area_Percentage" ColumnName="Area_Percentage" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Basic_Rates" ColumnName="Basic_Rates" />
+                <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
+                <ScalarProperty Name="Item_No" ColumnName="Item_No" />
+                <ScalarProperty Name="SSR" ColumnName="SSR" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

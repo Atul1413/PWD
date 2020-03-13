@@ -27,5 +27,9 @@ namespace PWDCRM.Models
         public string Remarks { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public string SSRRate { get; set; }
+        public string CurrentDiff { get; set; }
+        public string DiffofRate { get; set; }
+        public string SourceOfMaterial { get; set; }
     }
 }

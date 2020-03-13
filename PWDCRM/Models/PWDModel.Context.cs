@@ -29,12 +29,13 @@ namespace PWDCRM.Models
         public virtual DbSet<MEASUREMENT> MEASUREMENTS { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
         public virtual DbSet<WorkDataDetail> WorkDataDetails { get; set; }
-        public virtual DbSet<ITEM> ITEMS { get; set; }
-        public virtual DbSet<Rate_Analysis> Rate_Analysis { get; set; }
         public virtual DbSet<ItemDetail> ItemDetails { get; set; }
         public virtual DbSet<SubWorkDataDetail> SubWorkDataDetails { get; set; }
         public virtual DbSet<MATERIAL> MATERIALs { get; set; }
         public virtual DbSet<LEAD_CHART> LEAD_CHART { get; set; }
         public virtual DbSet<LeadCharge> LeadCharges { get; set; }
+        public virtual DbSet<DMAT> DMATs { get; set; }
+        public virtual DbSet<ITEM> ITEMS { get; set; }
+        public virtual DbSet<Rate_Analysis> Rate_Analysis { get; set; }
     }
 }

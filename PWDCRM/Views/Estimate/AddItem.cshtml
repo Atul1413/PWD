@@ -4,8 +4,8 @@
 @{
     ViewBag.Title = "AddItem";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
-    var data = ViewData["workData"] as List<WorkDataDetail>;
-    var dataList = ViewData["ItemDetail"] as List<ItemDetail>;
+    //var data = ViewData["workData"] as List<WorkDataDetail>;
+    var ItemListDetail = ViewData["ItemDetailList"] as List<ItemDetail>;
     var subDataCount = (Model != null ? Convert.ToInt32(Model.SubWorkData) : 0);
 }
 
@@ -62,7 +62,14 @@
                                         <option value="" class="hidden" selected disabled>Please select Sub work data</option>
                                         @for (int i = 1; i <= subDataCount; i++)
                                         {
-                                    <option value="@i">Sub Work @i</option>
+                                            if (i == 1)
+                                            {
+                                                <option selected value="@i">Sub Work @i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@i">Sub Work @i</option>
+                                            }
                                         }
 
                                     </select>
@@ -73,7 +80,15 @@
                                         <option value="" class="hidden" selected disabled>Please select floor</option>
                                         @for (int i = 1; i <= subDataCount; i++)
                                         {
-                                            <option value="Floor @i">Floor @i</option>
+                                            if (i == 1)
+                                            {
+                                                <option selected value="Floor @i">Floor @i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Floor @i">Floor @i</option>
+                                            }
+
                                         }
 
                                     </select>
@@ -123,12 +138,15 @@
                                                 <th>Breadth/Width</th>
                                                 <th>Depth/Height</th>
                                                 <th>Qty.</th>
-                                                <th><a class="btn btn-sm btn-primary">Add New Iteam</a></th>
+                                                <th><a class="btn btn-sm btn-primary">Reset</a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="text" class="inputClass" name="Remarks" id="txtRemarks" /></td>
+                                                <td>
+                                                    <input type="text" class="inputClass" name="Remarks" id="txtRemarks" />
+                                                    <input type="hidden" class="inputClass" name="ID" value="0" id="txtItemDetails" />
+                                                </td>
                                                 <td><input type="text" data-id="Number" class="inputClass mathFormula" required name="Number" id="txtNumbers" /></td>
                                                 <td><input type="text" data-id="Length" class="inputClass mathFormula" required name="Length" id="txtLength" /></td>
                                                 <td><input type="text" data-id="BreadthWidth" class="inputClass mathFormula" required name="BreadthWidth" id="txtBreadthWidth" /></td>
@@ -136,7 +154,7 @@
                                                 @*<td><input type="text" class="inputClass" required name="GeometricalFormulas" id="txtGeometricalFormulas" /></td>*@
                                                 <td><input type="text" class="inputClass" required name="Qty" id="txtQty" /></td>
 
-                                                <td><input type="button" class="btn btn-sm btn-default" value="Add" name="Add" id="btnAdd" /></td>
+                                                <td><input type="button" class="btn btn-sm btn-success" value="Add " name="Add" id="btnAdd" /></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -155,32 +173,56 @@
                                                 <th>Breadth Width</th>
                                                 <th>Depth Height</th>
                                                 <th>Qty</th>
+                                                <th>Total Qty</th>
                                                 <th>Description</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @*@if (dataList != null)
+                                            @if (ItemListDetail != null)
+                                            {
+                                                if (ItemListDetail.Count != 0)
                                                 {
-                                                    if (dataList.Count != 0)
+                                                    //List<double> result = ItemListDetail.GroupBy(l => l.ItemNo).Select(cl => new{TotalCount = cl.Sum(c => Convert.ToDouble(c.Qty.ToString()))}).ToList();
+                                                    double count = 0.00;
+                                                    var getItemNo = ItemListDetail.Select(s => s.ItemNo).Distinct().ToList();
+                                                    for (int i = 0; i < getItemNo.Count; i++)
                                                     {
-                                                        foreach (var item in dataList)
+
+                                                        //if(item.ItemNo==getItemNo[i])
+                                                        //{
+                                                        //    count = (count+Convert.ToDouble(item.Qty));
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //   // count = 0.00;
+                                                        //}
+                                                        count = 0.00;
+                                                        foreach (var item in ItemListDetail)
                                                         {
-                                                            <tr>
-                                                                <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
-                                                                <td>@item.ItemNo</td>
-                                                                <td>@item.Number</td>
-                                                                <td>@item.Length</td>
-                                                                <td>@item.BreadthWidth</td>
-                                                                <td>@item.DepthHeight</td>
-                                                                <td>@item.Qty</td>
-                                                                <td>@item.Remarks</td>
-                                                                <td>
-                                                                </td>
-                                                            </tr>
+                                                            if (getItemNo[i] == item.ItemNo)
+                                                            {
+                                                               count = (count+Convert.ToDouble(item.Qty));
+                                                                <tr>
+                                                                    <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
+                                                                    <td>@item.ItemNo</td>
+                                                                    <td>@item.Number</td>
+                                                                    <td>@item.Length</td>
+                                                                    <td>@item.BreadthWidth</td>
+                                                                    <td>@item.DepthHeight</td>
+                                                                    <td>@item.Qty</td>
+                                                                    <td>@count</td>
+
+                                                                    <td>@item.Remarks</td>
+                                                                    <td><a class="editItem" data-id="@item.Id">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="@item.Id">Delete</a></td>
+                                                                </tr>
+                                                            }
                                                         }
+                                                        count = 0.00;
                                                     }
-                                                }*@
+
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

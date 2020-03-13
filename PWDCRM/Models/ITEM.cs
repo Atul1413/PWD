@@ -14,7 +14,7 @@ namespace PWDCRM.Models
     
     public partial class ITEM
     {
-        public Nullable<double> ANO { get; set; }
+        public int ANO { get; set; }
         public Nullable<double> SrNO { get; set; }
         public string Chap { get; set; }
         public string INO { get; set; }

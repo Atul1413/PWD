@@ -30,7 +30,7 @@ namespace PWDCRM.Controllers
                 ViewData["Title"] = "Work Data";
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 workList = new List<WorkDataDetail>();
             }
@@ -76,6 +76,18 @@ namespace PWDCRM.Controllers
             return View();
         }
 
+        public ActionResult EditWorkData(int id)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = ex.Message.ToString();
+            }
+            return View();
+        }
         public ActionResult AddItem(int id)
         {
             var model = new List<ItemDetail>();
@@ -85,10 +97,10 @@ namespace PWDCRM.Controllers
                 using (var dbContext = new PWDCRMEntities())
                 {
                     getWorkdata = dbContext.WorkDataDetails.Find(id);
-                    var workData = dbContext.WorkDataDetails.ToList();
-                    ViewData["workData"] = workData;
-                    model = dbContext.ItemDetails.ToList();
-                    ViewData["ItemDetail"] = model;
+                    var workData = dbContext.ItemDetails.Where(s=>s.WorkDataID==id).OrderBy(s=>s.ItemNo).ToList();
+                    ViewData["ItemDetailList"] = workData;
+                    //model = dbContext.ItemDetails.ToList();
+                    //ViewData["ItemDetail"] = model;
                 }
             }
             catch (Exception ex)
@@ -188,23 +200,44 @@ namespace PWDCRM.Controllers
             {
                 using (var dbContext = new PWDCRMEntities())
                 {
-                    var addIteam = new ItemDetail();
-                    addIteam.ItemNo = model.ItemNo;
-                    addIteam.WorkDataID = model.WorkDataID;
-                    addIteam.Number = model.Number;
-                    addIteam.Length = model.Length;
-                    addIteam.BreadthWidth = model.BreadthWidth;
-                    addIteam.DepthHeight = model.DepthHeight;
-                    addIteam.GeometricalFormulas = "";
-                    addIteam.Remarks = model.Remarks;
-                    addIteam.CreatedOn = DateTime.Now.Date;
-                    addIteam.UpdateOn = DateTime.Now.Date;
-                    addIteam.FloorData = model.FloorData;
-                    addIteam.SubWorkID = model.SubWorkID;
-                    dbContext.ItemDetails.Add(model);
-                    dbContext.SaveChanges();
+                    if(model.Id==0)
+                    {
+                        var addIteam = new ItemDetail();
+                        addIteam.ItemNo = model.ItemNo;
+                        addIteam.WorkDataID = model.WorkDataID;
+                        addIteam.Number = model.Number;
+                        addIteam.Length = model.Length;
+                        addIteam.BreadthWidth = model.BreadthWidth;
+                        addIteam.DepthHeight = model.DepthHeight;
+                        addIteam.GeometricalFormulas = "";
+                        addIteam.Remarks = model.Remarks;
+                        addIteam.CreatedOn = DateTime.Now.Date;
+                        addIteam.UpdateOn = DateTime.Now.Date;
+                        addIteam.FloorData = model.FloorData;
+                        addIteam.SubWorkID = model.SubWorkID;
+                        dbContext.ItemDetails.Add(model);
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        var getItemDetail = dbContext.ItemDetails.Where(s => s.Id == model.Id).FirstOrDefault();
+                        if(getItemDetail!=null)
+                        {
+                            getItemDetail.ItemNo = model.ItemNo;
 
-
+                            getItemDetail.Number = model.Number;
+                            getItemDetail.Length = model.Length;
+                            getItemDetail.BreadthWidth = model.BreadthWidth;
+                            getItemDetail.DepthHeight = model.DepthHeight;
+                            getItemDetail.GeometricalFormulas = "";
+                            getItemDetail.Remarks = model.Remarks;                           
+                            getItemDetail.UpdateOn = DateTime.Now.Date;
+                            getItemDetail.FloorData = model.FloorData;
+                            getItemDetail.SubWorkID = model.SubWorkID;
+                            dbContext.ItemDetails.AddOrUpdate(getItemDetail);
+                            dbContext.SaveChanges();
+                        }
+                    }          
                     var workData = dbContext.WorkDataDetails.ToList();
                     ViewData["workData"] = workData;
 
@@ -231,6 +264,48 @@ namespace PWDCRM.Controllers
                 return Json("", JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        public JsonResult GetItemDetailById(int id)
+        {
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                var finalData = dbContext.ItemDetails.Where(s => s.Id == id).FirstOrDefault();
+                if (finalData != null)
+                    return Json(finalData, JsonRequestBehavior.AllowGet);
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteItemDetails(int id)
+        {
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                var finalData = dbContext.ItemDetails.Where(s => s.Id == id).FirstOrDefault();
+                if (finalData != null)
+                {
+                    dbContext.ItemDetails.Remove(finalData);
+                    dbContext.SaveChanges();
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Not found", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //
         public ActionResult AddLeadCharges(int id)
         {
             var workDataid = id;
@@ -240,8 +315,37 @@ namespace PWDCRM.Controllers
                 using (var dbContext = new PWDCRMEntities())
                 {
                     getWorkdata = dbContext.WorkDataDetails.Find(id);
-                    var getItemData = dbContext.ItemDetails.Select(s=>new LeadChargesVM { ItemNo=s.ItemNo,WorkDataID=s.WorkDataID }).Where(s => s.WorkDataID == workDataid).Distinct().ToList();
-                    ViewData["ItemData"] = getItemData;
+                    var getMATERIAL = dbContext.MATERIALs.ToList();
+                    var getList = dbContext.LeadCharges.Where(s=>s.WorkID==id).ToList();                   
+                    ViewData["ListCharges"] = getList;
+                    //Get Material
+                    var MATERIAL = new List<string>();
+                    var itemList = dbContext.ItemDetails.Where(s => s.WorkDataID == id).Select(f => f.ItemNo).Distinct().ToList();
+                    if (itemList != null)
+                    {
+                        var getItemList = dbContext.ITEMS.Where(s => itemList.Contains(s.INO)).ToList();
+                        foreach (var item in getItemList)
+                        {
+                            if (item.MAT1 != null)
+                                MATERIAL.Add(item.MAT1);
+                            if (item.MAT2 != null)
+                                MATERIAL.Add(item.MAT2);
+                            if (item.MAT3 != null)
+                                MATERIAL.Add(item.MAT3);
+                            if (item.MAT4 != null)
+                                MATERIAL.Add(item.MAT4);
+                            if (item.MAT5 != null)
+                                MATERIAL.Add(item.MAT5);
+                            if (item.MAT6 != null)
+                                MATERIAL.Add(item.MAT6);
+                            if (item.MAT7 != null)
+                                MATERIAL.Add(item.MAT7);
+                            if (item.MAT8 != null)
+                                MATERIAL.Add(item.MAT8);
+                        }
+                    }
+                    List<string> getmatLIst = MATERIAL.Distinct().ToList();
+                    ViewData["MATERIAL"] = getmatLIst;
                 }
             }
             catch (Exception ex)
@@ -278,8 +382,10 @@ namespace PWDCRM.Controllers
                     if (getIteamData.MAT8 != null)
                         MATERIAL.Add(getIteamData.MAT8);
                 }
-               
-                return Json(MATERIAL, JsonRequestBehavior.AllowGet);
+                var getList = MATERIAL.Distinct();
+
+
+                return Json(getList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -297,6 +403,7 @@ namespace PWDCRM.Controllers
                 var MATERIAL = new List<string>();
                 if (getData != null)
                 {
+                    var round = Math.Round(Convert.ToDouble(getData.FACTOR), MidpointRounding.ToEven) ;
                     MATERIAL.Add(getData.FACTOR.ToString());
                     MATERIAL.Add(getData.MTYPE);                    
                     var getLead = dbContext.LEAD_CHART.Where(s => s.KM == getData.FACTOR).FirstOrDefault();
@@ -314,7 +421,20 @@ namespace PWDCRM.Controllers
                         {
                             MATERIAL.Add("NA");
                         }
-                    }                   
+                    }
+                    else
+                    {
+                        MATERIAL.Add("NA");
+                    }
+                    var getDiff = dbContext.DMATs.Where(s => s.MAT == materialName).FirstOrDefault();
+                    if(getDiff!=null)
+                    {
+                        MATERIAL.Add(getDiff.Rate.ToString());
+                    }
+                    else
+                    {
+                        MATERIAL.Add("0");
+                    }
                 }
 
                 return Json(MATERIAL, JsonRequestBehavior.AllowGet);
@@ -326,36 +446,175 @@ namespace PWDCRM.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddLeadCharges(string ItemName, string Material,string LeadinKM,string SourceOfMaterail,string InitialLead,string Remark,int WorkId)
+        public JsonResult AddLeadCharges(LeadCharge addModel)
         {
             try
             {
                 var list = new List<LeadCharge>();
                 using (var dbContext = new PWDCRMEntities())
                 {
-                    var addLeadCharges = new LeadCharge();
-                    addLeadCharges.InitialLeadCharges = InitialLead;
-                    addLeadCharges.LeadInKM = LeadinKM;
-                    addLeadCharges.Material = Material;
-                    addLeadCharges.Source = SourceOfMaterail;
-                    addLeadCharges.Remarks = Remark;
-                    addLeadCharges.InitialLeadInKM = LeadinKM;
-                    addLeadCharges.WorkID = WorkId;
-                    addLeadCharges.ItemNo = ItemName;
-                    addLeadCharges.CreatedOn = DateTime.Now;
-                    addLeadCharges.UpdatedOn = DateTime.Now;
-                    dbContext.LeadCharges.Add(addLeadCharges);
-                    dbContext.SaveChanges();
+                    if(addModel.Id==0)
+                    {
+                        var addLeadCharges = new LeadCharge();
+                        addLeadCharges.InitialLeadCharges = addModel.InitialLeadCharges;
+                        addLeadCharges.LeadInKM = addModel.LeadInKM;
+                        addLeadCharges.Material = addModel.Material;
+                        addLeadCharges.Source = addModel.Source;
+                        addLeadCharges.SourceOfMaterial = addModel.SourceOfMaterial;
+                        addLeadCharges.Remarks = addModel.Remarks;
+                        addLeadCharges.InitialLeadInKM = "NA";
+                        addLeadCharges.WorkID = addModel.WorkID;
+                        addLeadCharges.ItemNo = "NA";
+                        addLeadCharges.SSRRate = addModel.SSRRate;
+                        addLeadCharges.CurrentDiff = addModel.CurrentDiff;
+                        addLeadCharges.DiffofRate = addModel.DiffofRate;
+                        addLeadCharges.CreatedOn = DateTime.Now;
+                        addLeadCharges.UpdatedOn = DateTime.Now;
+                        dbContext.LeadCharges.Add(addLeadCharges);
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        var id = addModel.Id;
+                        var getModelDetails = dbContext.LeadCharges.Where(s => s.Id == addModel.Id).FirstOrDefault();
+                        if(getModelDetails!=null)
+                        {
+                            getModelDetails.Material = addModel.Material;
+                            getModelDetails.Source = addModel.Source;
+                            getModelDetails.SourceOfMaterial = addModel.SourceOfMaterial;
+                            getModelDetails.LeadInKM = addModel.LeadInKM;
+                            getModelDetails.InitialLeadCharges = addModel.InitialLeadCharges;
+                            getModelDetails.Remarks = addModel.Remarks;
+                            getModelDetails.SSRRate = addModel.SSRRate;
+                            getModelDetails.CurrentDiff = addModel.CurrentDiff;
+                            getModelDetails.DiffofRate = addModel.DiffofRate;
+                            getModelDetails.UpdatedOn = DateTime.Now;
+                            dbContext.LeadCharges.AddOrUpdate(getModelDetails);
+                            dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            return Json("Error", JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
                 }
                 using (var dbContext = new PWDCRMEntities())
                 {
-                    list = dbContext.LeadCharges.Where(s => s.WorkID == WorkId).ToList();
+                    list = dbContext.LeadCharges.Where(s => s.WorkID == addModel.WorkID).ToList();
                 }
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult GetLeadCharges(int id)
+        {
+            try
+            {              
+                var dbContext = new PWDCRMEntities();
+                var finalData = dbContext.LeadCharges.Where(s => s.Id == id).FirstOrDefault();    
+                if(finalData!=null)
+                    return Json(finalData, JsonRequestBehavior.AllowGet);
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteLeadCharges(int id)
+        {
+            try
+            {
+
+                var dbContext = new PWDCRMEntities();
+                var finalData = dbContext.LeadCharges.Where(s => s.Id == id).FirstOrDefault();
+                if(finalData!=null)
+                {
+                    dbContext.LeadCharges.Remove(finalData);
+                    dbContext.SaveChanges();
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Not found", JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult GetFactorDetail(string materialName,double FACTOR)
+        {
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                var getData = dbContext.MATERIALs.Where(s => s.MATERIAL1 == materialName).FirstOrDefault();
+                var MATERIAL = new List<string>();
+                if (getData != null)
+                {
+                    var round = Math.Round(Convert.ToDouble(getData.FACTOR), MidpointRounding.ToEven);
+                    MATERIAL.Add(getData.FACTOR.ToString());
+                    MATERIAL.Add(getData.MTYPE);
+                    var getLead = dbContext.LEAD_CHART.Where(s => s.KM == FACTOR).FirstOrDefault();
+                    if (getLead != null)
+                    {
+                        if (getData.MTYPE == "MANUAL")
+                        {
+                            MATERIAL.Add(getLead.TCostManual.ToString());
+                        }
+                        else if (getData.MTYPE == "MACHINE")
+                        {
+                            MATERIAL.Add(getLead.TCostMachine.ToString());
+                        }
+                        else
+                        {
+                            MATERIAL.Add("NA");
+                        }
+                    }
+                    else
+                    {
+                        MATERIAL.Add("NA");
+                    }
+                    var getDiff = dbContext.DMATs.Where(s => s.MAT == materialName).FirstOrDefault();
+                    if (getDiff != null)
+                    {
+                        MATERIAL.Add(getDiff.Rate.ToString());
+                    }
+                    else
+                    {
+                        MATERIAL.Add("0");
+                    }
+                }
+
+                return Json(MATERIAL, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
                 return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult RateAnalysisData(int id)
+        {
+            var model = new WorkDataDetail();
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                model = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View(model);
             }
         }
     }

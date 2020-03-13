@@ -79,7 +79,8 @@
 
     <script src="~/js/jquery-ui.js"></script>
     @*<script src="~/wwwroot/adminlte/plugins/jQueryUI/jquery-ui.min.js"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>*@
+    <script src="~/js/math.min.js"></script>
     <script src="~/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
 
@@ -93,7 +94,7 @@
         $(document).ready(function () {
             $("#addDivPer").hide();
             var workIteam = $("#ddlWOD").val();
-            GetAllWorkIteam(workIteam);
+            //GetAllWorkIteam(workIteam);
             //
             $("#Category").autocomplete({
                 source: function (request, response) {
@@ -139,6 +140,7 @@
         });
         //
         function GetAllWorkIteam(workIteam) {
+            alert(workIteam);
             $("#tblDataBind tbody").empty();
             $.ajax({
                 url: "/Estimate/GetAllWorkIteam",
@@ -189,34 +191,37 @@
             var getVal = $(this).val();
             if (getVal != "") {
                 // $("#ddlSSR").empty();
-                $.ajax({
-                    url: "/Estimate/GetIteamDetailsByINo",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: getVal },
-                    success: function (data) {
-                        console.log(data);
-                        var item = '<option value="" class="hidden" selected disabled>Please select Decripation</option> ';
-                        for (var i = 0; i < data.itemDetailsList.length; i++) {
-                            if (data.itemDetailsList[i].ANO == data.itemDetail.ANO) {
-                                item += '<option selected value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
-                            }
-                            else {
-                                item += '<option value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
-                            }
-
-                        }
-                        $("#ddlSSR").html(item);
-                        $("#lblItemID").html(data.itemDetail.INO);
-                        $("#Category").val(data.itemDetail.Chap);
-                        $("#lblUnitF").html(data.itemDetail.UnitF);
-                        $("#lblCompRate").html(data.itemDetail.CompRate);
-                        $("#lblItemDescripation").html(data.itemDetail.DESCRIP);
-                    }
-                })
+                SelectItemID(getVal);
+   
             }
         });
+        function SelectItemID(id) {
+            $.ajax({
+                url: "/Estimate/GetIteamDetailsByINo",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: id },
+                success: function (data) {
+                    console.log(data);
+                    var item = '<option value="" class="hidden" selected disabled>Please select Decripation</option> ';
+                    for (var i = 0; i < data.itemDetailsList.length; i++) {
+                        if (data.itemDetailsList[i].ANO == data.itemDetail.ANO) {
+                            item += '<option selected value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                        }
+                        else {
+                            item += '<option value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                        }
 
+                    }
+                    $("#ddlSSR").html(item);
+                    $("#lblItemID").html(data.itemDetail.INO);
+                    $("#Category").val(data.itemDetail.Chap);
+                    $("#lblUnitF").html(data.itemDetail.UnitF);
+                    $("#lblCompRate").html(data.itemDetail.CompRate);
+                    $("#lblItemDescripation").html(data.itemDetail.DESCRIP);
+                }
+            });
+        }
         $("#ddlSSR").change(function () {
             var getVal = $(this).val();
             // alert(getVal);
@@ -240,6 +245,7 @@
 
         $("#btnAdd").click(function () {
             var nameOfWork = $("#txtWorkId").val();
+            var id = $("#txtItemDetails").val();
             var categoryTest = $("#Category").val();
             var aNOId = $("#ddlSSR").val();
             var iteamID = $("#IteamID").val();
@@ -284,6 +290,7 @@
             }
             if (IsValid == 1) {
                 var ItemDetail = {};
+                ItemDetail.Id = id;
                 ItemDetail.ItemNo = iteamID;
                 ItemDetail.WorkDataID = nameOfWork;
                 ItemDetail.SubWorkID = SubWODID;
@@ -305,10 +312,11 @@
                             $("#tblDataBind tbody").empty();
                             var item = '';
                             for (var i = 0; i < data.length; i++) {
-                                item += '<tr> <td><input type="checkbox" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="btn btn-sm btn-primary">Edit</a><a class="btn btn-sm btn-primary">Delete</a></td></tr>';
+                                item += '<tr> <td><input type="checkbox" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="editItem" data-id="'+data[i].Id+'">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="'+data[i].Id+'">Delete</a></td></tr>';
                             }
                             $("#tblDataBind tbody").html(item);
-
+                            //var $dataTable = $("#tblDataBind").dataTable({ /* Your settings */ });
+                           location.reload();
                         }
                         $("#txtNumbers").val('');
                         $("#txtLength").val('');
@@ -326,6 +334,7 @@
             var getVal = $(this).val();
             var getQut = $("#txtQty").val();
             var numbers = $("#txtNumbers").val();
+            // alert(numbers);
             var length = $("#txtLength").val();
             var breadthWidth = $("#txtBreadthWidth").val();
             var depthHeight = $("#txtDepthHeight").val();
@@ -333,7 +342,7 @@
             if (getQut == "")
                 getQut = 1;
 
-            var result;
+            var result = 0.00;
             if (getDataId == "Number" && numbers != "") {
                 var getFormulaValue = math.eval(numbers);
                 result = (getFormulaValue * getQut);
@@ -362,6 +371,70 @@
                 $("#addDivPer").show();
             }
         });
+
+         $(document).on("click", ".editItem", function () {
+             var id = $(this).attr("data-id");
+            if (id != null) {
+                $.ajax({
+                    url: "/Estimate/GetItemDetailById",
+                    type: "POST",
+                    dataType: "json",
+                    data: { id: id },
+                    success: function (data) {
+                        console.log(data);
+                        if (data != "Error") {
+                             $("#ddlSSR").empty();
+                            SelectItemID(data.ItemNo);
+                            $("#txtItemDetails").val(data.Id);
+                            $("#Category").val();
+                            //$("#ddlSSR").val();
+                            $("#IteamID").val(data.ItemNo);
+                            $("#txtNumbers").val(data.Number);
+                            $("#txtLength").val(data.Length);
+                            $("#txtBreadthWidth").val(data.BreadthWidth);
+                            $("#txtDepthHeight").val(data.DepthHeight);
+                            // var geometricalFormulas = $("#txtGeometricalFormulas").val();
+                            $("#txtQty").val(data.Qty);
+                            $("#txtRemarks").val(data.Remarks);
+                            $("#ddlSWOD").val(data.SubWorkID);
+                            $("#ddlFloor").val(data.FloorData);
+                        }
+                        else {
+                            alert(data);
+                        }
+                    }
+                });
+            }
+        });
+       
+        $(document).on("click", ".deleteItem", function () {
+            var id = $(this).attr("data-id");
+            if (id != null) {
+                var x = confirm("Are you sure you want to delete?");
+                if (x) {
+                    $.ajax({
+                        url: "/Estimate/DeleteItemDetails",
+                        type: "POST",
+                        dataType: "json",
+                        data: { id: id },
+                        success: function (data) {
+                            console.log(data);
+                            if (data == "Success") {
+                                alert("Recored delete successfully");
+                                location.reload();
+                            }
+                            else {
+                                alert(data);
+                            }
+                        }
+                    });
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
         /// Add Lead Chareges Page
         $("#ddlItemName").change(function () {
             var getVal = $(this).val();
@@ -389,7 +462,7 @@
                 })
             }
         });
-         $("#ddlmaterial").change(function () {
+        $("#ddlmaterial").change(function () {
             var getVal = $(this).val();
             if (getVal != "") {
                 //$("#ddlmaterial").empty();
@@ -400,22 +473,47 @@
                     data: { materialName: getVal },
                     success: function (data) {
                         console.log(data);
-                        $("#txtleadinKM").val(data[0]);
+                        var res = (data[2] / data[0]);
+                       // alert(res);
+                        $("#txtleadinKM").val(0);
                         $("#txtsourceOfMaterail").val(data[1]);
-                        $("#txtinitialLead").val(data[2]);
+                        $("#txtinitialLead").val(0);
+                        $("#txtSSRRate").val(data[3]);
+                        $("#txtCurrentDiff").val(0);
+                        $("#txtDiffofRate").val(0);
+
                     }
                 })
             }
-         });
+        });
 
+        $("#txtCurrentDiff").change(function () {
+            var getVal = $("#txtSSRRate").val().trim();
+            if (getVal == 0) {
+                alert("Please enter first SSR Rate");
+            }
+            else {
+                var current = $(this).val().trim();
+                var result = (getVal - current);
+                $("#txtDiffofRate").val(result);
+            }
+        });
+        //Lead Charges Add
         $("#btnSubmitMaterial").click(function () {
-            var ItemName = $("#ddlItemName").val();
+            var ItemName = "NA";
+            var id= $("#txtLeadChargesID").val();
             var Material = $("#ddlmaterial").val();
             var LeadinKM = $("#txtleadinKM").val();
             var SourceOfMaterail = $("#txtsourceOfMaterail").val();
             var InitialLead = $("#txtinitialLead").val();
             var workID = $("#txtWorkIdLead").val();
             var Remark = $("#remark").val();
+
+            var SSRRate = $("#txtSSRRate").val();
+            var CurrentDiff = $("#txtCurrentDiff").val();
+            var DiffofRate = $("#txtDiffofRate").val();
+            var SourceOfMaterial = $("#txtsOfMaterail").val();
+
             if (ItemName == null) {
                 alert("Please select item no");
             }
@@ -433,32 +531,148 @@
             }
             else if (Remark == "") {
                 alert("Please enter remark ");
-            }
+            }              
             else {
                 //
+                var addModel = {}
+                addModel.Id = id;
+                addModel.WorkID =workID;
+                addModel.Material = Material;
+                addModel.Source = SourceOfMaterail;
+                addModel.LeadInKM = LeadinKM;
+                addModel.InitialLeadCharges = InitialLead;
+                addModel.SSRRate =SSRRate;
+                addModel.CurrentDiff = CurrentDiff;
+                addModel.DiffofRate = DiffofRate;
+                addModel.NetLeadCharges = "";
+                addModel.Remarks = Remark;
+                addModel.SourceOfMaterial = SourceOfMaterial;
                 $.ajax({
                     url: "/Estimate/AddLeadCharges",
                     type: "POST",
                     dataType: "json",
-                    data: { ItemName: ItemName,Material:Material,LeadinKM:LeadinKM,SourceOfMaterail:SourceOfMaterail,InitialLead:InitialLead,Remark:Remark,WorkId:workID },
+                    data: { addModel: addModel},
                     success: function (data) {
-                       $("#tblListLeadCharges tbody").empty();
+                        if (data != "Error") {
+                            $("#ddlmaterial").val("");
+                            $("#txtleadinKM").val("");
+                            $("#txtsourceOfMaterail").val("");
+                            $("#txtinitialLead").val("");
+                            $("#txtWorkIdLead").val("");
+                            $("#remark").val("");
+                            $("#txtSSRRate").val("");
+                            $("#txtCurrentDiff").val("");
+                            $("#txtDiffofRate").val("");
+                             $("#txtsOfMaterail").val("");
+                            $("#txtLeadChargesID").val(0);
+
+                            $("#tblListLeadCharges tbody").empty();
                             var item = '';
                             for (var i = 0; i < data.length; i++) {
-                                item += '<tr> <th>'+data[i].Id+'</th> <th>'+data[i].ItemNo+'</th> <th>'+data[i].Material+'</th> <th>'+data[i].LeadInKM+'</th> <th>'+data[i].Source+'</th> <th>'+data[i].InitialLeadInKM+'</th> <th>'+data[i].Remarks+'</th> </tr>';
+                                item += '<tr> <td>' + data[i].Id + '</td> <td>' + data[i].Material + '</td> <td>' + data[i].LeadInKM + '</td> <td>' + data[i].Source + '</td> <td>' + data[i].InitialLeadInKM + '</td> <td>' + data[i].Remarks + '</td><td><a href="#" class="editLeadChart" data-id="' + data[i].Id + '">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" data-id="' + data[i].Id + '" class="deleteLeadChart">Delete</a></td> </tr>';
                             }
-                            $("#tblListLeadCharges tbody").html(item);                   
+                            $("#tblListLeadCharges tbody").html(item);
+                            location.reload();
+                            //$("#tblListLeadCharges").dataTable().fnDestroy();
+                            //$("#tblListLeadCharges").dataTable();
+                        }
+                        else {
+
+                        }
+                    }
+                });
+                //
+            }
+        });
+        $(document).on("click", ".editLeadChart", function () {
+             var id = $(this).attr("data-id");
+            if (id != null) {
+                $.ajax({
+                    url: "/Estimate/GetLeadCharges",
+                    type: "POST",
+                    dataType: "json",
+                    data: { id: id },
+                    success: function (data) {
+                        console.log(data);
+                        if (data != "Error") {
+                             $("#ddlmaterial").val(data.Material);
+                            $("#txtleadinKM").val(data.LeadInKM);
+                            $("#txtsourceOfMaterail").val(data.Source);
+                            $("#txtinitialLead").val(data.InitialLeadCharges);
+                            //$("#txtWorkIdLead").val("");
+                            $("#remark").val(data.Remarks);
+                            $("#txtSSRRate").val(data.SSRRate);
+                            $("#txtCurrentDiff").val(data.CurrentDiff);
+                            $("#txtDiffofRate").val(data.DiffofRate);
+                            $("#txtLeadChargesID").val(data.Id);
+                             $("#txtsOfMaterail").val(data.SourceOfMaterial);
+                        }
+                        else {
+                            alert(data);
+                        }
+                    }
+                });
+            }
+        });
+       
+        $(document).on("click", ".deleteLeadChart", function () {
+            var id = $(this).attr("data-id");
+            if (id != null) {
+                var x = confirm("Are you sure you want to delete?");
+                if (x) {
+                    $.ajax({
+                        url: "/Estimate/DeleteLeadCharges",
+                        type: "POST",
+                        dataType: "json",
+                        data: { id: id },
+                        success: function (data) {
+                            console.log(data);
+                            if (data == "Success") {
+                                alert("Recored delete successfully");
+                                location.reload();
+                            }
+                            else {
+                                alert(data);
+                            }
+                        }
+                    });
+                } else {
+                    return false;
+                }  
+            }
+        });
+        
+        $("#txtleadinKM").change(function () {
+            var getVal = $(this).val();
+            if (getVal != "") {
+               var materialName= $("#ddlmaterial").val();
+                //$("#ddlmaterial").empty();
+                $.ajax({
+                    url: "/Estimate/GetFactorDetail",
+                    type: "POST",
+                    dataType: "json",
+                    data: { materialName: materialName,FACTOR:getVal },
+                    success: function (data) {
+                        console.log(data);
+                        var res = (data[2]/data[0]);
+                       // $("#txtleadinKM").val(data[0]);
+                        $("#txtsourceOfMaterail").val(data[1]);
+                        $("#txtinitialLead").val(res);
+                        $("#txtSSRRate").val(data[3]);
+                        $("#txtCurrentDiff").val(0);
+                        $("#txtDiffofRate").val(0);
+
                     }
                 })
-                //
-            }            
-        });
+            }
+        })
 
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#bindtblWorkData').DataTable();
             $('#tblListLeadCharges').DataTable();
+            $('#tblDataBind').DataTable();
         });
     </script>
     @RenderSection("Scripts", required: false)

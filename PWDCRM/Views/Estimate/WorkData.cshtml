@@ -34,11 +34,11 @@
                     <table class="table table-hover table-responsive table-bordered" id="bindtblWorkData">
                         <thead>
                             <tr>
-                                <th>Sr.No</th>
+                                <th>Sr .No</th>
                                 <th>Name Of Work</th>
-                                <th>SSR(Schedule Of Rates)</th>
+                                <th>SSR (Schedule Of Rates)</th>
                                 <th>Department</th>
-                                <th>Head Of Accounts</th>
+                                @*<th>Head Of Accounts</th>*@
                                 <th>Area</th>
                                 <th>Sub-Divsion</th>
                                 <th>Divison</th>
@@ -64,9 +64,9 @@
                                     <td>
                                         @workData.Department
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @workData.HeadOfAccounts
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @workData.Area
                                     </td>
@@ -84,11 +84,7 @@
                                     </td>
 
                                     <td>
-                                        @{
-                                            var editUrl = Url.Action("AddItem", "Estimate", new { id = @workData.Id });
-                                            editUrl = HttpUtility.UrlDecode(editUrl);
-                                        }
-                                        <a href="@editUrl">Add Items</a>
+                                        <a href="@Url.Action("AddItem","Estimate",new {id=workData.Id })">Add Items</a>&nbsp;&nbsp; |&nbsp;&nbsp;<a href="@Url.Action("AddLeadCharges","Estimate",new {id=workData.Id })">LeadCharges</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="@Url.Action("","",new {id=workData.Id })">Edit</a>
                                     </td>
                                 </tr>
                             }

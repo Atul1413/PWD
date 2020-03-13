@@ -2,133 +2,166 @@
 @{
     ViewBag.Title = "AddLeadCharges";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
-    var data = ViewData["ItemData"] as List<PWDCRM.Models.ViewModels.LeadChargesVM>;
+    var data = ViewData["MATERIAL"] as List<string>;
     var ListCharges = ViewData["ListCharges"] as List<PWDCRM.Models.LeadCharge>;
 }
 
 <h2>Add Lead Charges</h2>
 
 <div class="content-wrapper" ng-controller="AddLeadCharges">
-<section class="content">
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
-        </div>
-        <div class="box-body">
-            <div id="Grid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-right">Name of Work</label>
-                            <div class="col-md-2">
-                                <label>@(Model != null ? Model.NameOfWork : "NA")</label>
-                                <input type="hidden" id="txtWorkIdLead" name="WorkIdLead" value="@(Model!=null?Convert.ToInt32(Model.Id):0)" />
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("WorkData", "Estimate")">
+                        Go Estimate List
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <div class="box-body">
+                <div id="Grid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-2">
+                                    <label>@(Model != null ? Model.NameOfWork : "NA")</label>
+                                    <input type="hidden" id="txtWorkIdLead" name="WorkIdLead" value="@(Model!=null?Convert.ToInt32(Model.Id):0)" />
+
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel-heading dt-head-center">
-                            <h3>LEAD CHART</h3>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-heading dt-head-center">
+                                <h3>LEAD CHART</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <table class="table table-hover table-responsive table-condensed">
-                            <thead>
-                                <tr>
-                                    <th>Item No</th>
-                                    <th>Name of Material</th>
-                                    <th>Lead in KM</th>
-                                    <th>Source of Material</th>
-                                    <th>Initial Lead KM</th>
-                                    <th>Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <select name="ddlItemNo" id="ddlItemName" class="form-control">
-                                            <option value="" selected disabled="disabled">Select Item No</option>
-                                            @foreach (var item in data)
-                                            {
-                                                <option value="@item.ItemNo">@item.ItemNo</option>
-                                            }
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select id="ddlmaterial" class="form-control" required name="ddlmaterial">
-                                            <option value="" selected disabled="disabled">Select Materail</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" id="txtleadinKM" class="form-control" required name="LeadinKM" />
-                                  
-                                    </td>
-                                    <td>
-                                        <input type="text" id="txtsourceOfMaterail"  class="form-control" required name="sourceofmaterail"/>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table table-hover table-responsive table-condensed">
+                                <thead>
+                                    <tr>
+                                        @*<th>Item No</th>*@
+                                        <th>Name of Material</th>
+                                        <th>Lead in KM</th>
+                                        <th style="display:none">Type of Material</th>
+                                        <th>Source of Material</th>
+                                        <th>Lead Charges</th>
+                                        <th>SSR Rate</th>
+                                        <th>Current Rate</th>
+                                        <th>Diff Of Rate</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @*<td>
+                                                           <select name="ddlItemNo" id="ddlItemName" class="form-control">
+                                                               <option value="" selected disabled="disabled">Select Item No</option>
+                                                               @foreach (var item in data)
+                                                               {
+                                                                   <option value="@item.ItemNo">@item.ItemNo</option>
+                                                               }
+                                                           </select>
+                                            </td>*@
+                                        <td>
+                                            <select id="ddlmaterial" class="form-control" required name="ddlmaterial">
+                                                <option value="" selected disabled="disabled">Select Materail</option>
+                                                @if (data != null)
+                                                {
+                                                    if (data.Count != 0)
+                                                    {
+                                                        foreach (var item in data)
+                                                        {
+                                                            <option value="@item">@item</option>
+                                                        }
+                                                    }
+                                                }
 
-                                    </td>
-                                    <td>
-                                        <input type="text" id="txtinitialLead" class="form-control" required name="initialleadinkm" />
-                                    </td>
-                                    <td>
-                                        <input type="text" id="remark" class="form-control" required name="remark" />
-                                    </td>
-                                    <td>
-                                        <button id="btnSubmitMaterial" class="btn btn-primary" name="Submit" onsubmit="">Submit</button>
-                                    </td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtleadinKM" class="form-control" required name="LeadinKM" />
+                                            <input type="hidden" id="txtsourceOfMaterail" class="form-control" name="sourceofmaterail" />
+                                            <input type="hidden" id="txtLeadChargesID" class="form-control" value="0" name="txtLeadChargesID" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtsOfMaterail" class="form-control" required name="sofmaterail" />
+
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtinitialLead" class="form-control" required name="initialleadinkm" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtSSRRate" class="form-control" required name="SSRRate" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtCurrentDiff" class="form-control" required name="CurrentDiff" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtDiffofRate" class="form-control" required name="DiffofRate" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="remark" class="form-control" required name="remark" />
+                                        </td>
+                                        <td>
+                                            <button id="btnSubmitMaterial" class="btn btn-primary" name="Submit" onsubmit="">Submit</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <table class="table table-hover table-responsive table-condensed" id="tblListLeadCharges" >
-                            <thead>
-                                <tr>
-                                    <th>SR.NO</th>
-                                    <th>Item No</th>
-                                    <th>Name of Material</th>
-                                    <th>Lead in KM</th>
-                                    <th>Source of Material</th>
-                                    <th>Initial Lead KM</th>
-                                    <th>Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (ListCharges != null)
-                                {
-                                    if (ListCharges.Count != 0)
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table table-hover table-responsive table-condensed" id="tblListLeadCharges">
+                                <thead>
+                                    <tr>
+                                        <th>SR.NO</th>
+                                        @*<th>Item No</th>*@
+                                        <th>Name of Material</th>
+                                        <th>Source Of Material</th>
+                                        <th>Lead in KM</th>
+                                        <th>Lead Charges</th>
+                                        <th>Remarks</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ListCharges != null)
                                     {
-                                        foreach (var item in ListCharges)
+                                        if (ListCharges.Count != 0)
                                         {
-                                            <tr>
-                                                <td>@item.Id</td>
-                                                <td>@item.ItemNo</td>
-                                                <td>@item.Material</td>
-                                                <td>@item.LeadInKM</td>
-                                                <td>@item.Source</td>
-                                                <td>@item.InitialLeadInKM</td>
-                                                <td>@item.Remarks</td>
-                                            </tr>
+                                            foreach (var item in ListCharges)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    @*<td>@item.ItemNo</td>*@
+                                                    <td>@item.Material</td>
+                                                    <td>@item.SourceOfMaterial</td>
+                                                    <td>@item.LeadInKM</td>
+                                                    <td>@item.InitialLeadCharges</td>
+                                                    <td>@item.Remarks</td>
+                                                    <td><a href="#" class="editLeadChart" data-id="@item.Id">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" data-id="@item.Id" class="deleteLeadChart">Delete</a></td>
+                                                </tr>
+                                            }
                                         }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 </div>

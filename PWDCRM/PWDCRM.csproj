@@ -139,12 +139,17 @@
     <Content Include="css\jquery-ui.css" />
     <Content Include="css\jquery.dataTables.css" />
     <Content Include="css\jquery.dataTables.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\webfonts\fa-brands-400.svg" />
+    <Content Include="fonts\webfonts\fa-regular-400.svg" />
+    <Content Include="fonts\webfonts\fa-solid-900.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\sort_asc.png" />
     <Content Include="images\sort_asc_disabled.png" />
     <Content Include="images\sort_both.png" />
     <Content Include="images\sort_desc.png" />
     <Content Include="images\sort_desc_disabled.png" />
+    <Content Include="images\user.png" />
     <Content Include="js\angular\angular-animate.js" />
     <Content Include="js\angular\angular-animate.min.js" />
     <Content Include="js\angular\angular-aria.js" />
@@ -181,6 +186,7 @@
     <Content Include="js\jquery-ui.js" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="js\jquery.dataTables.min.js" />
+    <Content Include="js\math.min.js" />
     <Content Include="Models\PWDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PWDModel.edmx</DependentUpon>
@@ -7568,12 +7574,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EstimateAPIController.cs" />
     <Compile Include="Controllers\EstimateController.cs" />
+    <Compile Include="Controllers\RateAnalysisController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\DMAT.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ITEM.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
     </Compile>
@@ -7638,6 +7648,22 @@
     <Content Include="Models\PWDModel.edmx.diagram">
       <DependentUpon>PWDModel.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\webfonts\fa-brands-400.eot" />
+    <Content Include="fonts\webfonts\fa-brands-400.ttf" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff2" />
+    <Content Include="fonts\webfonts\fa-regular-400.eot" />
+    <Content Include="fonts\webfonts\fa-regular-400.ttf" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff2" />
+    <Content Include="fonts\webfonts\fa-solid-900.eot" />
+    <Content Include="fonts\webfonts\fa-solid-900.ttf" />
+    <Content Include="fonts\webfonts\fa-solid-900.woff" />
+    <Content Include="fonts\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Adminlte.cshtml" />
     <Content Include="Views\Shared\_AdminlteMainHeader.cshtml" />
@@ -7648,6 +7674,8 @@
     <Content Include="Views\Estimate\AddItem.cshtml" />
     <Content Include="Views\TestData\Index.cshtml" />
     <Content Include="Views\Estimate\AddLeadCharges.cshtml" />
+    <Content Include="Views\RateAnalysis\Index.cshtml" />
+    <Content Include="Views\Estimate\RateAnalysisData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
