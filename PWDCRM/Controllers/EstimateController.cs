@@ -80,11 +80,59 @@ namespace PWDCRM.Controllers
         {
             try
             {
-
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    var getDetails = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                    if(getDetails!=null)
+                    {
+                        return View(getDetails);
+                    }
+                    else
+                    {
+                        return RedirectToAction("WorkData");
+                    }
+                }
             }
             catch (Exception ex)
             {
                 ViewData["Error"] = ex.Message.ToString();
+            }
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult EditWorkData(WorkDataDetail model)
+        {
+            try
+            {
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    if(model.Id!=0)
+                    {
+                        var id = model.Id;
+                        var getData = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                        if(getData!=null)
+                        {
+                            //model.CreatedOn = DateTime.Now;
+                            getData.GST = model.GST;
+
+                            model.UpdatedOn = DateTime.Now;
+                            dbContext.WorkDataDetails.AddOrUpdate(model); //requires using System.Data.Entity.Migrations;
+                            dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            return RedirectToRoute("WorkData");
+                        }
+                    }                    
+                    return RedirectToAction("WorkData", "Estimate");
+                    // return View("AddItem");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message.ToString();
             }
             return View();
         }

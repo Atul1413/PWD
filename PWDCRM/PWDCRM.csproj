@@ -7676,6 +7676,7 @@
     <Content Include="Views\Estimate\AddLeadCharges.cshtml" />
     <Content Include="Views\RateAnalysis\Index.cshtml" />
     <Content Include="Views\Estimate\RateAnalysisData.cshtml" />
+    <Content Include="Views\Estimate\EditWorkData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

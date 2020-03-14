@@ -36,6 +36,7 @@
         <link href="~/wwwroot/content/ejthemes/responsive-css/ejgrid.responsive.css" rel="stylesheet" />*@
     <link href="~/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <script src="~/js/jquery-1.10.2.js"></script>
     @RenderSection("Styles", required: false)
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -51,7 +52,7 @@
     <!-- ./wrapper -->
     <!--AdminLTE-->
     <!-- jQuery 3 -->
-    <script src="~/js/jquery-1.10.2.js"></script>
+    
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>*@
     @*<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>*@
     @*<script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>*@
@@ -92,7 +93,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#addDivPer").hide();
+           // $("#addDivPer").hide();
             var workIteam = $("#ddlWOD").val();
             //GetAllWorkIteam(workIteam);
             //
@@ -332,31 +333,39 @@
         $(".mathFormula").change(function () {
             var getDataId = $(this).data("id");
             var getVal = $(this).val();
+           
             var getQut = $("#txtQty").val();
             var numbers = $("#txtNumbers").val();
-            // alert(numbers);
+            // alert(getVal);
             var length = $("#txtLength").val();
             var breadthWidth = $("#txtBreadthWidth").val();
             var depthHeight = $("#txtDepthHeight").val();
 
-            if (getQut == "")
-                getQut = 1;
-
-            var result = 0.00;
-            if (getDataId == "Number" && numbers != "") {
+            if (getQut == "") {
+                    getQut = 1;
+            } 
+             var result = 0.00;
+            if (numbers != "" && length != "" && breadthWidth != "" && depthHeight) {
+                var getFormulaValue = math.eval(numbers);
+                var getFormulaValue1 = math.eval(length);
+                var getFormulaValue2 = math.eval(breadthWidth);
+                var getFormulaValue3 = math.eval(depthHeight);
+                result = (getFormulaValue * getFormulaValue1 * getFormulaValue2 * getFormulaValue3);
+            }
+            else if (getDataId == "Number" && numbers != "") {
                 var getFormulaValue = math.eval(numbers);
                 result = (getFormulaValue * getQut);
             }
-            else if (getDataId == "Length") {
-                var getFormulaValue = math.eval(getVal);
+            else if (getDataId == "Length" && length != "") {
+                var getFormulaValue = math.eval(length);
                 result = (getFormulaValue * getQut);
             }
-            else if (getDataId == "BreadthWidth") {
-                var getFormulaValue = math.eval(getVal);
+            else if (getDataId == "BreadthWidth" && breadthWidth != "") {
+                var getFormulaValue = math.eval(breadthWidth);
                 result = (getFormulaValue * getQut);
             }
-            else if (getDataId == "DepthHeight") {
-                var getFormulaValue = math.eval(getVal);
+            else if (getDataId == "DepthHeight" && depthHeight !== "") {
+                var getFormulaValue = math.eval(depthHeight);
                 result = (getFormulaValue * getQut);
             }
             $("#txtQty").val(result);
@@ -529,9 +538,9 @@
             else if (InitialLead == "") {
                 alert("Please enter Initial Lead ");
             }
-            else if (Remark == "") {
-                alert("Please enter remark ");
-            }              
+            //else if (Remark == "") {
+            //    alert("Please enter remark ");
+            //}              
             else {
                 //
                 var addModel = {}

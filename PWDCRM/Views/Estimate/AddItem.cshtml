@@ -152,7 +152,7 @@
                                                 <td><input type="text" data-id="BreadthWidth" class="inputClass mathFormula" required name="BreadthWidth" id="txtBreadthWidth" /></td>
                                                 <td><input type="text" data-id="DepthHeight" class="inputClass mathFormula" required name="DepthHeight" id="txtDepthHeight" /></td>
                                                 @*<td><input type="text" class="inputClass" required name="GeometricalFormulas" id="txtGeometricalFormulas" /></td>*@
-                                                <td><input type="text" class="inputClass" required name="Qty" id="txtQty" /></td>
+                                                <td><input type="text" class="inputClass" required readonly name="Qty" id="txtQty" /></td>
 
                                                 <td><input type="button" class="btn btn-sm btn-success" value="Add " name="Add" id="btnAdd" /></td>
                                             </tr>
@@ -189,14 +189,6 @@
                                                     for (int i = 0; i < getItemNo.Count; i++)
                                                     {
 
-                                                        //if(item.ItemNo==getItemNo[i])
-                                                        //{
-                                                        //    count = (count+Convert.ToDouble(item.Qty));
-                                                        //}
-                                                        //else
-                                                        //{
-                                                        //   // count = 0.00;
-                                                        //}
                                                         count = 0.00;
                                                         foreach (var item in ItemListDetail)
                                                         {
