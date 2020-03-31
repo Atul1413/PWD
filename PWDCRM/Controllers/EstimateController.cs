@@ -165,7 +165,7 @@ namespace PWDCRM.Controllers
             {
                 var dbContext = new PWDCRMEntities();
                 var getDetails = dbContext.ITEMS.Where(s => s.Chap.Contains(Chap)).ToList();
-                var finalData = getDetails.GroupBy(g => new { g.Chap, g.ANO }).Select(s => new { s.Key.ANO, s.Key.Chap }).Distinct().ToList();
+                var finalData = getDetails.Select(s => new { s.Chap}).Distinct().ToList();
                 return Json(finalData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

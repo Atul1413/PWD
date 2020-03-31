@@ -330,6 +330,15 @@
                 })
             }
         });
+        $("#btnResetItem").click(function () {
+            $("#txtNumbers").val('');
+            $("#txtLength").val('');
+            $("#txtBreadthWidth").val('');
+            $("#txtDepthHeight").val('');
+
+            $("#txtQty").val('');
+            $("#txtRemarks").val('');
+        });
         $(".mathFormula").change(function () {
             var getDataId = $(this).data("id");
             var getVal = $(this).val();
@@ -368,7 +377,7 @@
                 var getFormulaValue = math.eval(depthHeight);
                 result = (getFormulaValue * getQut);
             }
-            $("#txtQty").val(result);
+            $("#txtQty").val((Math.round(result * 100) / 100).toFixed(2));
 
         });
 
@@ -607,7 +616,7 @@
                              $("#ddlmaterial").val(data.Material);
                             $("#txtleadinKM").val(data.LeadInKM);
                             $("#txtsourceOfMaterail").val(data.Source);
-                            $("#txtinitialLead").val(data.InitialLeadCharges);
+                            $("#txtinitialLead").val((Math.round(data.InitialLeadCharges * 100) / 100).toFixed(2));
                             //$("#txtWorkIdLead").val("");
                             $("#remark").val(data.Remarks);
                             $("#txtSSRRate").val(data.SSRRate);
@@ -663,13 +672,32 @@
                     data: { materialName: materialName,FACTOR:getVal },
                     success: function (data) {
                         console.log(data);
-                        var res = (data[2]/data[0]);
-                       // $("#txtleadinKM").val(data[0]);
-                        $("#txtsourceOfMaterail").val(data[1]);
-                        $("#txtinitialLead").val(res);
-                        $("#txtSSRRate").val(data[3]);
+                        if (data.length != 0) {
+                            if (data[2] != "NA") {
+                                var res = (data[2] / data[0]);
+                                // $("#txtleadinKM").val(data[0]);
+                                $("#txtsourceOfMaterail").val(data[1]);
+                                $("#txtinitialLead").val((Math.round(res * 100) / 100).toFixed(2));
+                                $("#txtSSRRate").val(data[3]);
+
+                            }
+                            else {
+                                alert("Please Enter valid lead in km");
+                                $("#txtsourceOfMaterail").val(0);
+                                $("#txtinitialLead").val(0);
+                                $("#txtSSRRate").val(0);
+                            }
+                        }
+                        else {
+                            alert("Please select material");
+                            $("#txtsourceOfMaterail").val(0);
+                            $("#txtinitialLead").val(0);
+                            $("#txtSSRRate").val(0);
+                        }
+
                         $("#txtCurrentDiff").val(0);
                         $("#txtDiffofRate").val(0);
+                        
 
                     }
                 })

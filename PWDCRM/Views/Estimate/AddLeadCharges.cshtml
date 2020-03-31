@@ -88,7 +88,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" id="txtleadinKM" class="form-control" required name="LeadinKM" />
+                                            <input type="text" id="txtleadinKM" class="form-control decimal" required name="LeadinKM" />
                                             <input type="hidden" id="txtsourceOfMaterail" class="form-control" name="sourceofmaterail" />
                                             <input type="hidden" id="txtLeadChargesID" class="form-control" value="0" name="txtLeadChargesID" />
                                         </td>
@@ -97,16 +97,16 @@
 
                                         </td>
                                         <td>
-                                            <input type="text" id="txtinitialLead" class="form-control" required name="initialleadinkm" />
+                                            <input type="text" id="txtinitialLead" class="form-control decimal" required name="initialleadinkm" />
                                         </td>
                                         <td>
-                                            <input type="text" id="txtSSRRate" class="form-control" required name="SSRRate" />
+                                            <input type="text" id="txtSSRRate" class="form-control decimal" required name="SSRRate" />
                                         </td>
                                         <td>
-                                            <input type="text" id="txtCurrentDiff" class="form-control" required name="CurrentDiff" />
+                                            <input type="text" id="txtCurrentDiff" class="form-control decimal" required name="CurrentDiff" />
                                         </td>
                                         <td>
-                                            <input type="text" id="txtDiffofRate" class="form-control" required name="DiffofRate" />
+                                            <input type="text" id="txtDiffofRate" class="form-control decimal" required name="DiffofRate" />
                                         </td>
                                         <td>
                                             <input type="text" id="remark" class="form-control" required name="remark" />
@@ -165,3 +165,8 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+    $('.decimal').keypress(function (evt) {
+        return (/^[0-9]*\.?[0-9]*$/).test($(this).val() + evt.key);
+    });
+</script>
