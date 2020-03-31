@@ -166,7 +166,7 @@
                                     <table class="table table-bordered table-hover table-responsive table-condensed" id="tblDataBind">
                                         <thead>
                                             <tr>
-                                                <th> <input type="checkbox" name="All" id="chkAll" value="All" /> <label for="chkAll"> Check All</label>  </th>
+                                                <th> <input type="checkbox" name="All" id="chkItemAll" value="All" class="chkItemAll" /> <label for="chkAll"> Check All</label>  </th>
                                                 <th>Item No</th>
                                                 <th>Number</th>
                                                 <th>Length</th>
@@ -196,15 +196,14 @@
                                                             {
                                                                count = (count+Convert.ToDouble(item.Qty));
                                                                 <tr>
-                                                                    <td><input type="checkbox" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
+                                                                    <td><input type="checkbox" class="chkItem" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
                                                                     <td>@item.ItemNo</td>
                                                                     <td>@item.Number</td>
                                                                     <td>@item.Length</td>
                                                                     <td>@item.BreadthWidth</td>
                                                                     <td>@item.DepthHeight</td>
                                                                     <td>@item.Qty</td>
-                                                                    <td>@count</td>
-
+                                                                    <td><b>@count</b></td>
                                                                     <td>@item.Remarks</td>
                                                                     <td><a class="editItem" data-id="@item.Id">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="@item.Id">Delete</a></td>
                                                                 </tr>
@@ -217,6 +216,9 @@
                                             }
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="button" class="btn btn-sm btn-success" value="Bulk Copy" name="Bulk Copy" id="btnbulkCopy" />
                                 </div>
                             </div>
                         </div>

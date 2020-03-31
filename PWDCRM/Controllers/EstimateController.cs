@@ -263,7 +263,7 @@ namespace PWDCRM.Controllers
                         addIteam.UpdateOn = DateTime.Now.Date;
                         addIteam.FloorData = model.FloorData;
                         addIteam.SubWorkID = model.SubWorkID;
-                        dbContext.ItemDetails.Add(model);
+                        dbContext.ItemDetails.Add(addIteam);
                         dbContext.SaveChanges();
                     }
                     else
@@ -663,6 +663,46 @@ namespace PWDCRM.Controllers
             catch (Exception ex)
             {
                 return View(model);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AddIteamBulk(int WorkDataID, string ItemNo, string FloorData,int SubWorkID,int[] ItemDetailIds)
+        {
+            var getResult = new List<ItemDetail>();
+            try
+            {
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    foreach (var item in ItemDetailIds)
+                    {
+                        var getItemDetail = dbContext.ItemDetails.Where(s => s.Id == item).FirstOrDefault();
+                        if(getItemDetail!=null)
+                        {
+                            var addIteam = new ItemDetail();
+                            addIteam.ItemNo = ItemNo;
+                            addIteam.WorkDataID = WorkDataID;
+                            addIteam.Number = getItemDetail.Number;
+                            addIteam.Length = getItemDetail.Length;
+                            addIteam.BreadthWidth = getItemDetail.BreadthWidth;
+                            addIteam.DepthHeight = getItemDetail.DepthHeight;
+                            addIteam.GeometricalFormulas = "";
+                            addIteam.Remarks = getItemDetail.Remarks;
+                            addIteam.Qty = getItemDetail.Qty;
+                            addIteam.CreatedOn = DateTime.Now.Date;
+                            addIteam.UpdateOn = DateTime.Now.Date;
+                            addIteam.FloorData = FloorData;
+                            addIteam.SubWorkID = SubWorkID;
+                            dbContext.ItemDetails.Add(addIteam);
+                            dbContext.SaveChanges();
+                        }
+                    }
+                }
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message.ToString(), JsonRequestBehavior.AllowGet);
             }
         }
     }

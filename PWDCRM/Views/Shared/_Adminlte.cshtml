@@ -52,7 +52,6 @@
     <!-- ./wrapper -->
     <!--AdminLTE-->
     <!-- jQuery 3 -->
-    
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>*@
     @*<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>*@
     @*<script src="~/wwwroot/adminlte/components/jquery/dist/jquery.min.js"></script>*@
@@ -93,7 +92,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-           // $("#addDivPer").hide();
+            // $("#addDivPer").hide();
             var workIteam = $("#ddlWOD").val();
             //GetAllWorkIteam(workIteam);
             //
@@ -193,7 +192,7 @@
             if (getVal != "") {
                 // $("#ddlSSR").empty();
                 SelectItemID(getVal);
-   
+
             }
         });
         function SelectItemID(id) {
@@ -313,11 +312,11 @@
                             $("#tblDataBind tbody").empty();
                             var item = '';
                             for (var i = 0; i < data.length; i++) {
-                                item += '<tr> <td><input type="checkbox" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="editItem" data-id="'+data[i].Id+'">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="'+data[i].Id+'">Delete</a></td></tr>';
+                                item += '<tr> <td><input type="checkbox" class="chkItem" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="editItem" data-id="' + data[i].Id + '">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="' + data[i].Id + '">Delete</a></td></tr>';
                             }
                             $("#tblDataBind tbody").html(item);
                             //var $dataTable = $("#tblDataBind").dataTable({ /* Your settings */ });
-                           location.reload();
+                            location.reload();
                         }
                         $("#txtNumbers").val('');
                         $("#txtLength").val('');
@@ -327,7 +326,7 @@
                         $("#txtQty").val('');
                         $("#txtRemarks").val('');
                     }
-                })
+                });
             }
         });
         $("#btnResetItem").click(function () {
@@ -342,7 +341,7 @@
         $(".mathFormula").change(function () {
             var getDataId = $(this).data("id");
             var getVal = $(this).val();
-           
+
             var getQut = $("#txtQty").val();
             var numbers = $("#txtNumbers").val();
             // alert(getVal);
@@ -351,9 +350,9 @@
             var depthHeight = $("#txtDepthHeight").val();
 
             if (getQut == "") {
-                    getQut = 1;
-            } 
-             var result = 0.00;
+                getQut = 1;
+            }
+            var result = 0.00;
             if (numbers != "" && length != "" && breadthWidth != "" && depthHeight) {
                 var getFormulaValue = math.eval(numbers);
                 var getFormulaValue1 = math.eval(length);
@@ -390,8 +389,8 @@
             }
         });
 
-         $(document).on("click", ".editItem", function () {
-             var id = $(this).attr("data-id");
+        $(document).on("click", ".editItem", function () {
+            var id = $(this).attr("data-id");
             if (id != null) {
                 $.ajax({
                     url: "/Estimate/GetItemDetailById",
@@ -401,7 +400,7 @@
                     success: function (data) {
                         console.log(data);
                         if (data != "Error") {
-                             $("#ddlSSR").empty();
+                            $("#ddlSSR").empty();
                             SelectItemID(data.ItemNo);
                             $("#txtItemDetails").val(data.Id);
                             $("#Category").val();
@@ -424,7 +423,7 @@
                 });
             }
         });
-       
+
         $(document).on("click", ".deleteItem", function () {
             var id = $(this).attr("data-id");
             if (id != null) {
@@ -492,7 +491,7 @@
                     success: function (data) {
                         console.log(data);
                         var res = (data[2] / data[0]);
-                       // alert(res);
+                        // alert(res);
                         $("#txtleadinKM").val(0);
                         $("#txtsourceOfMaterail").val(data[1]);
                         $("#txtinitialLead").val(0);
@@ -519,7 +518,7 @@
         //Lead Charges Add
         $("#btnSubmitMaterial").click(function () {
             var ItemName = "NA";
-            var id= $("#txtLeadChargesID").val();
+            var id = $("#txtLeadChargesID").val();
             var Material = $("#ddlmaterial").val();
             var LeadinKM = $("#txtleadinKM").val();
             var SourceOfMaterail = $("#txtsourceOfMaterail").val();
@@ -549,17 +548,17 @@
             }
             //else if (Remark == "") {
             //    alert("Please enter remark ");
-            //}              
+            //}
             else {
                 //
                 var addModel = {}
                 addModel.Id = id;
-                addModel.WorkID =workID;
+                addModel.WorkID = workID;
                 addModel.Material = Material;
                 addModel.Source = SourceOfMaterail;
                 addModel.LeadInKM = LeadinKM;
                 addModel.InitialLeadCharges = InitialLead;
-                addModel.SSRRate =SSRRate;
+                addModel.SSRRate = SSRRate;
                 addModel.CurrentDiff = CurrentDiff;
                 addModel.DiffofRate = DiffofRate;
                 addModel.NetLeadCharges = "";
@@ -569,7 +568,7 @@
                     url: "/Estimate/AddLeadCharges",
                     type: "POST",
                     dataType: "json",
-                    data: { addModel: addModel},
+                    data: { addModel: addModel },
                     success: function (data) {
                         if (data != "Error") {
                             $("#ddlmaterial").val("");
@@ -581,7 +580,7 @@
                             $("#txtSSRRate").val("");
                             $("#txtCurrentDiff").val("");
                             $("#txtDiffofRate").val("");
-                             $("#txtsOfMaterail").val("");
+                            $("#txtsOfMaterail").val("");
                             $("#txtLeadChargesID").val(0);
 
                             $("#tblListLeadCharges tbody").empty();
@@ -603,7 +602,7 @@
             }
         });
         $(document).on("click", ".editLeadChart", function () {
-             var id = $(this).attr("data-id");
+            var id = $(this).attr("data-id");
             if (id != null) {
                 $.ajax({
                     url: "/Estimate/GetLeadCharges",
@@ -613,7 +612,7 @@
                     success: function (data) {
                         console.log(data);
                         if (data != "Error") {
-                             $("#ddlmaterial").val(data.Material);
+                            $("#ddlmaterial").val(data.Material);
                             $("#txtleadinKM").val(data.LeadInKM);
                             $("#txtsourceOfMaterail").val(data.Source);
                             $("#txtinitialLead").val((Math.round(data.InitialLeadCharges * 100) / 100).toFixed(2));
@@ -623,7 +622,7 @@
                             $("#txtCurrentDiff").val(data.CurrentDiff);
                             $("#txtDiffofRate").val(data.DiffofRate);
                             $("#txtLeadChargesID").val(data.Id);
-                             $("#txtsOfMaterail").val(data.SourceOfMaterial);
+                            $("#txtsOfMaterail").val(data.SourceOfMaterial);
                         }
                         else {
                             alert(data);
@@ -632,7 +631,7 @@
                 });
             }
         });
-       
+
         $(document).on("click", ".deleteLeadChart", function () {
             var id = $(this).attr("data-id");
             if (id != null) {
@@ -656,20 +655,20 @@
                     });
                 } else {
                     return false;
-                }  
+                }
             }
         });
-        
+
         $("#txtleadinKM").change(function () {
             var getVal = $(this).val();
             if (getVal != "") {
-               var materialName= $("#ddlmaterial").val();
+                var materialName = $("#ddlmaterial").val();
                 //$("#ddlmaterial").empty();
                 $.ajax({
                     url: "/Estimate/GetFactorDetail",
                     type: "POST",
                     dataType: "json",
-                    data: { materialName: materialName,FACTOR:getVal },
+                    data: { materialName: materialName, FACTOR: getVal },
                     success: function (data) {
                         console.log(data);
                         if (data.length != 0) {
@@ -697,19 +696,117 @@
 
                         $("#txtCurrentDiff").val(0);
                         $("#txtDiffofRate").val(0);
-                        
+
 
                     }
                 })
             }
         })
+        ////Bulk Copy
+        //$(document).on("click", ".chkItem", function () {
+        //    var getUnSeletedCount = $('input:checkbox.chkItem:checked').length;
+        //    var getSelectedCount = $('input:checkbox.chkItem').length;
+        //    if (getUnSeletedCount == getSelectedCount) {
+        //        $('.chkItemAll').prop('checked', true); // Checks it
+        //    }
+        //    else {
+        //        $('.chkItemAll').prop('checked', false); // Checks it
+        //    }
+        //});
+        //$(document).on("click", ".chkItemAll", function () {
+        //    if ($(this).prop("checked") == true) {
+        //        $('.chkItem').prop('checked', true); // Checks it
+        //    }
+        //    else {
+        //        $('.chkItem').prop('checked', false); // Checks it
+        //    }
+        //});
 
+        //$('body').on('click', '#selectAll', function () {
+        //    if ($(this).hasClass('allChecked')) {
+        //        $('input[type="checkbox"]', allPages).prop('checked', false);
+        //    } else {
+        //        $('input[type="checkbox"]', allPages).prop('checked', true);
+        //    }
+        //   // $(this).toggleClass('allChecked');
+        //})
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#bindtblWorkData').DataTable();
             $('#tblListLeadCharges').DataTable();
-            $('#tblDataBind').DataTable();
+            var table = $('#tblDataBind').DataTable();
+            //Bulk Copy Section 
+            $(document).on("click", ".chkItemAll", function () {                
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                console.log(rows);
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+            // Handle click on checkbox to set state of "Select all" control
+            $('#tblDataBind tbody').on('change', 'input[type="checkbox"]', function () {
+                // If checkbox is not checked
+                if (!this.checked) {
+                    var el = $('.chkItemAll').get(0);
+                    // If "Select all" control is checked and has 'indeterminate' property
+                    if (el && el.checked && ('indeterminate' in el)) {                      
+                        el.indeterminate = true;
+                    }
+                }
+                else {
+                    var el = $('.chkItemAll').get(0);
+                    if (el && el.checked && ('indeterminate' in el)) {                        
+                        el.indeterminate = false;
+                    }
+                }
+            });
+
+            //Click on Bulk Button
+            var list = new Array();
+            $(document).on("click", "#btnbulkCopy", function (e) {
+                list = new Array();
+                table.$('input[type="checkbox"]').each(function () {
+                    if (this.checked) {
+                        list.push(this.value);
+                       // alert(this.value);
+                    }
+                });
+                var getIteamNo = $("#IteamID").val();
+                var SubWODID = $("#ddlSWOD").val();
+                var FloorID = $("#ddlFloor").val();
+                var nameOfWork = $("#txtWorkId").val();
+                if (list.length == 0) {
+                    alert("Please select any row for the copy data");
+                }
+                else if (SubWODID == null) {                   
+                    alert("Please select Sub work");
+                }
+                else if (FloorID == "") {                    
+                    alert("Please select floor");
+                }
+                else if (getIteamNo == "") {
+                    alert("Please select any iteam no");
+                }
+                else {                    
+                    $.ajax({
+                        url: "/Estimate/AddIteamBulk",
+                        type: "POST",
+                        dataType: "json",
+                        data: { WorkDataID: nameOfWork, ItemNo: getIteamNo, FloorData: FloorID, SubWorkID: SubWODID, ItemDetailIds: list},
+                        success: function (data) {
+                            console.log(data);
+                            alert("Data saved successfully");
+                            location.reload();                            
+                        }
+                        , error: function (xhr) {
+                            console.log(xhr);
+                            alert("Something went wrong");
+                        }
+                    });
+                }
+
+                e.preventDefault();
+            });
+
         });
     </script>
     @RenderSection("Scripts", required: false)
