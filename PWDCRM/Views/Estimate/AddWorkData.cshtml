@@ -50,49 +50,26 @@
                                         </select>
                                     </div>
                                 </div>
-                                @*<div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-right"> Department</label>
-                                        <div class="col-md-6">
-                                            <select class="form-control" required="required" id="ddlDepartment" name="Department">
-                                                <option value="" class="hidden" selected disabled>Please select your Department</option>
-                                                <option value="Home Department">Home Department</option>
-                                                <option value="Education Department">Education Department</option>
-                                                <option value="Revenue Department">Revenue Department</option>
-                                            </select>
-                                        </div>
-                                    </div>*@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right"> Fund Head</label>
                                     <div class="col-md-6">
-                                        <input list="ddlHeadOfAccounts" class="form-control" required name="HeadOfAccounts" id="ddlText5" />
+                                        <input list="ddlHeadOfAccounts" class="form-control" maxlength="250" required name="FundHead" id="ddlText5" />
                                         <datalist id="ddlHeadOfAccounts">
                                             <option value="Home DepartmentHOA"></option>
                                             <option value="Education DepartmentHOA"></option>
                                             <option value="Revenue DepartmentHOA"></option>
                                         </datalist>
-                                        @*<select class="form-control" required="required" id="ddlHeadOfAccounts" name="HeadOfAccounts">
-                                                <option value="" class="hidden" selected disabled>Please select your Head of Accounts</option>
-                                                <option value="Home DepartmentHOA">Home Department</option>
-                                                <option value="Education DepartmentHOA">Education Department</option>
-                                                <option value="Revenue DepartmentHOA">Revenue Department</option>
-                                            </select>*@
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Area</label>
                                     <div class="col-md-6">
-                                        <input list="ddlArea" class="form-control" required name="Area" id="ddlText4" />
+                                        <input list="ddlArea" class="form-control" required   maxlength="250" name="Area" id="ddlText4" />
                                         <datalist id="ddlArea">
                                             <option value="Home Department"></option>
                                             <option value="Education Department"></option>
                                             <option value="Revenue Department"></option>
                                         </datalist>
-                                        @*<select class="form-control" required="required" id="ddlArea" name="Area">
-                                                <option value="" class="hidden" selected disabled>Please select your Area</option>
-                                                <option value="Home DepartmentAREA">Home Department</option>
-                                                <option value="Education DepartmentAREA">Education Department</option>
-                                                <option value="Revenue DepartmentAREA">Revenue Department</option>
-                                            </select>*@
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -101,21 +78,11 @@
                                         <input type="radio" name="CostDiff" value="Yes" id="CostDiff1" />&nbsp;<label for="CostDiff1">Yes</label> &nbsp;&nbsp;&nbsp;
                                         <input type="radio" name="CostDiff" value="No" id="CostDiff2" checked />&nbsp;<label for="CostDiff2">No</label>
                                     </div>
-                                    @*<label class="col-md-3 col-form-label text-right">Fund Head</label>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" placeholder="Contingencie %" required="required" name="FundHead" id="txtFundHead" />
-                                        </div>*@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Region</label>
                                     <div class="col-md-6">
-                                        @*<select class="form-control" id="ddlRegion" name="Region">
-                                                <option value="" class="hidden" selected disabled>Please select your Region</option>
-                                                <option value="Home DepartmentRegion">Home Department</option>
-                                                <option value="Education DepartmentRegion">Education Department</option>
-                                                <option value="Revenue DepartmentRegion">Revenue Department</option>
-                                            </select>*@
-                                        <input list="ddlRegion" class="form-control" required name="Region" id="ddlText3" />
+                                        <input list="ddlRegion" class="form-control" required maxlength="250" name="Region" id="ddlText3" />
                                         <datalist id="ddlRegion">
                                             <option value="Home DepartmentRegion"></option>
                                             <option value="Education DepartmentRegion"></option>
@@ -126,13 +93,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Circle</label>
                                     <div class="col-md-6">
-                                        @*<select class="form-control" id="ddlCircle" name="Circle">
-                                                <option value="" class="hidden" selected disabled>Please select your Circle</option>
-                                                <option value="Home DepartmentCircle">Home Department</option>
-                                                <option value="Education DepartmentCircle">Education Department</option>
-                                                <option value="Revenue DepartmentCircle">Revenue Department</option>
-                                            </select>*@
-                                        <input list="ddlCircle" class="form-control" required name="Circle" id="ddlText2" />
+                                        <input list="ddlCircle" class="form-control" required maxlength="250" name="Circle" id="ddlText2" />
                                         <datalist id="ddlCircle">
                                             <option value="Home DepartmentCircle"></option>
                                             <option value="Education DepartmentCircle"></option>
@@ -144,13 +105,8 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Divison</label>
                                     <div class="col-md-6">
-                                        @*<select class="form-control" id="ddlDivison" name="Divison">
-                                                <option value="" class="hidden" selected disabled>Please select your Divison</option>
-                                                <option value="Home DepartmentDIV">Home Department</option>
-                                                <option value="Education DepartmentDIV">Education Department</option>
-                                                <option value="Revenue DepartmentDIV">Revenue Department</option>
-                                            </select>*@
-                                        <input list="ddlDivison" class="form-control" required name="Divison" id="ddlText1" />
+
+                                        <input list="ddlDivison" class="form-control" required maxlength="250" name="Divison" id="ddlText1" />
                                         <datalist id="ddlDivison">
                                             <option value="Home DepartmentDIV"></option>
                                             <option value="Education DepartmentDIV"></option>
@@ -161,18 +117,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Sub-Divsion</label>
                                     <div class="col-md-6">
-                                        <input list="ddlSub-Divsion" class="form-control" required name="SubDivsion" id="ddlText" />
+                                        <input list="ddlSub-Divsion" class="form-control" required maxlength="250" name="SubDivsion" id="ddlText" />
                                         <datalist id="ddlSub-Divsion">
-                                            <option value="Home DepartmentSUBDIV"></option>
+                                            <option selected="selected" value="Home DepartmentSUBDIV"></option>
                                             <option value="Education DepartmentSUBDIV"></option>
                                             <option value="Revenue DepartmentSUBDIV"></option>
                                         </datalist>
-                                        @*<select class="form-control" id="ddlSub-Divsion" name="SubDivsion">
-                                                <option value="" class="hidden" selected disabled>Please select your Sub-Divsion</option>
-                                                <option value="Home DepartmentSUBDIV">Home Department</option>
-                                                <option value="Education DepartmentSUBDIV">Education Department</option>
-                                                <option value="Revenue DepartmentSUBDIV">Revenue Department</option>
-                                            </select>*@
+
                                     </div>
                                 </div>
 
@@ -180,7 +131,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Remarks</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" id="txtRemarks" name="Remarks"></textarea>
+                                        <textarea class="form-control" id="txtRemarks" maxlength="500" name="Remarks"></textarea>
                                     </div>
                                 </div>
 
@@ -189,7 +140,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right">Royalty</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control decimal" placeholder="Enter Royalty" required="required" id="txtRoyalty" value=" 158.40" name="Royalty" />
+                                        <input type="text" class="form-control decimal" placeholder="Enter Royalty" maxlength="10" required="required" id="txtRoyalty" value=" 158.40" name="Royalty" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -203,57 +154,57 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3" id="addDivPer">
-                                        <input type="text" class="form-control decimal" placeholder="SAND Percentage" required="required" name="SANDPercentage" id="txtSANDPercentage" />
+                                        <input type="text" class="form-control decimal" placeholder="SAND Percentage" maxlength="10" name="SANDPercentage" id="txtSANDPercentage" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right">V & QC Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="V & QC Charges" value="0" name="VAndQCPercentage" id="txtVAndQCPercentage" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="V & QC Charges" value="0" name="VAndQCPercentage" id="txtVAndQCPercentage" />
                                     </div>
                                     <label class="col-md-3 col-form-label text-right">Internal Electrification</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="Internal Electrification" value="0" name="ElectricalINTPer" id="txtElectricalINTPer" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="Internal Electrification" value="0" name="ElectricalINTPer" id="txtElectricalINTPer" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right">External Electrification</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="External Electrification" value="0" name="ElectricalExtPer" id="txtElectricalExtPer" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="External Electrification" value="0" name="ElectricalExtPer" id="txtElectricalExtPer" />
                                     </div>
                                     <label class="col-md-3 col-form-label text-right">Water Supply Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="Water Supply Charges" value="0" name="WaterSupply" id="txtWaterSupply" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="Water Supply Charges" value="0" name="WaterSupply" id="txtWaterSupply" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right decimal"> Other Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="Other Charges" value="0" name="AnyOthercharg1" id="txtAnyOthercharg1" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="Other Charges" value="0" name="AnyOthercharg1" id="txtAnyOthercharg1" />
                                     </div>
                                     <label class="col-md-3 col-form-label text-right"> Other Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control decimal" placeholder="Other Charges" value="0" name="AnyOthercharg2" id="txtAnyOthercharg2" />
+                                        <input type="text" class="form-control decimal" maxlength="10" placeholder="Other Charges" value="0" name="AnyOthercharg2" id="txtAnyOthercharg2" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right">Labour insurance </label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Labour insurance" value="1" name="LabourInsurance" id="txtLabourInsurance" />
+                                        <input type="text" class="form-control "  maxlength="50" placeholder="Labour insurance" value="1" name="LabourInsurance" id="txtLabourInsurance" />
                                     </div>
                                     <label class="col-md-3 col-form-label text-right">GST</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="GST" value="12" required="required" name="GST" id="txtGST" />
+                                        <input type="text" class="form-control" maxlength="50" placeholder="GST" value="12" required="required" name="GST" id="txtGST" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label text-right">Contingencie</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Contingencie" value="4" name="Contingencie" id="txtContingencie" />
+                                        <input type="text" class="form-control" maxlength="100" placeholder="Contingencie" value="4" name="Contingencie" id="txtContingencie" />
                                     </div>
                                     <label class="col-md-3 col-form-label text-right">Centage Charges</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Centage Charges" value="5" name="ServiceCharges" id="txtServiceCharges" />
+                                        <input type="text" class="form-control" maxlength="10" placeholder="Centage Charges" value="5" name="ServiceCharges" id="txtServiceCharges" />
                                     </div>
                                 </div>
 
@@ -262,7 +213,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label text-right">Work Order No</label>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" placeholder="Work Order No" name="WorkOrderNo" id="txtWorkOrderNo" />
+                                            <input type="text" class="form-control" maxlength="50" placeholder="Work Order No" name="WorkOrderNo" id="txtWorkOrderNo" />
                                         </div>
                                         <label class="col-md-3 col-form-label text-right"> Tendered</label>
                                         <div class="col-md-3">
@@ -272,14 +223,14 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label text-right">Name of Agency</label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="Name Of Agency"  name="NameOfAgency" id="txtNameOfAgency" />
+                                            <input type="text" class="form-control" maxlength="250" placeholder="Name Of Agency" name="NameOfAgency" id="txtNameOfAgency" />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label text-right">Agreement No</label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="Agreement No" name="AgreementNo" id="txtAgreementNo" />
+                                            <input type="text" class="form-control" maxlength="100" placeholder="Agreement No" name="AgreementNo" id="txtAgreementNo" />
                                         </div>
                                     </div>
 
@@ -288,7 +239,7 @@
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <div class="col-md-4 text-right">
-                                        <input type="submit" class="btn-danger btn btn-lg" value="Cancel" />
+                                        <a class="btn btn-danger" href="@Url.Action("WorkData", "Estimate")">Back </a>
                                     </div>
                                     <div class="col-md-4 text-right">
                                         <input type="submit" class="btn-primary btn btn-lg" id="btnSubmit" value="Create" />
@@ -314,8 +265,8 @@
         $("#addDivPer").hide();
     });
     $("#btnSubmit").click(function () {
-        var g = $("#ddlText").val();
-        alert(g);
+        //var g = $("#ddlText").val();
+        //alert(g);
     });
     $('.decimal').keypress(function (evt) {
         return (/^[0-9]*\.?[0-9]*$/).test($(this).val() + evt.key);

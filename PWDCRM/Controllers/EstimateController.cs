@@ -104,6 +104,7 @@ namespace PWDCRM.Controllers
         [HttpPost]
         public ActionResult EditWorkData(WorkDataDetail model)
         {
+           
             try
             {
                 using (var dbContext = new PWDCRMEntities())
@@ -114,11 +115,37 @@ namespace PWDCRM.Controllers
                         var getData = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
                         if(getData!=null)
                         {
-                            //model.CreatedOn = DateTime.Now;
+                            getData.NameOfWork = model.NameOfWork;
+                            getData.SSRRate = model.SSRRate;
+                           // getData.HeadOfAccounts = model.HeadOfAccounts;
+                            getData.Area = model.Area;
+                            getData.SubDivsion = model.SubDivsion;
+                            getData.Divison = model.Divison;
+                            getData.Circle = model.Circle;
+                            getData.Region = model.Region;
+                            getData.Remarks = model.Remarks;
+                            getData.SubWorkData = model.SubWorkData;
+                            getData.Royalty = model.Royalty;
+                            getData.SANDPercentage = model.SANDPercentage;
+                            getData.CostDiff = model.CostDiff;
+                            getData.FundHead = model.FundHead;
+                            getData.NameOfAgency = model.NameOfAgency;
+                            getData.AgreementNo = model.AgreementNo;
+                            getData.WorkOrderNo = model.WorkOrderNo;
+                            getData.TypeSAND = model.TypeSAND;
+                            getData.VAndQCPercentage = model.VAndQCPercentage;
+                            getData.ElectricalINTPer = model.ElectricalINTPer;
+                            getData.ElectricalExtPer = model.ElectricalExtPer;
+                            getData.WaterSupply = model.WaterSupply;
+                            getData.AnyOthercharg1 = model.AnyOthercharg1;
+                            getData.AnyOthercharg2 = model.AnyOthercharg2;
+                            getData.LabourInsurance = model.LabourInsurance;
                             getData.GST = model.GST;
-
-                            model.UpdatedOn = DateTime.Now;
-                            dbContext.WorkDataDetails.AddOrUpdate(model); //requires using System.Data.Entity.Migrations;
+                            getData.Contingencie = model.Contingencie;
+                            getData.ServiceCharges = model.ServiceCharges;
+                            getData.Tendered = model.Tendered;
+                            getData.UpdatedOn = DateTime.Now; 
+                            dbContext.WorkDataDetails.AddOrUpdate(getData); 
                             dbContext.SaveChanges();
                         }
                         else
@@ -134,7 +161,7 @@ namespace PWDCRM.Controllers
             {
                 ViewBag.Error = ex.Message.ToString();
             }
-            return View();
+            return View(model);
         }
         public ActionResult AddItem(int id)
         {
@@ -259,6 +286,7 @@ namespace PWDCRM.Controllers
                         addIteam.DepthHeight = model.DepthHeight;
                         addIteam.GeometricalFormulas = "";
                         addIteam.Remarks = model.Remarks;
+                        addIteam.Qty = model.Qty;
                         addIteam.CreatedOn = DateTime.Now.Date;
                         addIteam.UpdateOn = DateTime.Now.Date;
                         addIteam.FloorData = model.FloorData;

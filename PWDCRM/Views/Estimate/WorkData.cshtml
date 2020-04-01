@@ -17,13 +17,6 @@
                     <a class="btn btn-primary" href="@Url.Action("AddWorkData", "Estimate")">
                         Add Work Data
                     </a>
-                    @*<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i>
-                        </button>*@
                 </div>
             </div>
             <div class="box-body">
@@ -37,14 +30,12 @@
                                 <th>Sr .No</th>
                                 <th>Name Of Work</th>
                                 <th>SSR (Schedule Of Rates)</th>
-                                <th>Department</th>
-                                @*<th>Head Of Accounts</th>*@
+                                <th>Fund Head </th>
                                 <th>Area</th>
-                                <th>Sub-Divsion</th>
-                                <th>Divison</th>
-                                <th>Circle</th>
                                 <th>Region</th>
-                                @*<th>Remarks</th>*@
+                                <th>Circle</th>
+                                <th>Divison</th>
+                                <th>Sub-Divsion</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -62,25 +53,22 @@
                                         @workData.SSRRate
                                     </td>
                                     <td>
-                                        @workData.Department
+                                        @workData.FundHead
                                     </td>
-                                    @*<td>
-                                        @workData.HeadOfAccounts
-                                    </td>*@
                                     <td>
                                         @workData.Area
                                     </td>
                                     <td>
-                                        @workData.SubDivsion
-                                    </td>
-                                    <td>
-                                        @workData.Divison
+                                        @workData.Region
                                     </td>
                                     <td>
                                         @workData.Circle
                                     </td>
                                     <td>
-                                        @workData.Region
+                                        @workData.Divison
+                                    </td>
+                                    <td>
+                                        @workData.SubDivsion
                                     </td>
 
                                     <td>
@@ -88,45 +76,6 @@
                                     </td>
                                 </tr>
                             }
-                            @*<tr ng-repeat="workData in workDataList">
-                                        <td>
-                                            {{$index + 1}}
-                                        </td>
-                                        <td class="textwrap" style="width:340px !important;word-wrap: break-word;">
-                                            {{workData.NameOfWork}}
-                                        </td>
-                                        <td>
-                                            {{workData.SSRRate}}
-                                        </td>
-                                        <td>
-                                            {{workData.Department}}
-                                        </td>
-                                        <td>
-                                            {{workData.HeadOfAccounts}}
-                                        </td>
-                                        <td>
-                                            {{workData.Area}}
-                                        </td>
-                                        <td>
-                                            {{workData.SubDivsion}}
-                                        </td>
-                                        <td>
-                                            {{workData.Divison}}
-                                        </td>
-                                        <td>
-                                            {{workData.Circle}}
-                                        </td>
-                                        <td>
-                                            {{workData.Region}}
-                                        </td>
-                                <td>
-                                    @{
-                                        var editUrl = Url.Action("AddItem", "Estimate", new { id = "{{workData.Id}}" });
-                                        editUrl = HttpUtility.UrlDecode(editUrl);
-                                    }
-                                    <a href="@editUrl">Add Items</a>
-                                </td>
-                                </tr>*@
                         </tbody>
                     </table>
                 </div>

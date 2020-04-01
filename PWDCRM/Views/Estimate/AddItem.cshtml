@@ -194,7 +194,7 @@
                                                         {
                                                             if (getItemNo[i] == item.ItemNo)
                                                             {
-                                                               count = (count+Convert.ToDouble(item.Qty));
+                                                                count = (count + Convert.ToDouble(item.Qty));
                                                                 <tr>
                                                                     <td><input type="checkbox" class="chkItem" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
                                                                     <td>@item.ItemNo</td>
@@ -203,7 +203,7 @@
                                                                     <td>@item.BreadthWidth</td>
                                                                     <td>@item.DepthHeight</td>
                                                                     <td>@item.Qty</td>
-                                                                    <td><b>@count</b></td>
+                                                                    <td><b>@String.Format("{0:0.00}", count)</b></td>
                                                                     <td>@item.Remarks</td>
                                                                     <td><a class="editItem" data-id="@item.Id">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="@item.Id">Delete</a></td>
                                                                 </tr>
