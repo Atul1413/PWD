@@ -310,13 +310,16 @@
                         console.log(data);
                         if (data.length != 0) {
                             $("#tblDataBind tbody").empty();
+                           // $("#tblDataBind tbody").DataTable().clear()
                             var item = '';
                             for (var i = 0; i < data.length; i++) {
                                 item += '<tr> <td><input type="checkbox" class="chkItem" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="editItem" data-id="' + data[i].Id + '">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="' + data[i].Id + '">Delete</a></td></tr>';
                             }
+                           // console.log(item);
                             $("#tblDataBind tbody").html(item);
+                           // $("#tblDataBind tbody").DataTable().draw();
                             //var $dataTable = $("#tblDataBind").dataTable({ /* Your settings */ });
-                            location.reload();
+                           // location.reload();
                         }
                         $("#txtNumbers").val('');
                         $("#txtLength").val('');

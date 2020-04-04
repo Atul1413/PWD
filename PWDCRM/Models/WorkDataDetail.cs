@@ -47,5 +47,7 @@ namespace PWDCRM.Models
         public string Contingencie { get; set; }
         public string ServiceCharges { get; set; }
         public string Tendered { get; set; }
+        public string PreparedBy { get; set; }
+        public string ApprovedBy { get; set; }
     }
 }

@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PWDCRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AREA">
+          <Key>
+            <PropertyRef Name="SNO" />
+          </Key>
+          <Property Name="SNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Per" Type="float" />
+        </EntityType>
         <EntityType Name="DMAT">
           <Key>
             <PropertyRef Name="SNO" />
@@ -275,8 +283,11 @@
           <Property Name="Contingencie" Type="nvarchar(max)" />
           <Property Name="ServiceCharges" Type="nvarchar(max)" />
           <Property Name="Tendered" Type="nvarchar(max)" />
+          <Property Name="PreparedBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityContainer Name="PWDCRMModelStoreContainer">
+          <EntitySet Name="AREA" EntityType="Self.AREA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DMAT" EntityType="Self.DMAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemDetails" EntityType="Self.ItemDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ITEMS" EntityType="Self.ITEMS" Schema="dbo" store:Type="Tables" />
@@ -378,6 +389,8 @@
           <Property Name="Contingencie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ServiceCharges" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Tendered" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreparedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PWDCRMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Lead_Statement" EntityType="Self.Lead_Statement" />
@@ -392,6 +405,7 @@
           <EntitySet Name="DMATs" EntityType="PWDCRMModel.DMAT" />
           <EntitySet Name="ITEMS" EntityType="PWDCRMModel.ITEM" />
           <EntitySet Name="Rate_Analysis" EntityType="PWDCRMModel.Rate_Analysis" />
+          <EntitySet Name="AREAs" EntityType="PWDCRMModel.AREA" />
         </EntityContainer>
         <EntityType Name="ItemDetail">
           <Key>
@@ -579,6 +593,14 @@
           <Property Name="Completed_Rate" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="AREA">
+          <Key>
+            <PropertyRef Name="SNO" />
+          </Key>
+          <Property Name="SNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Per" Type="Double" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -638,6 +660,8 @@
           <EntitySetMapping Name="WorkDataDetails">
             <EntityTypeMapping TypeName="PWDCRMModel.WorkDataDetail">
               <MappingFragment StoreEntitySet="WorkDataDetails">
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="PreparedBy" ColumnName="PreparedBy" />
                 <ScalarProperty Name="Tendered" ColumnName="Tendered" />
                 <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
                 <ScalarProperty Name="Contingencie" ColumnName="Contingencie" />
@@ -865,6 +889,15 @@
                 <ScalarProperty Name="Item_No" ColumnName="Item_No" />
                 <ScalarProperty Name="SSR" ColumnName="SSR" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AREAs">
+            <EntityTypeMapping TypeName="PWDCRMModel.AREA">
+              <MappingFragment StoreEntitySet="AREA">
+                <ScalarProperty Name="Per" ColumnName="Per" />
+                <ScalarProperty Name="AName" ColumnName="AName" />
+                <ScalarProperty Name="SNO" ColumnName="SNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -7581,6 +7581,9 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\AREA.cs">
+      <DependentUpon>PWDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DMAT.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
     </Compile>

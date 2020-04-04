@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Edit Work Data";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var listArea = ViewData["ListArea"] as List<PWDCRM.Models.AREA>;
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -55,21 +56,40 @@
                                     <div class="col-md-6">
                                         <input list="ddlHeadOfAccounts" class="form-control" required name="FundHead" maxlength="250" value="@Model.FundHead" id="ddlText5" />
                                         <datalist id="ddlHeadOfAccounts">
-                                            <option value="Home DepartmentHOA"></option>
-                                            <option value="Education DepartmentHOA"></option>
-                                            <option value="Revenue DepartmentHOA"></option>
+                                            <option value="Current Repairs Road and Bridges"></option>
+                                            <option value="Special Repairs Road and Bridges"></option>
                                         </datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Area</label>
                                     <div class="col-md-6">
-                                        <input list="ddlArea" class="form-control" required name="Area"  maxlength="250" value="@Model.Area" id="ddlText4" />
+                                        <select class="form-control" name="Area" id="ddlArea" >
+                                            <option value="" selected="selected" disabled="disabled">Select Area</option>
+                                            @if(listArea!=null)
+                                            {
+                                                if(listArea.Count!=0)
+                                                {
+                                                    foreach (var item in listArea)
+                                                    {
+                                                        if(Model.Area==item.AName)
+                                                        {
+                                                            <option selected="selected" value="@item.SNO">@item.AName</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.SNO">@item.AName</option>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @*<input list="ddlArea" class="form-control" required name="Area"  maxlength="250" value="@Model.Area" id="ddlText4" />
                                         <datalist id="ddlArea">
                                             <option value="Home Department"></option>
                                             <option value="Education Department"></option>
                                             <option value="Revenue Department"></option>
-                                        </datalist>
+                                        </datalist>*@
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -84,9 +104,7 @@
                                     <div class="col-md-6">
                                         <input list="ddlRegion" class="form-control" required name="Region" maxlength="250" value="@Model.Region" id="ddlText3" />
                                         <datalist id="ddlRegion">
-                                            <option value="Home DepartmentRegion"></option>
-                                            <option value="Education DepartmentRegion"></option>
-                                            <option value="Revenue DepartmentRegion"></option>
+                                            <option value="Chief Engineer P.W. Region…"></option>                                           
                                         </datalist>
                                     </div>
                                 </div>
@@ -95,9 +113,7 @@
                                     <div class="col-md-6">
                                         <input list="ddlCircle" class="form-control" required value="@Model.Circle" maxlength="250" name="Circle" id="ddlText2" />
                                         <datalist id="ddlCircle">
-                                            <option value="Home DepartmentCircle"></option>
-                                            <option value="Education DepartmentCircle"></option>
-                                            <option value="Revenue DepartmentCircle"></option>
+                                            <option value="Superintending Engineer P.W. Circle…."></option>
                                         </datalist>
                                     </div>
                                 </div>
@@ -108,9 +124,7 @@
 
                                         <input list="ddlDivison" class="form-control" required name="Divison" maxlength="250" value="@Model.Divison" id="ddlText1" />
                                         <datalist id="ddlDivison">
-                                            <option value="Home DepartmentDIV"></option>
-                                            <option value="Education DepartmentDIV"></option>
-                                            <option value="Revenue DepartmentDIV"></option>
+                                            <option value="Executive Engineer Public Works Division…."></option>
                                         </datalist>
                                     </div>
                                 </div>
@@ -119,9 +133,7 @@
                                     <div class="col-md-6">
                                         <input list="ddlSub-Divsion" class="form-control" required value="@Model.SubDivsion" maxlength="250" name="SubDivsion" id="ddlText" />
                                         <datalist id="ddlSub-Divsion">
-                                            <option selected="selected" value="Home DepartmentSUBDIV"></option>
-                                            <option value="Education DepartmentSUBDIV"></option>
-                                            <option value="Revenue DepartmentSUBDIV"></option>
+                                            <option  value="sub-divisional engineer P.W. Sub division….."></option>
                                         </datalist>
 
                                     </div>
@@ -220,18 +232,38 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label text-right">Name of Agency</label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" maxlength="250" placeholder="Name Of Agency" required="required" value="@(Model.NameOfAgency!=null?Model.NameOfAgency:"")" name="NameOfAgency" id="txtNameOfAgency" />
+                                        <label class="col-md-2 col-form-label text-right">Name of Agency</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="250" placeholder="Name Of Agency" value="@(Model.NameOfAgency!=null?Model.NameOfAgency:"")" name="NameOfAgency" id="txtNameOfAgency" />
+                                        </div>
+                                        <label class="col-md-2 col-form-label text-right">Agreement No</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="100" placeholder="Agreement No" value="@(Model.AgreementNo!=null?Model.AgreementNo:"")" name="AgreementNo" id="txtAgreementNo" />
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label text-right">Agreement No</label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" maxlength="50" placeholder="Agreement No" required="required" value="@(Model.AgreementNo!=null?Model.AgreementNo:"")" name="AgreementNo" id="txtAgreementNo" />
+                                        <label class="col-md-2 col-form-label text-right">Approved by</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="250" placeholder="Approved by" value="@(Model.ApprovedBy!=null?Model.ApprovedBy:"")" name="ApprovedBy" id="txtApprovedBy" />
+                                        </div>
+                                        <label class="col-md-2 col-form-label text-right">Prepared by </label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="100" placeholder="Prepared by" value="@(Model.PreparedBy!=null?Model.PreparedBy:"")" name="PreparedBy" id="txtPreparedBy" />
                                         </div>
                                     </div>
+                                    @*<div class="form-group row">
+            <label class="col-md-3 col-form-label text-right">Name of Agency</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" maxlength="250" placeholder="Name Of Agency" required="required" value="@(Model.NameOfAgency!=null?Model.NameOfAgency:"")" name="NameOfAgency" id="txtNameOfAgency" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label text-right">Agreement No</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" maxlength="50" placeholder="Agreement No" required="required" value="@(Model.AgreementNo!=null?Model.AgreementNo:"")" name="AgreementNo" id="txtAgreementNo" />
+            </div>
+        </div>*@
 
                                 </fieldset>
                             </div>

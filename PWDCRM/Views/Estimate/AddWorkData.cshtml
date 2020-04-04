@@ -3,6 +3,7 @@
     ViewData["Title"] = "AddWorkData";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
     var data = ViewData["SubData"] as List<PWDCRM.Models.SubWorkDataDetail>;
+    var listArea = ViewData["ListArea"] as List<PWDCRM.Models.AREA>;
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -55,21 +56,35 @@
                                     <div class="col-md-6">
                                         <input list="ddlHeadOfAccounts" class="form-control" maxlength="250" required name="FundHead" id="ddlText5" />
                                         <datalist id="ddlHeadOfAccounts">
-                                            <option value="Home DepartmentHOA"></option>
-                                            <option value="Education DepartmentHOA"></option>
-                                            <option value="Revenue DepartmentHOA"></option>
+                                            <option value="Current Repairs Road and Bridges"></option>
+                                            <option value="Special Repairs Road and Bridges"></option>
                                         </datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Area</label>
                                     <div class="col-md-6">
-                                        <input list="ddlArea" class="form-control" required   maxlength="250" name="Area" id="ddlText4" />
-                                        <datalist id="ddlArea">
-                                            <option value="Home Department"></option>
-                                            <option value="Education Department"></option>
-                                            <option value="Revenue Department"></option>
-                                        </datalist>
+                                        <select class="form-control" name="Area" id="ddlArea">
+                                            <option value="" selected="selected" disabled="disabled">Select Area</option>
+                                            @if (listArea != null)
+                                            {
+                                                if (listArea.Count != 0)
+                                                {
+                                                    foreach (var item in listArea)
+                                                    {
+
+                                                        <option value="@item.AName">@item.AName</option>
+
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        @*<input list="ddlArea" class="form-control" required   maxlength="250" name="Area" id="ddlText4" />
+        <datalist id="ddlArea">
+            <option value="Home Department"></option>
+            <option value="Education Department"></option>
+            <option value="Revenue Department"></option>
+        </datalist>*@
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -82,22 +97,18 @@
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Region</label>
                                     <div class="col-md-6">
-                                        <input list="ddlRegion" class="form-control" required maxlength="250" name="Region" id="ddlText3" />
+                                        <input list="ddlRegion" class="form-control" required maxlength="250" value="Chief Engineer P.W. Region…"  name="Region" id="ddlText3" />
                                         <datalist id="ddlRegion">
-                                            <option value="Home DepartmentRegion"></option>
-                                            <option value="Education DepartmentRegion"></option>
-                                            <option value="Revenue DepartmentRegion"></option>
+                                            <option selected="selected" value="Chief Engineer P.W. Region…"></option>
                                         </datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Circle</label>
                                     <div class="col-md-6">
-                                        <input list="ddlCircle" class="form-control" required maxlength="250" name="Circle" id="ddlText2" />
+                                        <input list="ddlCircle" class="form-control" required maxlength="250" value="Superintending Engineer P.W. Circle…."  name="Circle" id="ddlText2" />
                                         <datalist id="ddlCircle">
-                                            <option value="Home DepartmentCircle"></option>
-                                            <option value="Education DepartmentCircle"></option>
-                                            <option value="Revenue DepartmentCircle"></option>
+                                            <option selected="selected" value="Superintending Engineer P.W. Circle…."></option>
                                         </datalist>
                                     </div>
                                 </div>
@@ -106,22 +117,18 @@
                                     <label class="col-md-4 col-form-label text-right">Divison</label>
                                     <div class="col-md-6">
 
-                                        <input list="ddlDivison" class="form-control" required maxlength="250" name="Divison" id="ddlText1" />
+                                        <input list="ddlDivison" class="form-control" required maxlength="250" value="Executive Engineer Public Works Division…." name="Divison" id="ddlText1" />
                                         <datalist id="ddlDivison">
-                                            <option value="Home DepartmentDIV"></option>
-                                            <option value="Education DepartmentDIV"></option>
-                                            <option value="Revenue DepartmentDIV"></option>
+                                            <option selected="selected" value="Executive Engineer Public Works Division…."></option>
                                         </datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-right">Sub-Divsion</label>
                                     <div class="col-md-6">
-                                        <input list="ddlSub-Divsion" class="form-control" required maxlength="250" name="SubDivsion" id="ddlText" />
+                                        <input list="ddlSub-Divsion" class="form-control" required maxlength="250" value="Sub-divisional engineer P.W. Sub division….." name="SubDivsion" id="ddlText" />
                                         <datalist id="ddlSub-Divsion">
-                                            <option selected="selected" value="Home DepartmentSUBDIV"></option>
-                                            <option value="Education DepartmentSUBDIV"></option>
-                                            <option value="Revenue DepartmentSUBDIV"></option>
+                                            <option selected="selected" value="Sub-divisional engineer P.W. Sub division….."></option>
                                         </datalist>
 
                                     </div>
@@ -221,16 +228,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label text-right">Name of Agency</label>
-                                        <div class="col-md-6">
+                                        <label class="col-md-2 col-form-label text-right">Name of Agency</label>
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" maxlength="250" placeholder="Name Of Agency" name="NameOfAgency" id="txtNameOfAgency" />
                                         </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-md-3 col-form-label text-right">Agreement No</label>
-                                        <div class="col-md-6">
+                                        <label class="col-md-2 col-form-label text-right">Agreement No</label>
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" maxlength="100" placeholder="Agreement No" name="AgreementNo" id="txtAgreementNo" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right">Approved by</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="250" placeholder="Approved by" name="ApprovedBy" id="txtApprovedBy" />
+                                        </div>
+                                        <label class="col-md-2 col-form-label text-right">Prepared by </label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" maxlength="100" placeholder="Prepared by" name="PreparedBy" id="txtPreparedBy" />
                                         </div>
                                     </div>
 

@@ -37,5 +37,6 @@ namespace PWDCRM.Models
         public virtual DbSet<DMAT> DMATs { get; set; }
         public virtual DbSet<ITEM> ITEMS { get; set; }
         public virtual DbSet<Rate_Analysis> Rate_Analysis { get; set; }
+        public virtual DbSet<AREA> AREAs { get; set; }
     }
 }

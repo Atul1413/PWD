@@ -45,6 +45,8 @@ namespace PWDCRM.Controllers
                 {
                     var getdata = dbContext.SubWorkDataDetails.Where(s => s.IsActive == true).ToList();
                     ViewData["SubData"] = getdata;
+                    var getArea = dbContext.AREAs.ToList();
+                    ViewData["ListArea"] = getArea;
                 }
             }
             catch (Exception ex)
@@ -85,6 +87,8 @@ namespace PWDCRM.Controllers
                     var getDetails = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
                     if(getDetails!=null)
                     {
+                        var getArea = dbContext.AREAs.ToList();
+                        ViewData["ListArea"] = getArea;
                         return View(getDetails);
                     }
                     else
@@ -144,6 +148,8 @@ namespace PWDCRM.Controllers
                             getData.Contingencie = model.Contingencie;
                             getData.ServiceCharges = model.ServiceCharges;
                             getData.Tendered = model.Tendered;
+                            getData.ApprovedBy = model.ApprovedBy;
+                            getData.PreparedBy = model.PreparedBy;
                             getData.UpdatedOn = DateTime.Now; 
                             dbContext.WorkDataDetails.AddOrUpdate(getData); 
                             dbContext.SaveChanges();
@@ -300,13 +306,15 @@ namespace PWDCRM.Controllers
                         if(getItemDetail!=null)
                         {
                             getItemDetail.ItemNo = model.ItemNo;
-
+                            getItemDetail.WorkDataID = model.WorkDataID;
                             getItemDetail.Number = model.Number;
                             getItemDetail.Length = model.Length;
                             getItemDetail.BreadthWidth = model.BreadthWidth;
                             getItemDetail.DepthHeight = model.DepthHeight;
-                            getItemDetail.GeometricalFormulas = "";
-                            getItemDetail.Remarks = model.Remarks;                           
+                            //getItemDetail.GeometricalFormulas = "";
+                            getItemDetail.Remarks = model.Remarks;
+                            getItemDetail.Qty = model.Qty;
+                            //getItemDetail.CreatedOn = DateTime.Now.Date;
                             getItemDetail.UpdateOn = DateTime.Now.Date;
                             getItemDetail.FloorData = model.FloorData;
                             getItemDetail.SubWorkID = model.SubWorkID;
