@@ -1,0 +1,183 @@
+﻿@using PWDCRM.Models.ViewModels
+@{
+    ViewBag.Title = "Measurements";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var rateAnalisisList = ViewData["ListMes"] as List<MeasurementsVM>;
+
+}
+<style>
+    /*table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }*/
+    table.c {
+        table-layout: auto !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    table.a {
+        table-layout: auto !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .w30 {
+        width: 30% !important;
+    }
+
+    .w40 {
+        width: 40% !important;
+    }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("Report", "Estimate")">
+                        Go Report List
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="Grid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-8">
+                                    <label>@(ViewBag.WorkName)</label>
+                                    <input type="hidden" id="txtWorkIdLead" name="WorkIdLead" value="@(ViewBag.WorkId)" />
+                                </div>
+                                <div class="col-md-2"><input id="printdiv" type="submit" class="btn btn-default" value="Download Report" onclick="printContent('dvmismatch')" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" id="dvmismatch">
+                            <table style="margin-bottom: 2%;">
+                                <tr>
+                                    <th style="padding: 4px;">Name of Work</th>
+                                    <td style="padding: 4px;">@(ViewBag.WorkName)</td>
+                                </tr>
+                                @*<tr>
+                                        <th style="padding: 4px;">Construction</th>
+                                        <td style="padding: 4px;"></td>
+                                    </tr>*@
+                                @*<tr>
+                                        <th style="padding: 4px;">Year of SSR</th>
+                                        <td style="padding: 4px;">@(ViewBag.YearSSR)</td>
+                                    </tr>*@
+                            </table>
+                            <table style="width:100%;margin-bottom: 27px;">
+                                <tr>
+                                    <th style="text-align:center">Measurment</th>
+                                </tr>
+                            </table>
+                            <table class="table table-hover table-responsive table-condensed table-bordered a text-center" id="tblReportMeasurment">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Sr.No</th>
+                                        <th style="width:50%">Description of Item</th>
+                                        <th>
+                                            <table class="table" style="margin-bottom: 0px;">
+                                                <tr>
+                                                    <th style="width:50%"></th>
+                                                    <th style="width:10%">No.</th>
+                                                    <th style="width:10%">Length</th>
+                                                    <th style="width:10%">Breadth</th>
+                                                    <th style="width:10%">Depth</th>
+                                                    <th style="width:10%">Qty</th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                        <th>Unit</th>
+                                        <th>Floor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (rateAnalisisList != null)
+                                    {
+                                        if (rateAnalisisList.Count != 0)
+                                        {
+                                            var count = 1;
+                                            var TotalQut = 0.00;
+                                            foreach (var item in rateAnalisisList)
+                                            {                                               
+                                                TotalQut = 0.00;
+                                                <tr class="text-center">
+                                                    <td>@count</td>
+                                                    <td style="width:50%">@item.ItemDesc</td>
+                                                    <td>
+                                                        <table class="table" style="margin-bottom: 0px;">
+                                                            @foreach (var item1 in item.itemDetailMeas)
+                                                            {
+                                                                TotalQut = TotalQut + Convert.ToDouble(item1.Qty);
+                                                                <tr>
+                                                                    <td style="width:50%">@item1.Remarks</td>
+                                                                    <td style="width:10%">@item1.Number</td>
+                                                                    <td style="width:10%">@item1.Length</td>
+                                                                    <td style="width:10%">@item1.BreadthWidth</td>
+                                                                    <td style="width:10%">@item1.DepthHeight</td>
+                                                                    <td style="text-align:right; width:10%">@String.Format("{0:0.00}", Convert.ToDouble(item1.Qty))</td>
+                                                                </tr>
+                                                            }
+                                                            <tr>                                                                
+                                                                <td colspan="6" style="vertical-align:bottom; text-align:right">
+                                                                    @String.Format("{0:0.00}", TotalQut)
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="vertical-align:bottom;">@item.UnitCom</td>
+                                                    <td>@item.Floor</td>
+                                                </tr>
+                                                count++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                            <table style="margin-left:65%;">
+                                <tr>
+                                    <th style="text-align:center;padding:6px">Sub Divisional Engineer</th>
+                                    @*<th style="text-align:center;padding:6px">Executive Engineer</th>*@
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;padding:6px">@(ViewBag.SubDivsion)</td>
+                                    @*<td style="text-align:center;padding:6px">@(ViewBag.Divison)</td>*@
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    function printContent(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>

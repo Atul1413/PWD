@@ -45,7 +45,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <table class="table table-hover table-responsive table-condensed">
+                            <table class="table table-hover table-responsive table-condensed" >
                                 <thead>
                                     <tr>
                                         @*<th>Item No</th>*@
@@ -168,5 +168,18 @@
 <script type="text/javascript">
     $('.decimal').keypress(function (evt) {
         return (/^[0-9]*\.?[0-9]*$/).test($(this).val() + evt.key);
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var items = [];
+        $('#tblListLeadCharges tbody tr td:nth-child(2)').each(function () {            
+            items.push($(this).text());
+        });
+        $("#ddlmaterial option").each(function () {
+            if (items.includes($(this).val())) {               
+              $(this).attr("disabled", "disabled");
+            }
+        });
     });
 </script>

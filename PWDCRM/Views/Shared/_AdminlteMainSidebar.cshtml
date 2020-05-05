@@ -22,13 +22,13 @@
                     <i class="fa fa-pie-chart"></i> <span>@MainMenu.Dashboard.PageName</span>
                 </a>
             </li>
-            <li class="header">Job Request</li>
-            <li class="@Html.IsSelected(controller: MainMenu.CustomerType.ControllerName)">
-                <a href="@MainMenu.CustomerType.Path">
-                    <i class="fa fa-gear"></i> <span>@MainMenu.CustomerType.PageName</span>
+            <li class="header">Report</li>
+            <li class="@Html.IsSelected(controller: MainMenu.Report.ControllerName)">
+                <a href="@MainMenu.Report.Path">
+                    <i class="fa fa-gear"></i> <span>@MainMenu.Report.PageName</span>
                 </a>
             </li>
-            <li class="@Html.IsSelected(controller: MainMenu.Customer.ControllerName)">
+            @*<li class="@Html.IsSelected(controller: MainMenu.Customer.ControllerName)">
                 <a href="@MainMenu.Customer.Path">
                     <i class="fa fa-building-o"></i> <span>@MainMenu.Customer.PageName</span>
                 </a>
@@ -57,8 +57,8 @@
                 <a href="@MainMenu.PaymentReceive.Path">
                     <i class="fa fa-certificate"></i> <span>@MainMenu.PaymentReceive.PageName</span>
                 </a>
-            </li>
-            <li class="header">Surveys</li>
+            </li>*@
+            @*<li class="header">Surveys</li>
             <li class="@Html.IsSelected(controller: MainMenu.VendorType.ControllerName)">
                 <a href="@MainMenu.VendorType.Path">
                     <i class="fa fa-gear"></i> <span>@MainMenu.VendorType.PageName</span>
@@ -171,7 +171,7 @@
                 <a href="@MainMenu.ChangeRole.Path">
                     <i class="fa fa-gear"></i> <span>@MainMenu.ChangeRole.PageName</span>
                 </a>
-            </li>
+            </li>*@
         </ul>
     </section>
     <!-- /.sidebar -->

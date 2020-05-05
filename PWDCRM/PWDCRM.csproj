@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\buttons.dataTables.min.css" />
     <Content Include="css\dataTables.bootstrap.css" />
     <Content Include="css\dataTables.bootstrap.min.css" />
     <Content Include="css\dataTables.bootstrap4.css" />
@@ -172,10 +173,14 @@
     <Content Include="js\angular\angular-touch.min.js" />
     <Content Include="js\angular\angular.js" />
     <Content Include="js\angular\angular.min.js" />
+    <Content Include="js\buttons.flash.min.js" />
+    <Content Include="js\buttons.html5.min.js" />
+    <Content Include="js\buttons.print.min.js" />
     <Content Include="js\dataTables.bootstrap.js" />
     <Content Include="js\dataTables.bootstrap.min.js" />
     <Content Include="js\dataTables.bootstrap4.js" />
     <Content Include="js\dataTables.bootstrap4.min.js" />
+    <Content Include="js\dataTables.buttons.min.js" />
     <Content Include="js\dataTables.foundation.js" />
     <Content Include="js\dataTables.foundation.min.js" />
     <Content Include="js\dataTables.jqueryui.js" />
@@ -186,7 +191,10 @@
     <Content Include="js\jquery-ui.js" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="js\jquery.dataTables.min.js" />
+    <Content Include="js\jszip.min.js" />
     <Content Include="js\math.min.js" />
+    <Content Include="js\pdfmake.min.js" />
+    <Content Include="js\vfs_fonts.js" />
     <Content Include="Models\PWDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PWDModel.edmx</DependentUpon>
@@ -7580,6 +7588,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\MFloorData.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\AREA.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
@@ -7635,6 +7644,8 @@
     <Compile Include="Models\ViewModels\ItemNoVM.cs" />
     <Compile Include="Models\ViewModels\ItemVM.cs" />
     <Compile Include="Models\ViewModels\LeadChargesVM.cs" />
+    <Compile Include="Models\ViewModels\MeasurementsVM.cs" />
+    <Compile Include="Models\ViewModels\RateAnalysisLCVM.cs" />
     <Compile Include="Models\ViewModels\WorkDataRequest.cs" />
     <Compile Include="Models\WorkDataDetail.cs">
       <DependentUpon>PWDModel.tt</DependentUpon>
@@ -7681,6 +7692,10 @@
     <Content Include="Views\Estimate\RateAnalysisData.cshtml" />
     <Content Include="Views\Estimate\EditWorkData.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Estimate\Report.cshtml" />
+    <Content Include="Views\Estimate\ItemConsumption.cshtml" />
+    <Content Include="Views\Estimate\MaterialConsumption.cshtml" />
+    <Content Include="Views\Estimate\Measurements.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

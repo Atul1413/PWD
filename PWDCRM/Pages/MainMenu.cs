@@ -272,10 +272,17 @@ namespace PWDCRM.Pages
         {
             public const string PageName = "Dashboard Main";
             public const string RoleName = "Dashboard Main";
-            public const string Path = "/Dashboard/Index";
+            public const string Path = "/Estimate/WorkData";
             public const string ControllerName = "Dashboard";
-            public const string ActionName = "Index";
+            public const string ActionName = "WorkData";
         }
-
+        public static class Report
+        {
+            public const string PageName = "All Report";
+            public const string RoleName = "Dashboard Main";
+            public const string Path = "/Estimate/Report";
+            public const string ControllerName = "Estimate";
+            public const string ActionName = "Report";
+        }
     }
 }

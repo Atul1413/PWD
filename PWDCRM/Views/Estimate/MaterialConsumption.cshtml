@@ -1,0 +1,144 @@
+﻿@using PWDCRM.Models.ViewModels
+@{
+    ViewBag.Title = "MATERIAL CONSUMPTION STATEMENT";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var rateAnalisisList = ViewData["RateAnalysisList"] as List<RateAnalysisLCVM>;
+}
+<style>
+    /*table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }*/
+    table.c {
+        table-layout: auto !important;
+        width: 100%  !important;
+        text-align: center !important;
+    }
+
+    table.a {
+        table-layout: auto !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .w30 {
+        width: 30%;
+    }
+
+    .w40 {
+        width: 40%;
+    }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title text-primary"><i class="fa fa-certificate"></i> @ViewData["Title"]</h3>
+                <div class="box-tools pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("Report", "Estimate")">
+                        Go Report List
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div id="Grid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label text-right">Name of Work</label>
+                                <div class="col-md-8">
+                                    <label>@(ViewBag.WorkName)</label>
+                                    <input type="hidden" id="txtWorkIdLead" name="WorkIdLead" value="@(ViewBag.WorkId)" />
+                                </div>
+                                <div class="col-md-2"><input id="printdiv" type="submit" class="btn btn-default" value="Download Report" onclick="printContent('dvmismatch')" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" id="dvmismatch">
+                            <table style="margin-bottom: 2%;">
+                                <tr>
+                                    <th style="padding: 4px;">Name of Work</th>
+                                    <td style="padding: 4px;">@(ViewBag.WorkName)</td>
+                                </tr>
+                                @*<tr>
+                                    <th style="padding: 4px;">Construction</th>
+                                    <td style="padding: 4px;"></td>
+                                </tr>*@
+                            </table>
+                            <table style="width:100%;margin-bottom: 27px;">
+                                <tr>
+                                    <th style="text-align:center">MATERIAL CONSUMPTION STATEMENT</th>
+                                </tr>
+                            </table>
+                            <table class="table table-hover table-responsive table-condensed table-bordered a text-center" id="tblReportRateAnalisis">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Sr.No</th>
+                                        @*<th style="width:25%">Items Desc</th>*@
+                                        <th>Quantity</th>
+                                        <th>
+                                            Consumption
+                                        </th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (rateAnalisisList != null)
+                                    {
+                                        var count = 1;
+                                        foreach (var item in rateAnalisisList)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+                                                @*<td>@item.ItemDesc</td>*@
+                                                <td>@item.Material</td>
+                                                <td>@String.Format("{0:0.0000}", item.UnitCon) &nbsp;&nbsp;<span>Cu.M</span></td>
+                                                <td></td>
+                                            </tr>
+                                            count++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                            <table style="margin-left: 65%;">
+                                <tr>
+                                    <th style="text-align:center;padding:6px">Sub Divisional Engineer</th>
+                                    @*<th style="text-align:center;padding:6px">Executive Engineer</th>*@
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;padding:6px">@(ViewBag.SubDivsion)</td>
+                                    @*<td style="text-align:center;padding:6px">@(ViewBag.Divison)</td>*@
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script type="text/javascript">
+function printContent(el){
+    var restorepage = document.body.innerHTML;
+    var printcontent = document.getElementById(el).innerHTML;
+    document.body.innerHTML = printcontent;
+    window.print();
+    document.body.innerHTML = restorepage;
+}
+</script>

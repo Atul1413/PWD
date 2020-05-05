@@ -30,8 +30,9 @@ namespace PWDCRM.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-
-                filePath = path + Path.GetFileName(postedFile.FileName);
+                var filep = DateTime.Now.ToString("ddmmyyyyhhmmss")+"_"+ Path.GetFileName(postedFile.FileName);
+               // filePath = path + Path.GetFileName(postedFile.FileName);
+                filePath = path + filep;
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
 

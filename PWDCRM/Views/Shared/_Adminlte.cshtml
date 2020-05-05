@@ -82,6 +82,12 @@
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>*@
     <script src="~/js/math.min.js"></script>
     <script src="~/js/jquery.dataTables.js"></script>
+    @*<script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.flash.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>*@
     <script type="text/javascript">
 
         //$(document).ready(function () {
@@ -310,16 +316,16 @@
                         console.log(data);
                         if (data.length != 0) {
                             $("#tblDataBind tbody").empty();
-                           // $("#tblDataBind tbody").DataTable().clear()
+                            // $("#tblDataBind tbody").DataTable().clear()
                             var item = '';
                             for (var i = 0; i < data.length; i++) {
                                 item += '<tr> <td><input type="checkbox" class="chkItem" value="' + data[i].Id + '" name="ChkItem" id="chkIteam" /></td><td>' + data[i].ItemNo + '</td><td>' + data[i].Number + '</td><td>' + data[i].Length + '</td></td><td>' + data[i].BreadthWidth + '</td><td>' + data[i].DepthHeight + '</td><td>' + data[i].Qty + '</td><td>' + data[i].Remarks + '</td><td><a class="editItem" data-id="' + data[i].Id + '">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" data-id="' + data[i].Id + '">Delete</a></td></tr>';
                             }
-                           // console.log(item);
+                            // console.log(item);
                             $("#tblDataBind tbody").html(item);
-                           // $("#tblDataBind tbody").DataTable().draw();
+                            // $("#tblDataBind tbody").DataTable().draw();
                             //var $dataTable = $("#tblDataBind").dataTable({ /* Your settings */ });
-                           // location.reload();
+                            // location.reload();
                         }
                         $("#txtNumbers").val('');
                         $("#txtLength").val('');
@@ -615,6 +621,23 @@
                     success: function (data) {
                         console.log(data);
                         if (data != "Error") {
+                            //
+                            var items = [];
+                            $('#tblListLeadCharges tbody tr td:nth-child(2)').each(function () {
+                                items.push($(this).text());
+                            });
+                            $("#ddlmaterial option").each(function () {
+                                if (items.includes($(this).val())) {
+                                    $(this).attr("disabled", "disabled");
+                                }
+                            });
+                            //
+                            $("#ddlmaterial option").each(function () {
+                                var gmat = $(this).val();
+                                if (gmat == data.Material) {
+                                    $(this).prop('disabled', false);
+                                }
+                            });
                             $("#ddlmaterial").val(data.Material);
                             $("#txtleadinKM").val(data.LeadInKM);
                             $("#txtsourceOfMaterail").val(data.Source);
@@ -738,9 +761,15 @@
         $(document).ready(function () {
             $('#bindtblWorkData').DataTable();
             $('#tblListLeadCharges').DataTable();
+            //$('#tblReportRateAnalisis').DataTable({
+            ////    dom: 'Bfrtip',
+            ////    buttons: [
+            ////         'csv', 'excel', 'pdf'
+            ////    ]
+            //});
             var table = $('#tblDataBind').DataTable();
-            //Bulk Copy Section 
-            $(document).on("click", ".chkItemAll", function () {                
+            //Bulk Copy Section
+            $(document).on("click", ".chkItemAll", function () {
                 var rows = table.rows({ 'search': 'applied' }).nodes();
                 console.log(rows);
                 $('input[type="checkbox"]', rows).prop('checked', this.checked);
@@ -751,13 +780,13 @@
                 if (!this.checked) {
                     var el = $('.chkItemAll').get(0);
                     // If "Select all" control is checked and has 'indeterminate' property
-                    if (el && el.checked && ('indeterminate' in el)) {                      
+                    if (el && el.checked && ('indeterminate' in el)) {
                         el.indeterminate = true;
                     }
                 }
                 else {
                     var el = $('.chkItemAll').get(0);
-                    if (el && el.checked && ('indeterminate' in el)) {                        
+                    if (el && el.checked && ('indeterminate' in el)) {
                         el.indeterminate = false;
                     }
                 }
@@ -770,7 +799,7 @@
                 table.$('input[type="checkbox"]').each(function () {
                     if (this.checked) {
                         list.push(this.value);
-                       // alert(this.value);
+                        // alert(this.value);
                     }
                 });
                 var getIteamNo = $("#IteamID").val();
@@ -780,25 +809,25 @@
                 if (list.length == 0) {
                     alert("Please select any row for the copy data");
                 }
-                else if (SubWODID == null) {                   
+                else if (SubWODID == null) {
                     alert("Please select Sub work");
                 }
-                else if (FloorID == "") {                    
+                else if (FloorID == "") {
                     alert("Please select floor");
                 }
                 else if (getIteamNo == "") {
                     alert("Please select any iteam no");
                 }
-                else {                    
+                else {
                     $.ajax({
                         url: "/Estimate/AddIteamBulk",
                         type: "POST",
                         dataType: "json",
-                        data: { WorkDataID: nameOfWork, ItemNo: getIteamNo, FloorData: FloorID, SubWorkID: SubWODID, ItemDetailIds: list},
+                        data: { WorkDataID: nameOfWork, ItemNo: getIteamNo, FloorData: FloorID, SubWorkID: SubWODID, ItemDetailIds: list },
                         success: function (data) {
                             console.log(data);
                             alert("Data saved successfully");
-                            location.reload();                            
+                            location.reload();
                         }
                         , error: function (xhr) {
                             console.log(xhr);

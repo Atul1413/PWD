@@ -78,17 +78,10 @@
                                 <div class="col-md-3">
                                     <select class="form-control" required="required" id="ddlFloor" name="WorkDataID">
                                         <option value="" class="hidden" selected disabled>Please select floor</option>
-                                        @for (int i = 1; i <= subDataCount; i++)
+                                        <option value="Floor 0"  selected>Ground Floor</option>
+                                        @for (int i = 1; i <= 10; i++)
                                         {
-                                            if (i == 1)
-                                            {
-                                                <option selected value="Floor @i">Floor @i</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="Floor @i">Floor @i</option>
-                                            }
-
+                                            <option value="Floor @i">Floor @i</option>
                                         }
 
                                     </select>
@@ -167,6 +160,7 @@
                                         <thead>
                                             <tr>
                                                 <th> <input type="checkbox" name="All" id="chkItemAll" value="All" class="chkItemAll" /> <label for="chkAll"> Check All</label>  </th>
+                                                <th>Sub Work</th>
                                                 <th>Item No</th>
                                                 <th>Number</th>
                                                 <th>Length</th>
@@ -194,9 +188,11 @@
                                                         {
                                                             if (getItemNo[i] == item.ItemNo)
                                                             {
+                                                                var subwork = "SubWork" + item.SubWorkID;
                                                                 count = (count + Convert.ToDouble(item.Qty));
                                                                 <tr>
                                                                     <td><input type="checkbox" class="chkItem" value="@item.Id" name="ChkItem" id="chkIteam" /></td>
+                                                                    <td>@subwork</td>
                                                                     <td>@item.ItemNo</td>
                                                                     <td>@item.Number</td>
                                                                     <td>@item.Length</td>

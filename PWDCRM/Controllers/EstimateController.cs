@@ -690,15 +690,245 @@ namespace PWDCRM.Controllers
         public ActionResult RateAnalysisData(int id)
         {
             var model = new WorkDataDetail();
+            var listRateAnalisis = new List<RateAnalysisItemVM>();
             try
             {
                 var dbContext = new PWDCRMEntities();
                 model = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
-                return View(model);
+                ViewBag.WorkName = model.NameOfWork;
+                ViewBag.WorkId = model.Id;
+                ViewBag.YearSSR = model.SSRRate;
+                ViewBag.SubDivsion = model.SubDivsion;
+                ViewBag.Divison = model.Divison;
+
+                var getItemIds = dbContext.ItemDetails.Where(s => s.WorkDataID == id).Select(s => s.ItemNo).Distinct().ToArray();
+                var getItemList = dbContext.ITEMS.Where(s => getItemIds.Contains(s.INO)).ToList();
+                if(getItemList!=null)
+                {
+                    var arPer = 0.00;
+                    var getArea = dbContext.AREAs.Where(s => s.AName == model.Area).FirstOrDefault();
+                    if (getArea != null)
+                        arPer = Convert.ToDouble(getArea.Per);
+
+                    foreach (var item in getItemList)
+                    {                  
+                        var getflo = dbContext.ItemDetails.Where(s => s.ItemNo == item.INO).FirstOrDefault();
+                        var splitf =Convert.ToInt32(getflo.FloorData.Split(' ')[1]);
+
+                        var addItem = new RateAnalysisItemVM();
+                        var addListRate = new List<RateAnalysisLCVM>();
+                        var mainTotalLeadCh = 0.00;
+                        var royltyCh = Convert.ToDouble(model.Royalty);
+                        var mainDudctroyltyCh = 0.00;
+                        addItem.ItemNo = item.INO;
+                        addItem.ItemDesc = item.DESCRIP;
+                        addItem.CompRate = Convert.ToDouble(item.CompRate);
+                        addItem.FloorRise =(Convert.ToDouble(item.CompRate)*(splitf==1?1:(splitf==2?2:(splitf==3?3:(splitf==4?4:(splitf==5?4:(splitf==6?6:6.5)))))));
+                        addItem.AddFor = (Convert.ToDouble(item.CompRate) * arPer);
+                        addItem.AnyOtherCh = Convert.ToDouble(model.AnyOthercharg1);
+                        addItem.SpecialChargesIfAny = Convert.ToDouble(model.AnyOthercharg2);
+                        //Add Rate Analisis For the Lead Charges List
+                        if (item.MAT1!=null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT1;
+                            var rate = item.RATE1;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();                          
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if(getLeadCh!=null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT2 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT2;
+                            var rate = item.RATE2;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT3 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT3;
+                            var rate = item.RATE3;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT4 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT4;
+                            var rate = item.RATE4;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT5 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT5;
+                            var rate = item.RATE5;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT6 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT6;
+                            var rate = item.RATE6;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT7 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT7;
+                            var rate = item.RATE7;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT8 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT8;
+                            var rate = item.RATE8;
+                            var getLeadCh = dbContext.LeadCharges.Where(s => s.Material == mat).FirstOrDefault();
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                           // listRate
+                            if (getLeadCh != null)
+                            {
+                                listRate.LeadCh = getLeadCh.InitialLeadCharges;
+                                listRate.AddForMaterialDiff = getLeadCh.DiffofRate;
+                                listRate.TotalLeadCh = (Convert.ToDouble(getLeadCh.InitialLeadCharges) * listRate.UnitCon);
+                                listRate.DeductRoyaltyCh = (royltyCh * listRate.UnitCon);
+
+                                mainTotalLeadCh = mainTotalLeadCh + listRate.TotalLeadCh;
+                                mainDudctroyltyCh = mainDudctroyltyCh + listRate.DeductRoyaltyCh;
+                            }
+                            addListRate.Add(listRate);
+                        }
+
+                        addItem.rateAnalysisLCVMs = addListRate;
+                        addItem.MainTotalLeadCh = mainTotalLeadCh;
+                        addItem.MainDudRoyltyCh = mainDudctroyltyCh;
+                        addItem.CompletedRate =Convert.ToDouble(addItem.CompRate+addItem.AddFor+addItem.FloorRise+addItem.AnyOtherCh+(mainTotalLeadCh- mainDudctroyltyCh)+addItem.SpecialChargesIfAny);
+                        listRateAnalisis.Add(addItem);
+                    }
+                }
+                ViewData["RateAnalysisList"] = listRateAnalisis;
+                return View();
             }
             catch (Exception ex)
             {
-                return View(model);
+                listRateAnalisis = new List<RateAnalysisItemVM>();
+                ViewData["RateAnalysisList"] = listRateAnalisis;
+                return View();
             }
         }
 
@@ -741,6 +971,412 @@ namespace PWDCRM.Controllers
                 return Json(ex.Message.ToString(), JsonRequestBehavior.AllowGet);
             }
         }
-    }
+        //Report
+        public ActionResult Report()
+        {
+            var workList = new List<WorkDataDetail>();
+            try
+            {
+                using (var dbContext = new PWDCRMEntities())
+                {
+                    workList = dbContext.WorkDataDetails.ToList();
+                }
+                ViewData["Title"] = "Work Data";
+
+            }
+            catch (Exception ex)
+            {
+                workList = new List<WorkDataDetail>();
+            }
+            return View(workList);
+        }
     
+        public ActionResult ItemConsumption(int id)
+        {
+            var model = new WorkDataDetail();
+            var listRateAnalisis = new List<RateAnalysisItemVM>();
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                model = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                ViewBag.WorkName = model.NameOfWork;
+                ViewBag.WorkId = model.Id;
+                ViewBag.YearSSR = model.SSRRate;
+                ViewBag.SubDivsion = model.SubDivsion;
+                ViewBag.Divison = model.Divison;
+
+                var getItemIds = dbContext.ItemDetails.Where(s => s.WorkDataID == id).Select(s => s.ItemNo).Distinct().ToArray();
+                var getItemList = dbContext.ITEMS.Where(s => getItemIds.Contains(s.INO)).ToList();
+                if (getItemList != null)
+                {                    
+                    foreach (var item in getItemList)
+                    {
+                        var getTotalQty = 0.00;
+                        var getQty = dbContext.ItemDetails.Where(s => s.ItemNo == item.INO).Select(s => s.Qty).ToList();
+                        foreach (var item3 in getQty)
+                        {
+                            getTotalQty = getTotalQty + Convert.ToDouble(item3);
+                        }
+                        var addItem = new RateAnalysisItemVM();
+                        var addListRate = new List<RateAnalysisLCVM>();
+                       
+                        addItem.ItemNo = item.INO;
+                        addItem.ItemDesc = item.DESCRIP;
+                        addItem.ItemDesc = item.DESCRIP;
+                        addItem.TotalQty = getTotalQty;
+                        //Add Rate Analisis For the Lead Charges List
+                        if (item.MAT1 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+                            var mat = item.MAT1;
+                            var rate = item.RATE1;
+                           
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+                            
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT2 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+                            var mat = item.MAT2;
+                            var rate = item.RATE2;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT3 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT3;
+                            var rate = item.RATE3;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT4 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT4;
+                            var rate = item.RATE4;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT5 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT5;
+                            var rate = item.RATE5;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT6 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT6;
+                            var rate = item.RATE6;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT7 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT7;
+                            var rate = item.RATE7;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT8 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT8;
+                            var rate = item.RATE8;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+
+                       addItem.rateAnalysisLCVMs = addListRate;
+                       listRateAnalisis.Add(addItem);
+                    }
+                }
+                ViewData["RateAnalysisList"] = listRateAnalisis;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                listRateAnalisis = new List<RateAnalysisItemVM>();
+                ViewData["RateAnalysisList"] = listRateAnalisis;
+                return View();
+            }
+        }
+
+        public ActionResult MaterialConsumption(int id)
+        {
+            var model = new WorkDataDetail();
+            var listRateAnalisis = new List<RateAnalysisItemVM>();
+            var addListRate = new List<RateAnalysisLCVM>();
+            try
+            {
+                var dbContext = new PWDCRMEntities();
+                model = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                ViewBag.WorkName = model.NameOfWork;
+                ViewBag.WorkId = model.Id;
+                ViewBag.YearSSR = model.SSRRate;
+                ViewBag.SubDivsion = model.SubDivsion;
+                ViewBag.Divison = model.Divison;
+
+                var getItemIds = dbContext.ItemDetails.Where(s => s.WorkDataID == id).Select(s => s.ItemNo).Distinct().ToArray();
+                var getItemList = dbContext.ITEMS.Where(s => getItemIds.Contains(s.INO)).ToList();
+                if (getItemList != null)
+                {
+                    foreach (var item in getItemList)
+                    {
+                        //var getTotalQty = 0.00;
+                        //var getQty = dbContext.ItemDetails.Where(s => s.ItemNo == item.INO).Select(s => s.Qty).ToList();
+                        //foreach (var item3 in getQty)
+                        //{
+                        //    getTotalQty = getTotalQty + Convert.ToDouble(item3);
+                        //}
+                        //var addItem = new RateAnalysisItemVM();
+                        
+
+                        //addItem.ItemNo = item.INO;
+                        //addItem.ItemDesc = item.DESCRIP;
+                        //addItem.TotalQty = getTotalQty;
+                        //Add Rate Analisis For the Lead Charges List
+                        if (item.MAT1 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+                            var mat = item.MAT1;
+                            var rate = item.RATE1;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                           // listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT2 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+                            var mat = item.MAT2;
+                            var rate = item.RATE2;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                           // listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT3 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT3;
+                            var rate = item.RATE3;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                           // listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT4 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT4;
+                            var rate = item.RATE4;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            //listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT5 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT5;
+                            var rate = item.RATE5;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            //listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT6 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT6;
+                            var rate = item.RATE6;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            //listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT7 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT7;
+                            var rate = item.RATE7;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            //listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+                        if (item.MAT8 != null)
+                        {
+                            var listRate = new RateAnalysisLCVM();
+
+                            var mat = item.MAT8;
+                            var rate = item.RATE8;
+
+                            listRate.ItemNo = item.INO;
+                            listRate.ItemDesc = item.DESCRIP;
+                            listRate.Material = mat;
+                            listRate.UnitCon = Convert.ToDouble(rate);
+                            //listRate.TotalConsumption = (getTotalQty * Convert.ToDouble(rate));
+
+                            addListRate.Add(listRate);
+                        }
+
+                        //addItem.rateAnalysisLCVMs = addListRate;
+                        //listRateAnalisis.Add(addItem);
+                    }
+                }
+                ViewData["RateAnalysisList"] = addListRate;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                addListRate = new List<RateAnalysisLCVM>();
+                ViewData["RateAnalysisList"] = addListRate;
+                return View();
+            }
+        }
+    
+        public ActionResult Measurements(int id)
+        {
+            var getList = new List<MeasurementsVM>();
+            var model = new WorkDataDetail();
+            try
+            {                
+                var dbContext = new PWDCRMEntities();
+                model = dbContext.WorkDataDetails.Where(s => s.Id == id).FirstOrDefault();
+                ViewBag.WorkName = model.NameOfWork;
+                ViewBag.WorkId = model.Id;
+                ViewBag.YearSSR = model.SSRRate;
+                ViewBag.SubDivsion = model.SubDivsion;
+                ViewBag.Divison = model.Divison;
+                var getSubWorkData = dbContext.ItemDetails.Select(s => new { s.SubWorkID, s.ItemNo, s.WorkDataID,s.FloorData }).Distinct().Where(s => s.WorkDataID == id).ToList();
+                foreach (var item in getSubWorkData)
+                {
+                    var Ino = item.ItemNo;
+                    var SubWorkId = Convert.ToInt32(item.SubWorkID);
+                    var WorkId = id;
+
+                    var getMeasureDetail = new MeasurementsVM();
+                    var ItemMeasList = new List<ItemDetailMeas>();
+
+                    getMeasureDetail.ItemNo = item.ItemNo;                   
+                    getMeasureDetail.SubWork = "Sub Work " + item.SubWorkID;
+                    getMeasureDetail.SubWorkID = Convert.ToInt32(item.SubWorkID);
+                    getMeasureDetail.Floor = item.FloorData;
+
+                    var getItem = dbContext.ITEMS.Where(s => s.INO == Ino).FirstOrDefault();
+                    getMeasureDetail.UnitCom = getItem.UnitS;
+                    getMeasureDetail.ItemDesc = getItem.DESCRIP;
+
+                    var getItemDetail = dbContext.ItemDetails.Where(s => s.SubWorkID == SubWorkId && s.ItemNo == Ino && s.WorkDataID== WorkId).ToList();
+
+                    foreach (var item1 in getItemDetail)
+                    {
+                        var addMes = new ItemDetailMeas();
+                        addMes.Number = item1.Number;
+                        addMes.Length = item1.Length;
+                        addMes.BreadthWidth = item1.BreadthWidth;
+                        addMes.DepthHeight = item1.DepthHeight;
+                        addMes.Qty = item1.Qty;
+                        addMes.Remarks = item1.Remarks;
+
+                        ItemMeasList.Add(addMes);
+                    }
+                    getMeasureDetail.itemDetailMeas = ItemMeasList;
+
+                    getList.Add(getMeasureDetail);
+                }
+                ViewData["ListMes"] = getList;
+            }
+            catch (Exception)
+            {
+                getList = new List<MeasurementsVM>();
+                ViewData["ListMes"] = getList;
+            }
+            return View();
+        }
+    }   
 }
