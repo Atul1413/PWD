@@ -108,31 +108,35 @@
                                         var count = 1;
                                         foreach (var item in rateAnalisisList)
                                         {
-                                            <tr>
-                                                <td>@count</td>
-                                                <td>@item.ItemDesc</td>                                                
-                                                <td style="text-align:right">@String.Format("{0:0.00}", item.TotalQty)</td>
-                                                <td>
-                                                    <table class="table-responsive table-bordered c" style="width:100% !important">
-                                                        @if (item.rateAnalysisLCVMs != null)
-                                                        {
-                                                            if (item.rateAnalysisLCVMs.Count != 0)
+                                            if (item.rateAnalysisLCVMs.Count != 0)
+                                            {
+                                                <tr>
+                                                    <td>@count</td>
+                                                    <td>@item.ItemDesc</td>
+                                                    <td style="text-align:right">@String.Format("{0:0.00}", item.TotalQty)</td>
+                                                    <td>
+                                                        <table class="table-responsive table-bordered c" style="width:100% !important">
+                                                            @if (item.rateAnalysisLCVMs != null)
                                                             {
-                                                                foreach (var item1 in item.rateAnalysisLCVMs)
+                                                                if (item.rateAnalysisLCVMs.Count != 0)
                                                                 {
-                                                                    <tr>                                                                        
-                                                                        <td class="w40">@item1.Material</td>
-                                                                        <td class="w30" style="text-align:right">@String.Format("{0:0.0000}", item1.UnitCon)</td>                                                                       
-                                                                        <td class="w30" style="text-align:right">@String.Format("{0:0.00}", item1.TotalConsumption) &nbsp; &nbsp; <span>Cu.M</span></td>
-                                                                    </tr>
+                                                                    foreach (var item1 in item.rateAnalysisLCVMs)
+                                                                    {
+                                                                        <tr>
+                                                                            <td class="w40">@item1.Material</td>
+                                                                            <td class="w30" style="text-align:right">@String.Format("{0:0.0000}", item1.UnitCon)</td>
+                                                                            <td class="w30" style="text-align:right">@String.Format("{0:0.00}", item1.TotalConsumption) &nbsp; &nbsp; <span>Cu.M</span></td>
+                                                                        </tr>
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                    </table>
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                            count++;
+                                                        </table>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                count++;
+                                            }
+
                                         }
                                     }
                                 </tbody>
