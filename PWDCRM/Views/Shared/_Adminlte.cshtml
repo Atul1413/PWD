@@ -400,7 +400,7 @@
                 var getFormulaValue = math.eval(depthHeight);
                 result = (getFormulaValue * getQut);
             }
-            $("#txtQty").val((Math.round(result * 100) / 100).toFixed(2));
+            $("#txtQty").val(addZeroes(result));
 
         });
 
@@ -435,7 +435,7 @@
                             $("#txtBreadthWidth").val(data.BreadthWidth);
                             $("#txtDepthHeight").val(data.DepthHeight);
                             // var geometricalFormulas = $("#txtGeometricalFormulas").val();
-                            $("#txtQty").val(data.Qty);
+                            $("#txtQty").val(addZeroes(data.Qty));
                             $("#txtRemarks").val(data.Remarks);
                             $("#ddlSWOD").val(data.SubWorkID);
                             $("#ddlFloor").val(data.FloorData);
@@ -519,7 +519,7 @@
                         $("#txtleadinKM").val(0);
                         $("#txtsourceOfMaterail").val(data[1]);
                         $("#txtinitialLead").val(0);
-                        $("#txtSSRRate").val(data[3]);
+                        $("#txtSSRRate").val(addZeroes(data[3]));
                         $("#txtCurrentDiff").val(0);
                         $("#txtDiffofRate").val(0);
 
@@ -536,7 +536,7 @@
             else {
                 var current = $(this).val().trim();
                 var result = (getVal - current);
-                $("#txtDiffofRate").val(result);
+                $("#txtDiffofRate").val(addZeroes(result));
             }
         });
         //Lead Charges Add
@@ -656,12 +656,12 @@
                             $("#ddlmaterial").val(data.Material);
                             $("#txtleadinKM").val(data.LeadInKM);
                             $("#txtsourceOfMaterail").val(data.Source);
-                            $("#txtinitialLead").val((Math.round(data.InitialLeadCharges * 100) / 100).toFixed(2));
+                            $("#txtinitialLead").val(addZeroes(data.InitialLeadCharges));
                             //$("#txtWorkIdLead").val("");
                             $("#remark").val(data.Remarks);
                             $("#txtSSRRate").val(data.SSRRate);
-                            $("#txtCurrentDiff").val(data.CurrentDiff);
-                            $("#txtDiffofRate").val(data.DiffofRate);
+                            $("#txtCurrentDiff").val(addZeroes(data.CurrentDiff));
+                            $("#txtDiffofRate").val(addZeroes(data.DiffofRate));
                             $("#txtLeadChargesID").val(data.Id);
                             $("#txtsOfMaterail").val(data.SourceOfMaterial);
                         }
@@ -717,7 +717,7 @@
                                 var res = (data[2] / data[0]);
                                 // $("#txtleadinKM").val(data[0]);
                                 $("#txtsourceOfMaterail").val(data[1]);
-                                $("#txtinitialLead").val((Math.round(res * 100) / 100).toFixed(2));
+                                $("#txtinitialLead").val(addZeroes(res));
                                 $("#txtSSRRate").val(data[3]);
 
                             }
@@ -855,6 +855,13 @@
             });
 
         });
+        function addZeroes(num) {
+            var value = Number(num);
+            var value1 = value.toFixed(2);
+            // parseFloat( num.toFixed(2) )
+            return value1.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+
+        }
     </script>
     @RenderSection("Scripts", required: false)
 </body>
