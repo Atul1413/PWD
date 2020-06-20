@@ -209,10 +209,13 @@
                 data: { Prefix: id },
                 success: function (data) {
                     console.log(data);
-                    var item = '<option value="" class="hidden" selected disabled>Please select Decripation</option> ';
+                    var item = '<option value="" class="hidden" disabled>Please select Decripation</option> ';
                     for (var i = 0; i < data.itemDetailsList.length; i++) {
                         if (data.itemDetailsList[i].ANO == data.itemDetail.ANO) {
-                            item += '<option selected value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                            //alert(data.itemDetailsList[i].ANO);
+                            //alert(data.itemDetail.ANO);
+                            item += '<option selected="selected" value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
+                            //console.log(item);
                         }
                         else {
                             item += '<option value="' + data.itemDetailsList[i].ANO + '">' + data.itemDetailsList[i].DESCRIP + '</option>';
@@ -325,7 +328,7 @@
                             $("#tblDataBind tbody").html(item);
                             // $("#tblDataBind tbody").DataTable().draw();
                             //var $dataTable = $("#tblDataBind").dataTable({ /* Your settings */ });
-                            // location.reload();
+                             location.reload();
                         }
                         $("#txtNumbers").val('');
                         $("#txtLength").val('');
@@ -357,6 +360,18 @@
             var length = $("#txtLength").val();
             var breadthWidth = $("#txtBreadthWidth").val();
             var depthHeight = $("#txtDepthHeight").val();
+            if (length == "") {
+                alert("Please enter length");
+                length = 1;
+            }                
+            if (breadthWidth == "") {
+                alert("Please enter  breadth width");
+                breadthWidth = 1;
+            }               
+            if (depthHeight == "") {
+                alert("Please enter  depth height");
+                depthHeight = 1;
+            }               
 
             if (getQut == "") {
                 getQut = 1;
